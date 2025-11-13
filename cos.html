@@ -26,13 +26,6 @@
       color: inherit;
       text-decoration: none;
     }
-    .link-titlu:hover {
-      text-decoration: underline;
-    }
-    h2 {
-      text-align: left;
-      padding-left: 20px;
-    }
     .continut {
       padding: 20px;
       text-align: left;
@@ -77,70 +70,5 @@
     let produse = JSON.parse(localStorage.getItem("cosProduse")) || [];
 
     function actualizeazaCos() {
-      const listaCos = document.getElementById("lista-cos");
-      listaCos.innerHTML = "";
-
-      if (produse.length === 0) {
-        listaCos.innerHTML = "<p>Momentan nu ai produse în coș.</p>";
-        return;
-      }
-
-      produse.forEach((produs, index) => {
-        const divProdus = document.createElement("div");
-        divProdus.className = "produs-cos";
-        divProdus.innerHTML = `
-          <p><strong>${produs.cantitate}x</strong></p>
-          <h3>${produs.nume}</h3>
-          <p>Preț: ${produs.pret} RON</p>
-          <button class="buton" onclick="scadeCantitate(${index})">-</button>
-          <button class="buton" onclick="stergeProdus(${index})">Șterge</button>
-          <button class="buton" onclick="cresteCantitate(${index})">+</button>
-        `;
-        listaCos.appendChild(divProdus);
-      });
-
-      const total = produse.reduce((suma, produs) => suma + produs.pret * produs.cantitate, 0);
-      const totalDiv = document.createElement("div");
-      totalDiv.style.marginTop = "30px";
-      totalDiv.innerHTML = `<h3>Total de plată: <strong>${total} RON</strong></h3>`;
-      listaCos.appendChild(totalDiv);
-
-      document.getElementById("numar-cos").textContent = produse.reduce((total, p) => total + p.cantitate, 0);
+      const listaCos = document
     }
-
-    function stergeProdus(index) {
-      produse.splice(index, 1);
-      localStorage.setItem("cosProduse", JSON.stringify(produse));
-      location.reload();
-    }
-
-    function scadeCantitate(index) {
-      if (produse[index].cantitate > 1) {
-        produse[index].cantitate -= 1;
-      } else {
-        produse.splice(index, 1);
-      }
-      localStorage.setItem("cosProduse", JSON.stringify(produse));
-      location.reload();
-    }
-function cresteCantitate(index) {
-      if (produse[index].cantitate > 1) {
-        produse[index].cantitate += 1;
-      } else {
-        produse.splice(index, 1);
-      }
-      localStorage.setItem("cosProduse", JSON.stringify(produse));
-      location.reload();
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-      actualizeazaCos();
-
-      const golesteCos = document.getElementById("goleste-cos");
-      golesteCos.addEventListener("click", () => {
-        localStorage.removeItem("cosProduse");
-        location.reload();
-      });
-    });
-  </script>
-</body>
-</html>
