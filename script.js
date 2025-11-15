@@ -1,47 +1,28 @@
-// Inițializăm coșul din localStorage sau cu un array gol
-let cosProduse = JSON.parse(localStorage.getItem("cosProduse")) || [];
 
-// Funcție pentru adăugarea unui produs în coș
-function adaugaInCos(nume, pret) {
-  const produsExist = cosProduse.find(p => p.nume === nume);
+const imagini = [
+  "Resources/Seturi de mot/set_mot1.jpg",
+  "Resources/Seturi de mot/set_mot2.jpg",
+  "Resources/Seturi de mot/set_mot3.jpg",
+  "Resources/Seturi de mot/set_mot0.jpg",
+];
 
-  if (produsExist) {
-    produsExist.cantitate += 1;
-  } else {
-    cosProduse.push({ nume, pret, cantitate: 1 });
-  }
+let index = 0;
+const slide = document.getElementById("slide");
 
-  localStorage.setItem("cosProduse", JSON.stringify(cosProduse));
-  actualizeazaNumarCos();
+// Funcții pentru schimbarea imaginilor
+function schimbaImagineNext() {
+  index = (index + 1) % imagini.length;
+  slide.src = imagini[index];
 }
 
-// Calculează totalul de produse (ex: 2 tricouri + 1 cană = 3)
-function calculeazaTotalProduse() {
-  return cosProduse.reduce((total, produs) => total + produs.cantitate, 0);
+function schimbaImaginePrev() {
+  index = (index - 1 + imagini.length) % imagini.length;
+  slide.src = imagini[index];
 }
 
-// Actualizează numărul afișat în header
-function actualizeazaNumarCos() {
-  const numarCos = document.getElementById("numar-cos");
-  if (numarCos) {
-    numarCos.textContent = calculeazaTotalProduse();
-  }
-}
+// Evenimente pentru butoane
+document.querySelector(".next").addEventListener("click", schimbaImagineNext);
+document.querySelector(".prev").addEventListener("click", schimbaImaginePrev);
 
-// Când pagina e încărcată, actualizăm numărul și atașăm funcționalități
-document.addEventListener("DOMContentLoaded", () => {
-  actualizeazaNumarCos();
-
-  const golesteCos = document.getElementById("goleste-cos");
-  if (golesteCos) {
-    golesteCos.addEventListener("click", () => {
-      localStorage.removeItem("cosProduse");
-      location.reload();
-    });
-  }
-});
-function stergeProdus(index) {
-  produse.splice(index, 1);
-  localStorage.setItem("cosProduse", JSON.stringify(produse));
-  location.reload(); // forțăm reîncărcarea paginii
-}
+// Schimbare automată la fiecare 4 secunde
+setInterval(schimbaImagineNext, 4000);
