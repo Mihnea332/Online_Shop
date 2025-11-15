@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - Handmade Mom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .titlu {
+      font-family: 'Pacifico', cursive;
+      font-size: 40px;
+      color: #ff69b4;
+    }
+    .link-titlu {
+      color: inherit;
+      text-decoration: none;
+    }
+    .continut {
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #ff69b4;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #ff85c1;
+    }
+    .info-contact {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="titlu"><a href="index.html" class="link-titlu">Handmade Mom</a></h1>
+  </header>
+
+  <div class="continut">
+    <h2>Contacteaza-ma</h2>
+    <form>
+      <label for="nume">Nume:</label>
+      <input type="text" id="nume" name="nume" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="mesaj">Mesaj:</label>
+      <textarea id="mesaj" name="mesaj" rows="5" required></textarea>
+
+      <button type="submit">Trimite mesajul</button>
+    </form>
+
+    <div class="info-contact">
+      <p>Email: contact@handmademom.ro</p>
+      <p><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: 0722 123 456</p>
+      <p>Program: Luni - Vineri, 10:00 - 18:00</p>
+    </div>
+  </div>
+</body>
+</html>
