@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Livrare - Handmade Mom</title>
+  <title>Contact - Handmade Mom</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
@@ -46,15 +46,39 @@
     .font-pacifico {
       font-family: 'Pacifico', cursive;
     }
-    .descriere-livrare {
+    .descriere-contact {
       text-align: center;
       padding: 40px;
       font-size: 1.2em;
     }
-    .descriere-livrare ul {
-      list-style: none;
-      padding: 0;
-      line-height: 1.8;
+    .formular-contact {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
+    .formular-contact input,
+    .formular-contact textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #ffb6c1;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .formular-contact button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .formular-contact button:hover {
+      background-color: #ff85c1;
     }
   </style>
 </head>
@@ -79,29 +103,34 @@
     
   </nav>
 
-  <section class="descriere-livrare font-pacifico" style="text-align: center; padding: 40px; font-size: 1.2em;">
-  <h2 style="color: #ff69b4; font-size: 2.5em;">
-    🚚 Livrare rapidă în Germania și în toată Europa!
-  </h2>
+  <section class="descriere-contact font-pacifico">
+    <h2 style="color: #ff69b4; font-size: 2.5em;">
+      📞 Contactează-ne cu drag!
+    </h2>
 
-  <p>
-    Comenzile tale ajung în siguranță în Germania 🇩🇪 și în orice colț al Europei 🌍, prin curier cu <strong>număr de urmărire</strong> – ca să știi mereu unde se află coletul tău 📍.
-  </p>
+    <p>
+      Pentru comenzi personalizate, întrebări sau colaborări, scrie-ne și îți răspundem cu bucurie 💌.
+    </p>
 
-  <p style="margin-top: 30px;">
-    Beneficii:
-  </p>
+    <p style="margin-top: 30px;">
+      📧 Email: <strong>handmademom@gmail.com</strong><br>
+      📱 WhatsApp: <strong>+40 723 123 456</strong><br>
+      📍 Locație: Sibiu, România
+    </p>
 
-  <ul>
-    <li>⚡ Livrare sigură și rapidă, inclusiv în Germania</li>
-    <li>🔎 Număr de urmărire oferit imediat după expediere</li>
-    <li>📦 Ambalare atentă pentru protecția produselor</li>
-  </ul>
+    <p style="margin-top: 30px; font-style: italic;">
+      Suntem aici să transformăm ideile tale în cadouri memorabile 🎁.
+    </p>
+  </section>
 
-  <p style="margin-top: 30px; font-style: italic;">
-    Oriunde te afli – în Germania, Franța, Italia sau altă țară europeană – cadoul tău ajunge în siguranță și la timp 💖.
-  </p>
-</section>
+  <section class="formular-contact">
+    <form>
+      <input type="text" name="nume" placeholder="Numele tău" required>
+      <input type="email" name="email" placeholder="Adresa de email" required>
+      <textarea name="mesaj" rows="5" placeholder="Scrie mesajul tău aici..." required></textarea>
+      <button type="submit">Trimite mesajul ✉️</button>
+    </form>
+  </section>
 
   <script src="script.js"></script>
 </body>

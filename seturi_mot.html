@@ -43,78 +43,54 @@
     .meniu a:hover {
       background-color: #ffe4e1;
     }
-    .continut {
-      padding: 30px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .produs {
-      background-color: white;
-      border: 2px solid #ff69b4;
-      border-radius: 8px;
-      padding: 15px;
-      width: 250px;
-      text-align: center;
-    }
-    .buton {
-      background-color: #ff69b4;
-      color: white;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 5px;
+    .imagine-principala img {
+      width: 100%;
+      max-width: 1000px; /* imagine mare pe site */
+      display: block;
+      margin: 30px auto;
+      border: 3px solid #ff69b4;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
     }
-    .buton:hover {
-      background-color: #ff85c1;
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
     }
-    .slider {
-  position: relative;
-  width: 100%;
-  max-width: 900px;   /* lățimea maximă a boxului */
-  height: 500px;      /* înălțimea fixă a boxului */
-  margin: 30px auto;
-  overflow: hidden;
-  border-radius: 10px;
-  background-color: #fff; /* fundal alb dacă imaginea nu acoperă tot */
-}
-
-.slider img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;  /* taie frumos imaginea ca să umple boxul */
-  display: block;
-}
-.next {
-  position: absolute;
-  top: 50%;
-  right: 10px; /* mutăm în dreapta */
-  transform: translateY(-50%);
-  background-color: rgba(255, 105, 180, 0.8);
-  color: white;
-  border: none;
-  font-size: 30px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.next:hover {
-  background-color: rgba(255, 105, 180, 1);
-}
-.prev {
-  position: absolute;
-  top: 50%;
-  left: 10px; /* mutăm în dreapta */
-  transform: translateY(-50%);
-  background-color: rgba(255, 105, 180, 0.8);
-  color: white;
-  border: none;
-  font-size: 30px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 105, 180, 0.8);
+      color: white;
+      border: none;
+      font-size: 30px;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .lightbox-prev { left: 30px; }
+    .lightbox-next { right: 30px; }
+    .font-pacifico {
+  font-family: 'Pacifico', cursive;
 }
   </style>
 </head>
@@ -127,22 +103,64 @@
 
   <nav class="meniu">
     <a href="seturi_mot.html">SETURI DE MOT</a>
-    <a href="marturii.html">MARTURII BOTEZ</a>
+    <a href="marturii.html">MARTURII BOTEZ/NUNTA</a>
     <a href="pahare.html">PAHARE PERSONALIZATE</a>
     <a href="seturi_cadou.html">SETURI CADOU</a>
     <a href="tricouri.html">TRICOURI PERSONALIZATE</a>
     <a href="invitatii.html">INVITATII</a>
     <a href="trusouri.html">TRUSOURI BOTEZ</a>
+    <a href="preturi.html">PRETURI</a>
     <a href="contact.html">CONTACT</a>
-    <a href="livrare.html">INFO LIVRARE 🚚</a>
+    <a href="livrare.html">INFO LIVRARE SI RETUR 🚚</a>
   </nav>
-<div class="slider">
-  <button class="prev">&#10094;</button>
-  <img id="slide" src="Resources/Seturi de mot/set_mot0.jpg" alt="Imagine slider">
-  <button class="next">&#10095;</button>
-</div>
-<script src="script.js"></script>
-  
- 
+<section class="descriere-mot font-pacifico" style="text-align: center; padding: 40px; font-size: 1.2em;">
+  <h2 style="color: #ff69b4; font-size: 2.5em;">
+    Seturi de Mot pentru băieți și fetițe 🎀✂️
+  </h2>
+  <!-- Imaginea mare de pe pagină -->
+  <div class="imagine-principala">
+    <!-- Aici schimbăm data-gallery în funcție de pagină -->
+    <img src="resources/Seturi de mot/set_mot0.jpg" 
+         alt="Set principal" 
+         id="main-img" 
+         data-gallery="mot">
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <button class="lightbox-prev">&#10094;</button>
+    <img id="lightbox-img" src="" alt="Imagine mărită">
+    <button class="lightbox-next">&#10095;</button>
+  </div>
+<section class="descriere-mot" style="text-align: center; padding: 40px; font-size: 1.2em;">
+
+  <p>
+
+
+  <p>
+    Alege din gama noastră de seturi de mot personalizate cu nume și dată 📅 – create cu grijă pentru cele mai speciale momente din viața copilului tău.  
+    La cerere, putem adăuga un mesaj unic sau chiar o fotografie 📸 pentru un plus de emoție.
+  </p>
+
+  <p style="margin-top: 30px;">
+    Setul este personalizat și conține:
+  </p>
+
+  <ul style="list-style: none; padding: 0; line-height: 1.8;">
+    <li>🍽️ Tăviță pictată manual</li>
+    <li>💇‍♂️ Pieptăn decorativ</li>
+    <li>🎁 Cutiuță pentru șuviță</li>
+    <li>🪞 Oglindă personalizată</li>
+    <li>🖼️ Ramă foto elegantă</li>
+    <li>✂️ Foarfecă decorativă</li>
+  </ul>
+
+  <p style="margin-top: 30px; font-style: italic;">
+    Toate piesele sunt vopsite manual și protejate cu lac lucios pentru un finisaj de poveste ✨.
+  </p>
+</section>
+  <!-- Script extern -->
+  <script src="script.js"></script>
 </body>
 </html>

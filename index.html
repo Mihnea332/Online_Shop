@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Handmade Mom</title>
+  <title>Handmade Mom - Acasă</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,27 +11,16 @@
       margin: 0;
       padding: 0;
     }
-   header {
-  height: 400px; /* sau 500px, cât vrei tu */
-  overflow: hidden;
-}
-
-.imagine-header {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-   margin-bottom: 0;
-}
-    .titlu {
-      font-family: 'Pacifico', cursive;
-      font-size: 40px;
-      color: #ff69b4;
-      margin: 0;
+    header {
+      height: 400px;
+      overflow: hidden;
     }
-    .link-titlu {
-      color: inherit;
-      text-decoration: none;
+    .imagine-header {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 0;
     }
     .meniu {
       display: flex;
@@ -54,25 +43,94 @@
     .meniu a:hover {
       background-color: #ffe4e1;
     }
+    .font-pacifico {
+      font-family: 'Pacifico', cursive;
+    }
+    .prezentare {
+      text-align: center;
+      padding: 50px 30px;
+      font-size: 1.2em;
+    }
+    .prezentare ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+    .galerie img {
+  width: 500px; /* mai mic decât 200px */
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ffb6c1;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
   </style>
 </head>
 <body>
   <header>
-  <a href="index.html">
-    <img src="Resources/logo.jpg" alt="Handmade Mom" class="imagine-header">
-  </a>
-</header>
-
-<nav class="meniu">
-  <a href="seturi_mot.html">SETURI DE MOT</a>
-  <a href="marturii.html">MARTURII BOTEZ</a>
-  <a href="pahare.html">PAHARE PERSONALIZATE</a>
-  <a href="seturi_cadou.html">SETURI CADOU</a>
-  <a href="tricouri.html">TRICOURI PERSONALIZATE</a>
-  <a href="invitatii.html">INVITATII</a>
-  <a href="contact.html">CONTACT</a>
-  <a href="livrare.html">INFO LIVRARE 🚚</a>
-</nav>
+    <a href="index.html">
+      <img src="resources/logo.jpg" alt="Handmade Mom" class="imagine-header">
+    </a>
   </header>
+
+  <nav class="meniu">
+    <a href="seturi_mot.html">SETURI DE MOT</a>
+    <a href="marturii.html">MARTURII BOTEZ</a>
+    <a href="pahare.html">PAHARE PERSONALIZATE</a>
+    <a href="seturi_cadou.html">SETURI CADOU</a>
+    <a href="tricouri.html">TRICOURI PERSONALIZATE</a>
+    <a href="invitatii.html">INVITATII</a>
+    <a href="trusouri.html">TRUSOURI BOTEZ</a>
+    <a href="preturi.html">PRETURI</a>
+    <a href="contact.html">CONTACT</a>
+    <a href="livrare.html">INFO LIVRARE SI RETUR 🚚</a>
+    
+  </nav>
+
+  <section class="prezentare font-pacifico">
+    <h2 style="color: #ff69b4; font-size: 2.5em;">👋 Bine ai venit în universul nostru handmade!</h2>
+
+    <p>
+      Eu sunt Romana, mămica a patru copii minunați ❤️, și împreună cu echipa mea creativă aducem la viață produse personalizate care să facă momentele speciale și mai memorabile.
+    </p>
+
+    <p style="margin-top: 30px;">
+      💡 <strong>De ce am început handmade?</strong><br>
+      Totul a început acum 7 ani și jumătate, din dorința de a-i face băiețelului nostru tricouri personalizate unice. Susținută de cel mai mare ajutor și critic al meu – soțul meu – am transformat această pasiune într-o mică afacere care aduce bucurie oamenilor de toate vârstele.
+    </p>
+
+    <p style="margin-top: 30px;">
+      🎁 <strong>Ce oferim?</strong>
+    </p>
+    <ul>
+      <li>• Seturi cadou personalizate: sticle de băutură, pahare personalizate, licheni, plexiglas cu mesaje speciale</li>
+      <li>• Tricouri personalizate pentru cei mici și cei mari</li>
+      <li>• Seturi de mot și mărturii personalizate pentru botez sau alte evenimente</li>
+      <li>• Invitații de nuntă și botez, pe hârtie sau electronic, pentru orice tematică</li>
+    </ul>
+
+    <p style="margin-top: 30px;">
+      ✨ <strong>Misiunea noastră:</strong><br>
+      Nu căutăm perfecțiunea – căutăm să fim pe placul vostru și să aducem zâmbete și emoții prin fiecare creație. Portofoliul nostru este diversificat și continuăm să adăugăm produse noi, creative și personalizate.
+    </p>
+  </section>
+<h2 style="color: #ff69b4; font-family: 'Pacifico', cursive; font-size: 2.5em;">
+  🎨 Galerie Handmade
+</h2>
+
+<div class="galerie">
+  <img src="resources/HomePage/homepage0.jpg" alt="Imagine 1">
+  <img src="resources/HomePage/homepage1.jpg" alt="Imagine 2">
+  <img src="resources/HomePage/homepage2.jpg" alt="Imagine 3">
+</div>
+
+  <script src="script.js"></script>
 </body>
 </html>

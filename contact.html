@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Contact - Handmade Mom</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,90 +12,128 @@
       padding: 0;
     }
     header {
-      background-color: #000;
-      color: white;
-      padding: 20px;
-      text-align: center;
+      height: 400px;
+      overflow: hidden;
     }
-    .titlu {
-      font-family: 'Pacifico', cursive;
-      font-size: 40px;
-      color: #ff69b4;
-    }
-    .link-titlu {
-      color: inherit;
-      text-decoration: none;
-    }
-    .continut {
-      padding: 30px;
-      max-width: 600px;
-      margin: auto;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #ff69b4;
-      text-align: center;
-    }
-    label {
+    .imagine-header {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-bottom: 0;
     }
-    input, textarea {
+    .meniu {
+      display: flex;
+      justify-content: center;
+      background-color: #ffb6c1;
+      padding: 10px 20px;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+    .meniu a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 5px;
+      background-color: white;
+      transition: background-color 0.3s;
+    }
+    .meniu a:hover {
+      background-color: #ffe4e1;
+    }
+    .font-pacifico {
+      font-family: 'Pacifico', cursive;
+    }
+    .descriere-contact {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2em;
+    }
+    .formular-contact {
+      max-width: 500px;
+      margin: 0 auto 60px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
+    .formular-contact input,
+    .formular-contact textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      border: 2px solid #ffb6c1;
       border-radius: 5px;
-      box-sizing: border-box;
+      font-size: 1em;
     }
-    button {
-      margin-top: 20px;
+    .formular-contact button {
       background-color: #ff69b4;
       color: white;
-      padding: 10px 15px;
       border: none;
+      padding: 10px 20px;
+      font-size: 1em;
       border-radius: 5px;
       cursor: pointer;
-      font-weight: bold;
     }
-    button:hover {
+    .formular-contact button:hover {
       background-color: #ff85c1;
-    }
-    .info-contact {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 class="titlu"><a href="index.html" class="link-titlu">Handmade Mom</a></h1>
+    <a href="index.html">
+      <img src="resources/logo.jpg" alt="Handmade Mom" class="imagine-header">
+    </a>
   </header>
 
-  <div class="continut">
-    <h2>Contacteaza-ma</h2>
-    <form>
-      <label for="nume">Nume:</label>
-      <input type="text" id="nume" name="nume" required>
+  <nav class="meniu">
+    <a href="seturi_mot.html">SETURI DE MOT</a>
+    <a href="marturii.html">MARTURII BOTEZ/NUNTA</a>
+    <a href="pahare.html">PAHARE PERSONALIZATE</a>
+    <a href="seturi_cadou.html">SETURI CADOU</a>
+    <a href="tricouri.html">TRICOURI PERSONALIZATE</a>
+    <a href="invitatii.html">INVITATII</a>
+    <a href="trusouri.html">TRUSOURI BOTEZ</a>
+    <a href="preturi.html">PRETURI</a>
+    <a href="contact.html">CONTACT</a>
+    <a href="livrare.html">INFO LIVRARE 🚚</a>
+  </nav>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+  <section class="descriere-contact font-pacifico">
+    <h2 style="color: #ff69b4; font-size: 2.5em;">
+      📞 Contactează-ne cu drag!
+    </h2>
 
-      <label for="mesaj">Mesaj:</label>
-      <textarea id="mesaj" name="mesaj" rows="5" required></textarea>
+    <p>
+      Pentru comenzi personalizate, întrebări sau colaborări, scrie-ne și îți răspundem cu bucurie 💌.
+    </p>
 
-      <button type="submit">Trimite mesajul</button>
+    <p style="margin-top: 30px;">
+      📧 Email: <strong>r.halalaie@gmail.com</strong><br>
+      📘 Facebook: <strong><a href="https://www.facebook.com/romanahalalaie?mibextid=wwXIfr&rdid=rfmUTcOk6IxhVkro&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16d2btwMZm%2F%3Fmibextid%3DwwXIfr#" target="_blank">Handmade Mom</a></strong><br>
+      📍 Locație: Germania, Europa
+
+    </p>
+
+    <p style="margin-top: 30px; font-style: italic;">
+      Suntem aici să transformăm ideile tale în cadouri memorabile 🎁.
+    </p>
+  </section>
+
+  <section class="formular-contact">
+    <form id="formular-contact">
+      <input type="text" name="nume" placeholder="Numele tău" required>
+      <input type="email" name="email" placeholder="Adresa de email" required>
+      <textarea name="mesaj" rows="5" placeholder="Scrie mesajul tău aici..." required></textarea>
+      <button type="submit">Trimite mesajul ✉️</button>
     </form>
+  </section>
 
-    <div class="info-contact">
-      <p>Email: contact@handmademom.ro</p>
-      <p><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: 0722 123 456</p>
-      <p>Program: Luni - Vineri, 10:00 - 18:00</p>
-    </div>
-  </div>
+  <!-- EmailJS SDK + Scriptul tău -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
