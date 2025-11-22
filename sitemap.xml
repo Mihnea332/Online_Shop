@@ -2,29 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Pagini în română -->
-  <url><loc>https://handmademom.ro/index.html</loc></url>
-  <url><loc>https://handmademom.ro/marturii.html</loc></url>
-  <url><loc>https://handmademom.ro/tricouri.html</loc></url>
-  <url><loc>https://handmademom.ro/invitatii.html</loc></url>
-  <url><loc>https://handmademom.ro/pahare.html</loc></url>
-  <url><loc>https://handmademom.ro/seturi_cadou.html</loc></url>
-  <url><loc>https://handmademom.ro/trusouri.html</loc></url>
-  <url><loc>https://handmademom.ro/seturi_mot.html</loc></url>
-  <url><loc>https://handmademom.ro/preturi.html</loc></url>
-  <url><loc>https://handmademom.ro/livrare.html</loc></url>
-  <url><loc>https://handmademom.ro/contact.html</loc></url>
+  <url><loc>https://handmademom.ro/</loc></url>
+  <url><loc>https://handmademom.ro/marturii</loc></url>
+  <url><loc>https://handmademom.ro/tricouri</loc></url>
+  <url><loc>https://handmademom.ro/invitatii</loc></url>
+  <url><loc>https://handmademom.ro/pahare</loc></url>
+  <url><loc>https://handmademom.ro/seturi_cadou</loc></url>
+  <url><loc>https://handmademom.ro/trusouri</loc></url>
+  <url><loc>https://handmademom.ro/seturi_mot</loc></url>
+  <url><loc>https://handmademom.ro/preturi</loc></url>
+  <url><loc>https://handmademom.ro/livrare</loc></url>
+  <url><loc>https://handmademom.ro/contact</loc></url>
 
   <!-- Pagini în germană -->
-  <url><loc>https://handmademom.ro/index_de.html</loc></url>
-  <url><loc>https://handmademom.ro/marturii_de.html</loc></url>
-  <url><loc>https://handmademom.ro/tricouri_de.html</loc></url>
-  <url><loc>https://handmademom.ro/invitatii_de.html</loc></url>
-  <url><loc>https://handmademom.ro/pahare_de.html</loc></url>
-  <url><loc>https://handmademom.ro/seturi_cadou_de.html</loc></url>
-  <url><loc>https://handmademom.ro/trusouri_de.html</loc></url>
-  <url><loc>https://handmademom.ro/seturi_mot_de.html</loc></url>
-  <url><loc>https://handmademom.ro/preturi_de.html</loc></url>
-  <url><loc>https://handmademom.ro/livrare_de.html</loc></url>
-  <url><loc>https://handmademom.ro/contact_de.html</loc></url>
+  <url><loc>https://handmademom.ro/index_de</loc></url>
+  <url><loc>https://handmademom.ro/marturii_de</loc></url>
+  <url><loc>https://handmademom.ro/tricouri_de</loc></url>
+  <url><loc>https://handmademom.ro/invitatii_de</loc></url>
+  <url><loc>https://handmademom.ro/pahare_de</loc></url>
+  <url><loc>https://handmademom.ro/seturi_cadou_de</loc></url>
+  <url><loc>https://handmademom.ro/trusouri_de</loc></url>
+  <url><loc>https://handmademom.ro/seturi_mot_de</loc></url>
+  <url><loc>https://handmademom.ro/preturi_de</loc></url>
+  <url><loc>https://handmademom.ro/livrare_de</loc></url>
+  <url><loc>https://handmademom.ro/contact_de</loc></url>
 
 </urlset>
