@@ -1,30 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-  <!-- Pagini în română -->
-  <url><loc>https://handmademom.ro/</loc></url>
-  <url><loc>https://handmademom.ro/marturii</loc></url>
-  <url><loc>https://handmademom.ro/tricouri</loc></url>
-  <url><loc>https://handmademom.ro/invitatii</loc></url>
-  <url><loc>https://handmademom.ro/pahare</loc></url>
-  <url><loc>https://handmademom.ro/seturi_cadou</loc></url>
-  <url><loc>https://handmademom.ro/trusouri</loc></url>
-  <url><loc>https://handmademom.ro/seturi_mot</loc></url>
-  <url><loc>https://handmademom.ro/preturi</loc></url>
-  <url><loc>https://handmademom.ro/livrare</loc></url>
-  <url><loc>https://handmademom.ro/contact</loc></url>
 
-  <!-- Pagini în germană -->
-  <url><loc>https://handmademom.ro/index_de</loc></url>
-  <url><loc>https://handmademom.ro/marturii_de</loc></url>
-  <url><loc>https://handmademom.ro/tricouri_de</loc></url>
-  <url><loc>https://handmademom.ro/invitatii_de</loc></url>
-  <url><loc>https://handmademom.ro/pahare_de</loc></url>
-  <url><loc>https://handmademom.ro/seturi_cadou_de</loc></url>
-  <url><loc>https://handmademom.ro/trusouri_de</loc></url>
-  <url><loc>https://handmademom.ro/seturi_mot_de</loc></url>
-  <url><loc>https://handmademom.ro/preturi_de</loc></url>
-  <url><loc>https://handmademom.ro/livrare_de</loc></url>
-  <url><loc>https://handmademom.ro/contact_de</loc></url>
+<url>
+  <loc>https://handmademom.de/</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/index_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/seturi_mot</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/marturii</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/pahare</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/seturi_cadou</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/tricouri</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/invitatii</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/trusouri</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/preturi</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/contact</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/livrare</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/seturi_mot_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/marturii_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/pahare_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/seturi_cadou_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/tricouri_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/invitatii_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/trusouri_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/preturi_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/contact_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://handmademom.de/livrare_de</loc>
+  <lastmod>2025-11-23T09:03:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
 
 </urlset>
