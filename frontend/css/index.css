@@ -1,0 +1,152 @@
+/* --- Stiluri Generale --- */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff0f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Header --- */
+header {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imagine-header {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Buton Limbă (mutat din inline HTML) --- */
+.lang-switcher {
+  position: absolute; 
+  top: 20px; 
+  right: 20px;
+}
+
+.btn-lang {
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  background-color: #ff69b4; 
+  color: white; 
+  padding: 8px 12px; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  font-weight: bold; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.flag-icon {
+  width: 24px; 
+  height: 16px; 
+  border: 1px solid #fff; 
+  border-radius: 2px;
+}
+
+/* --- Meniu --- */
+.meniu {
+  display: flex;
+  justify-content: center;
+  background-color: #ffb6c1;
+  padding: 10px 20px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.meniu a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: white;
+  transition: background-color 0.3s;
+}
+
+.meniu a:hover {
+  background-color: #ffe4e1;
+}
+
+/* --- Text & Prezentare --- */
+.font-pacifico {
+  font-family: 'Pacifico', cursive;
+}
+
+.titlu-principal, .titlu-galerie {
+  color: #835b5b; 
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.prezentare {
+  text-align: center;
+  padding: 50px 30px;
+  font-size: 1.2em;
+}
+
+.prezentare ul {
+  list-style: none;
+  padding: 0;
+  line-height: 1.8;
+}
+
+.sectiune-text {
+  margin-top: 30px;
+}
+
+/* --- Galerie --- */
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* am ajustat pentru a fi responsive */
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.galerie img {
+  width: 100%;
+  max-width: 500px;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ffb6c1;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.galerie img:hover {
+  transform: scale(1.02);
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #000;
+  padding: 20px 0;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  font-size: 12px;
+  opacity: 0.8;
+}
