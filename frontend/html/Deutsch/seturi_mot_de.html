@@ -1,220 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Mot-Sets - Handmade Mom</title>
-  <meta name="description" content="Mot-Sets für Jungen und Mädchen: handbemalte Tabletts, dekorative Kämme, Spiegel und Erinnerungsboxen.">
-<meta name="keywords" content="mot sets, personalisierte geschenke, handbemalte tabletts, taufe geschenke, spiegel, erinnerungsbox">
-<meta name="author" content="Handmade Mom">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      height: 400px;
-      overflow: hidden;
-    }
-    .imagine-header {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      margin-bottom: 0;
-    }
-    .meniu {
-      display: flex;
-      justify-content: center;
-      background-color: #ffb6c1;
-      padding: 10px 20px;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-top: 0;
-    }
-    .meniu a {
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 5px;
-      background-color: white;
-      transition: background-color 0.3s;
-    }
-    .meniu a:hover {
-      background-color: #ffe4e1;
-    }
-    .imagine-principala img {
-      width: 100%;
-      max-width: 1000px;
-      display: block;
-      margin: 30px auto;
-      border: 3px solid #ff69b4;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-    }
-    .lightbox .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-    }
-    .lightbox-prev, .lightbox-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 105, 180, 0.8);
-      color: white;
-      border: none;
-      font-size: 30px;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .lightbox-prev { left: 30px; }
-    .lightbox-next { right: 30px; }
-    .font-pacifico {
-      font-family: 'Pacifico', cursive;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="index_de.html">
-      <img src="../resources/logo.jpg" alt="Handmade Mom" class="imagine-header">
-    </a>
-      <div style="position: absolute; top: 20px; right: 20px;">
-    <a href="index.html" 
-       style="display: flex; align-items: center; gap: 8px; 
-              background-color: #ff69b4; color: white; padding: 8px 12px; 
-              border-radius: 5px; text-decoration: none; font-weight: bold; 
-              box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-      <img src="resources/ro.png" alt="Deutsch" style="width: 24px; height: 16px; border:1px solid #fff; border-radius:2px;">
-      Romanian
-    </a>
-  </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mot-Sets - Handmade Mom</title>
+    <meta
+      name="description"
+      content="Mot-Sets für Jungen und Mädchen: handbemalte Tabletts, dekorative Kämme, Spiegel und Erinnerungsboxen." />
+    <meta
+      name="keywords"
+      content="mot sets, personalisierte geschenke, handbemalte tabletts, taufe geschenke, spiegel, erinnerungsbox" />
+    <meta name="author" content="Handmade Mom" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/seturi_mot.css" />
+  </head>
+  <body>
+    <header>
+      <a href="../index_de.html" class="btn-lang">
+        <img
+          src="../../../Resources/logo.jpg"
+          alt="Handmade Mom"
+          class="imagine-header" />
+      </a>
+      <div class="language-container">
+        <a href="../seturi_mot.html" class="lang-button">
+          <img src="../../../Resources/ro.png" alt="Romanian" class="flag" />
+          Romanian
+        </a>
+      </div>
+    </header>
 
-  <nav class="meniu">
-    <a href="seturi_mot_de.html">MOT-SETS</a>
-    <a href="marturii_de.html">TAUFGESCHENKE</a>
-    <a href="pahare_de.html">PERSONALISIERTE GLÄSER</a>
-    <a href="seturi_cadou_de.html">GESCHENKSETS</a>
-    <a href="tricouri_de.html">PERSONALISIERTE T-SHIRTS</a>
-    <a href="invitatii_de.html">EINLADUNGEN & HOCHZEITS-/TAUFPAPIERE</a>
-    <a href="trusouri_de.html">TAUFAUSSTATTUNG</a>
-    <a href="preturi_de.html">PREISE</a>
-    <a href="contact_de.html">KONTAKT</a>
-    <a href="livrare_de.html">LIEFERUNG & RÜCKGABE 🚚</a>
-  </nav>
+    <nav class="meniu">
+      <a href="seturi_mot_de.html">MOT-SETS</a>
+      <a href="marturii_de.html">GASTGESCHENKE</a>
+      <a href="pahare_de.html">GLÄSER</a>
+      <a href="seturi_cadou_de.html">GESCHENKSETS</a>
+      <a href="tricouri_de.html">T-SHIRTS</a>
+      <a href="invitatii_de.html">EINLADUNGEN</a>
+      <a href="trusouri_de.html">TAUFSETS</a>
+      <a href="preturi_de.html">PREISE</a>
+      <a href="contact_de.html">KONTAKT</a>
+      <a href="livrare_de.html">VERSAND 🚚</a>
+    </nav>
 
-  <section class="descriere-mot font-pacifico" style="text-align: center; padding: 40px; font-size: 1.2em;">
-    <h2 style="color: #835b5b; font-size: 2.5em;">
-      Mot-Sets für Jungen und Mädchen 🎀✂️
-    </h2>
-    <!-- Hauptbild -->
-    <div class="imagine-principala">
-      <img src="../resources/Seturi de mot/set_mot15.jpg"  
-           alt="Hauptset"  
-           id="main-img"  
-           data-gallery="mot">
+    <section class="descriere-mot-titlu font-pacifico">
+      <h2>Mot-Sets für Jungen und Mädchen 🎀✂️</h2>
+      <div class="imagine-principala">
+        <img
+          src="../../../Resources/Seturi de mot/set_mot15.jpg"
+          alt="Hauptset"
+          id="main-img"
+          data-gallery="mot" />
+      </div>
+    </section>
+
+    <div id="lightbox" class="lightbox">
+      <span class="close">&times;</span>
+      <button class="lightbox-prev">&#10094;</button>
+      <img id="lightbox-img" src="" alt="Vergrößertes Bild" />
+      <button class="lightbox-next">&#10095;</button>
     </div>
-  </section>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox">
-    <span class="close">&times;</span>
-    <button class="lightbox-prev">&#10094;</button>
-    <img id="lightbox-img" src="" alt="Vergrößertes Bild">
-    <button class="lightbox-next">&#10095;</button>
-  </div>
+    <section class="descriere-mot-text font-pacifico">
+      <p>
+        Wähle aus unserer Auswahl an personalisierten Mot-Sets mit Namen und
+        Datum 📅 – sorgfältig gestaltet für die besonderen Momente im Leben
+        deines Kindes. Auf Wunsch können wir eine einzigartige Botschaft oder
+        sogar ein Foto 📸 hinzufügen – für noch mehr Emotion.
+      </p>
+      <p class="mt-30">Das Set ist personalisiert und enthält:</p>
+      <ul class="lista-set-mot">
+        <li>🍽️ Handbemaltes Tablett</li>
+        <li>💇‍♂️ Dekorativer Kamm</li>
+        <li>🎁 Schachtel für die Haarsträhne</li>
+        <li>🪞 Personalisierter Spiegel</li>
+        <li>🖼️ Eleganter Bilderrahmen</li>
+        <li>✂️ Dekorative Schere</li>
+      </ul>
+      <p class="mt-30 italic">
+        Alle Teile sind handbemalt und mit glänzendem Lack geschützt – für ein
+        märchenhaftes Finish ✨.
+      </p>
+    </section>
 
-  <section class="descriere-mot" style="text-align: center; padding: 40px; font-size: 1.2em;">
-    <p>
-      Wähle aus unserer Auswahl an personalisierten Mot-Sets mit Namen und Datum 📅 – sorgfältig gestaltet für die besonderen Momente im Leben deines Kindes.  
-      Auf Wunsch können wir eine einzigartige Botschaft oder sogar ein Foto 📸 hinzufügen – für noch mehr Emotion.
-    </p>
+    <footer>
+      <div class="footer-links">
+        <a href="legal_de.html">RECHTLICHES</a>
+        <a href="contact_de.html">KONTAKT</a>
+      </div>
+      <div class="footer-copy">
+        © 2025 Handmade Mom. Alle Rechte vorbehalten. <br />
+        Website erstellt von Handmade Mom für den deutschen Markt.
+      </div>
+    </footer>
 
-    <p style="margin-top: 30px;">
-      Das Set ist personalisiert und enthält:
-    </p>
-
-    <ul style="list-style: none; padding: 0; line-height: 1.8;">
-      <li>🍽️ Handbemaltes Tablett</li>
-      <li>💇‍♂️ Dekorativer Kamm</li>
-      <li>🎁 Schachtel für die Haarsträhne</li>
-      <li>🪞 Personalisierter Spiegel</li>
-      <li>🖼️ Eleganter Bilderrahmen</li>
-      <li>✂️ Dekorative Schere</li>
-    </ul>
-
-    <p style="margin-top: 30px; font-style: italic;">
-      Alle Teile sind handbemalt und mit glänzendem Lack geschützt – für ein märchenhaftes Finish ✨.
-    </p>
-  </section>
-
-  <!-- Script extern -->
-  <script src="../script.js"></script>
-  <footer>
-  <div class="footer-links">
-    <a href="legal_de.html">RECHTLICHES</a>
-    <a href="contact.html">KONTAKT</a>
-  </div>
-
-  <div class="footer-copy">
-    © 2025 Handmade Mom. Alle Rechte vorbehalten.  
-    <br>
-    Website erstellt von Handmade Mom für den deutschen Markt.
-  </div>
-</footer>
-
-<style>
-  footer {
-    background-color: #000;       /* schwarz */
-    padding: 20px 0;
-    color: #fff;                  /* weißer Text */
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .footer-links {
-    margin-bottom: 10px;
-  }
-
-  .footer-links a {
-    color: #fff;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    opacity: 0.8; /* etwas dezenter */
-  }
-</style>
-</body>
+    <script src="../../js/seturi_mot.js"></script>
+  </body>
 </html>

@@ -1,218 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>T-Shirts - Handmade Mom</title>
-  <meta name="description" content="Personalisierte T-Shirts für Kinder und Erwachsene, bedruckt mit Namen, Botschaften oder einzigartigen Designs.">
-<meta name="keywords" content="personalisierte t-shirts, taufe t-shirts, geburtstag t-shirts, geschenke handmade, t-shirts hochzeit">
-<meta name="author" content="Handmade Mom">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      height: 400px;
-      overflow: hidden;
-    }
-    .imagine-header {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      margin-bottom: 0;
-    }
-    .meniu {
-      display: flex;
-      justify-content: center;
-      background-color: #ffb6c1;
-      padding: 10px 20px;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-top: 0;
-    }
-    .meniu a {
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 5px;
-      background-color: white;
-      transition: background-color 0.3s;
-    }
-    .meniu a:hover {
-      background-color: #ffe4e1;
-    }
-    .imagine-principala img {
-      width: 100%;
-      max-width: 1000px;
-      display: block;
-      margin: 30px auto;
-      border: 3px solid #ff69b4;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-    }
-    .lightbox .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-    }
-    .lightbox-prev, .lightbox-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 105, 180, 0.8);
-      color: white;
-      border: none;
-      font-size: 30px;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .lightbox-prev { left: 30px; }
-    .lightbox-next { right: 30px; }
-    .font-pacifico {
-      font-family: 'Pacifico', cursive;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="index_de.html">
-      <img src="../resources/logo.jpg" alt="Handmade Mom" class="imagine-header">
-    </a>
-      <div style="position: absolute; top: 20px; right: 20px;">
-    <a href="index.html" 
-       style="display: flex; align-items: center; gap: 8px; 
-              background-color: #ff69b4; color: white; padding: 8px 12px; 
-              border-radius: 5px; text-decoration: none; font-weight: bold; 
-              box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-      <img src="resources/ro.png" alt="Deutsch" style="width: 24px; height: 16px; border:1px solid #fff; border-radius:2px;">
-      Romanian
-    </a>
-  </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personalisierte T-Shirts für Kinder und Erwachsene, bedruckt mit Namen, Botschaften oder einzigartigen Designs." />
+    <meta
+      name="keywords"
+      content="personalisierte t-shirts, taufe t-shirts, geburtstag t-shirts, geschenke handmade, t-shirts hochzeit" />
+    <meta name="author" content="Handmade Mom" />
+    <title>T-Shirts - Handmade Mom</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/tricouri.css" />
+  </head>
+  <body>
+    <header>
+      <a href="../index_de.html" class="btn-lang">
+        <img
+          src="../../../Resources/logo.jpg"
+          alt="Handmade Mom"
+          class="imagine-header" />
+      </a>
+      <div class="language-switcher">
+        <a href="../tricouri.html" class="btn-lang">
+          <img
+            src="../../../Resources/ro.png"
+            alt="Romanian"
+            class="flag-icon" />
+          Romanian
+        </a>
+      </div>
+    </header>
 
-  <nav class="meniu">
-    <a href="seturi_mot_de.html">MOT-SETS</a>
-    <a href="marturii_de.html">TAUFGESCHENKE</a>
-    <a href="pahare_de.html">PERSONALISIERTE GLÄSER</a>
-    <a href="seturi_cadou_de.html">GESCHENKSETS</a>
-    <a href="tricouri_de.html">PERSONALISIERTE T-SHIRTS</a>
-    <a href="invitatii_de.html">EINLADUNGEN & HOCHZEITS-/TAUFPAPIERE</a>
-    <a href="trusouri_de.html">TAUFAUSSTATTUNG</a>
-    <a href="preturi_de.html">PREISE</a>
-    <a href="contact_de.html">KONTAKT</a>
-    <a href="livrare_de.html">LIEFERUNG & RÜCKGABE 🚚</a>
-  </nav>
+    <nav class="meniu">
+      <a href="seturi_mot_de.html">MOT-SETS</a>
+      <a href="marturii_de.html">GASTGESCHENKE</a>
+      <a href="pahare_de.html">GLÄSER</a>
+      <a href="seturi_cadou_de.html">GESCHENKSETS</a>
+      <a href="tricouri_de.html">T-SHIRTS</a>
+      <a href="invitatii_de.html">EINLADUNGEN</a>
+      <a href="trusouri_de.html">TAUFSETS</a>
+      <a href="preturi_de.html">PREISE</a>
+      <a href="contact_de.html">KONTAKT</a>
+      <a href="livrare_de.html">VERSAND 🚚</a>
+    </nav>
 
-  <section class="descriere-tricouri font-pacifico" style="text-align: center; padding: 40px; font-size: 1.2em;">
-    <h2 style="color: #835b5b; font-size: 2.5em;">
-      Personalisierte T-Shirts für unvergessliche Momente 👕🎨
-    </h2>
+    <section class="descriere-tricouri font-pacifico">
+      <h2 class="titlu-pagina">
+        Personalisierte T-Shirts für unvergessliche Momente 👕🎨
+      </h2>
 
-    <!-- Hauptbild -->
-    <div class="imagine-principala">
-      <img src="../Resources/Tricouri personalizate/tricouri9.jpg"  
-           alt="Personalisiertes T-Shirt"  
-           id="main-img"  
-           data-gallery="tricouri">
-    </div>
+      <div class="imagine-principala">
+        <img
+          src="../../../Resources/Tricouri personalizate/tricouri9.jpg"
+          alt="Personalisiertes T-Shirt"
+          id="main-img"
+          data-gallery="tricouri" />
+      </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox">
-      <span class="close">&times;</span>
-      <button class="lightbox-prev">&#10094;</button>
-      <img id="lightbox-img" src="" alt="Vergrößertes Bild">
-      <button class="lightbox-next">&#10095;</button>
-    </div>
+      <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <button class="lightbox-prev">&#10094;</button>
+        <img id="lightbox-img" src="" alt="Vergrößertes Bild" />
+        <button class="lightbox-next">&#10095;</button>
+      </div>
 
-    <p>
-      Wähle das perfekte T-Shirt in jeder verfügbaren Farbe 🌈, personalisiert mit Namen, Botschaft oder einzigartiger Grafik.  
-      Ob für eine Taufe, Geburtstag, Party oder als Geschenk – dein T-Shirt wird wirklich besonders sein.
-    </p>
+      <p>
+        Wähle das perfekte T-Shirt in jeder verfügbaren Farbe 🌈, personalisiert
+        mit Namen, Botschaft oder einzigartiger Grafik. Ob für eine Taufe,
+        Geburtstag, Party oder als Geschenk – dein T-Shirt wird wirklich
+        besonders sein.
+      </p>
 
-    <p style="margin-top: 30px;">
-      Eigenschaften:
-    </p>
+      <p class="mt-30">Eigenschaften:</p>
 
-    <ul style="list-style: none; padding: 0; line-height: 1.8;">
-      <li>🧵 Material: 100% weiche und atmungsaktive Baumwolle</li>
-      <li>🎨 Personalisierung mit Text, Zeichnung oder Logo</li>
-      <li>📐 Größen für Kinder und Erwachsene verfügbar</li>
-      <li>🌈 Große Auswahl an Farben</li>
-      <li>🖌️ Langlebiger Druck, waschbeständig</li>
-    </ul>
+      <ul class="lista-caracteristici">
+        <li>🧵 Material: 100% weiche und atmungsaktive Baumwolle</li>
+        <li>🎨 Personalisierung mit Text, Zeichnung oder Logo</li>
+        <li>📐 Größen für Kinder und Erwachsene verfügbar</li>
+        <li>🌈 Große Auswahl an Farben</li>
+        <li>🖌️ Langlebiger Druck, waschbeständig</li>
+      </ul>
 
-    <p style="margin-top: 30px; font-style: italic;">
-      Trage ein T-Shirt, das eine Geschichte erzählt – speziell für dich gemacht 💖.
-    </p>
-  </section>
+      <p class="mt-30 italic">
+        Poartă un tricou care spune o poveste – creat special pentru tine 💖.
+      </p>
+    </section>
 
-  <!-- Script extern -->
-  <script src="../script.js"></script>
-  <footer>
-  <div class="footer-links">
-    <a href="legal_de.html">RECHTLICHES</a>
-    <a href="contact.html">KONTAKT</a>
-  </div>
+    <footer>
+      <div class="footer-links">
+        <a href="legal_de.html">RECHTLICHES</a>
+        <a href="contact_de.html">KONTAKT</a>
+      </div>
+      <div class="footer-copy">
+        © 2025 Handmade Mom. Alle Rechte vorbehalten. <br />
+        Website erstellt von Handmade Mom für den deutschen Markt.
+      </div>
+    </footer>
 
-  <div class="footer-copy">
-    © 2025 Handmade Mom. Alle Rechte vorbehalten.  
-    <br>
-    Website erstellt von Handmade Mom für den deutschen Markt.
-  </div>
-</footer>
-
-<style>
-  footer {
-    background-color: #000;       /* schwarz */
-    padding: 20px 0;
-    color: #fff;                  /* weißer Text */
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .footer-links {
-    margin-bottom: 10px;
-  }
-
-  .footer-links a {
-    color: #fff;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    opacity: 0.8; /* etwas dezenter */
-  }
-</style>
-</body>
+    <script src="../../js/tricouri.js"></script>
+  </body>
 </html>

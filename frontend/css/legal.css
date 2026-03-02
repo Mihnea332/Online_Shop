@@ -34,7 +34,7 @@ header {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .btn-lang img {
@@ -68,7 +68,7 @@ header {
 }
 
 .font-pacifico {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
 }
 
 .legal-content {
@@ -130,4 +130,10 @@ footer {
 .footer-copy {
   font-size: 12px;
   opacity: 0.8;
+}
+.flag-icon {
+  width: 24px;
+  height: 16px;
+  border: 1px solid #fff;
+  border-radius: 2px;
 }
