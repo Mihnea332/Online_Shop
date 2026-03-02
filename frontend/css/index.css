@@ -40,13 +40,16 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.flag-icon {
-  width: 24px; 
-  height: 16px; 
-  border: 1px solid #fff; 
-  border-radius: 2px;
+.flag-icon, .flag-img, .flag {
+    width: 24px;               /* Lățime fixă */
+    height: 24px;              /* Înălțime fixă pentru a fi pătrat */
+    object-fit: cover;         /* Taie imaginea fără să o deformeze */
+    border-radius: 50%;        /* Transformă steagul într-un cerc */
+    vertical-align: middle;    /* Aliniază steagul la mijlocul rândului de text */
+    margin-right: 8px;         /* Spațiu între steag și text */
+    border: 1px solid #ddd;    /* O bordură fină (opțional) */
+    display: inline-block;     /* Se asigură că se comportă ca un element de text */
 }
-
 /* --- Meniu --- */
 .meniu {
   display: flex;
