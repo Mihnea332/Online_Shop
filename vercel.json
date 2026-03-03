@@ -1,8 +1,17 @@
 {
+  "version": 2,
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/backend/src/index.js"
+    },
+    {
+      "source": "/",
+      "destination": "/frontend/html/Romana/index.html"
+    },
+    {
+      "source": "/de",
+      "destination": "/frontend/html/Deutsch/index_de.html"
     },
     {
       "source": "/Deutsch/(.*)",
