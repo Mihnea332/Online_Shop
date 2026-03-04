@@ -59,7 +59,13 @@
           data-gallery="tricouri" />
       </div>
 <div id="price">
-    <p>Preț: <span id="pret-produs">150.50 RON</span></p>
+   <p id="product-name">Invitatie</p>
+    <select name="products" id="products">
+      <option value="" disabled selected>Alege un produs...</option>
+      <option value="negru">Tricou negru</option>
+      <option value="alb">Tricou alb</option>
+    </select>
+    <p id="display-price">Pret: <span>0</span>€
     </div>
     <button id="priceButton"">Adauga in cos</button>
       <div id="lightbox" class="lightbox">
@@ -100,7 +106,7 @@
         Website realizat de Handmade Mom pentru piața germană.
       </div>
     </footer>
-
+<script type="module" src="/frontend/js/add-to-cart-button.js"></script>
     <script src="/frontend/js/tricouri.js"></script>
   </body>
 </html>

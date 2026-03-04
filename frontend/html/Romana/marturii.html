@@ -54,9 +54,16 @@
         id="main-img" />
     </div>
 <div id="price">
-    <p>Preț: <span id="pret-produs">3 €</span></p>
+   <p id="product-name">Marturii</p>
+  <select name="products" id="products">
+    <option value="" disabled selected>Alege un produs...</option>
+<option value="marturii">Marturii botez/nunta</option>
+<option value="plicuri">Plicuri</option>
+  </select>
+  <p id="display-price">Pret: <span>0</span>€
+</p>
 
-    <p id="disclaimer"> !!! La peste 30 de bucati in cos pretul va fi 2,5 €/buc. !!!</p>
+    <p id="disclaimer"> !!! La marturii, la peste 30 de bucati in cos pretul va fi 2,5 €/buc. !!!</p>
     
     <button id="priceButton"">Adauga in cos</button>
     
@@ -103,7 +110,7 @@
         Website realizat de Handmade Mom pentru piața germană.
       </div>
     </footer>
-
+<script type="module" src="/frontend/js/add-to-cart-button.js"></script>
     <script src="/frontend/js/marturii.js"></script>
   </body>
 </html>

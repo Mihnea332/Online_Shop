@@ -51,3 +51,20 @@ window.addEventListener('click', (e) => {
         lightbox.style.display = 'none';
     }
 });
+const listaPreturi={
+    licheni:55,
+    cani:55,
+    sampanie:65,
+    jack:85,
+    mesaj:100
+}
+const selectProduse=document.getElementById('products')
+const pretAfisat=document.querySelector('#display-price span')
+selectProduse.addEventListener('change', function() {
+  const valoareSelectata = this.value; 
+  const pretNou = listaPreturi[valoareSelectata];
+
+  if (pretNou) {
+    pretAfisat.textContent = pretNou; 
+  }
+});

@@ -51,3 +51,17 @@ window.addEventListener('click', (e) => {
         lightbox.style.display = 'none';
     }
 });
+const listaPreturi={
+   negru:15,
+   alb:11
+}
+const selectProduse=document.getElementById('products')
+const pretAfisat=document.querySelector('#display-price span')
+selectProduse.addEventListener('change', function() {
+  const valoareSelectata = this.value; 
+  const pretNou = listaPreturi[valoareSelectata];
+
+  if (pretNou) {
+    pretAfisat.textContent = pretNou; 
+  }
+});
