@@ -17,55 +17,98 @@ header {
 }
 
 .language-switcher {
-  position: absolute; top: 20px; right: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .btn-lang {
-  display: flex; align-items: center; gap: 8px; 
-  background-color: #ff69b4; color: white; padding: 8px 12px; 
-  border-radius: 5px; text-decoration: none; font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff69b4;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .meniu {
-  display: flex; justify-content: center; background-color: #ffb6c1;
-  padding: 10px 20px; gap: 15px; flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  background-color: #ffb6c1;
+  padding: 10px 20px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .meniu a {
-  text-decoration: none; color: #000; font-weight: bold;
-  padding: 8px 12px; border-radius: 5px; background-color: white;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: white;
 }
 
-.font-pacifico { font-family: 'Pacifico', cursive; }
-.descriere-contact { text-align: center; padding: 40px; }
+.font-pacifico {
+  font-family: "Pacifico", cursive;
+}
+.descriere-contact {
+  text-align: center;
+  padding: 40px;
+}
 
 .formular-contact {
-  max-width: 500px; margin: 0 auto 60px; background-color: #fff;
-  padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(255,105,180,0.3);
+  max-width: 500px;
+  margin: 0 auto 60px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
 }
 
-.formular-contact input, .formular-contact textarea {
-  width: 100%; padding: 10px; margin-bottom: 15px;
-  border: 2px solid #ffb6c1; border-radius: 5px; box-sizing: border-box;
+.formular-contact input,
+.formular-contact textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #ffb6c1;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .formular-contact button {
-  background-color: #ff69b4; color: white; border: none;
-  padding: 10px 20px; border-radius: 5px; cursor: pointer;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 footer {
-  background-color: #000; padding: 20px 0; color: #fff; text-align: center;
+  background-color: #333;
+  padding: 20px 0;
+  color: #fff;
+  text-align: center;
 }
 
-.footer-links a { color: #fff; margin: 0 15px; text-decoration: none; }
-.flag-icon, .flag-img, .flag {
-    width: 24px;               /* Lățime fixă */
-    height: 24px;              /* Înălțime fixă pentru a fi pătrat */
-    object-fit: cover;         /* Taie imaginea fără să o deformeze */
-    border-radius: 50%;        /* Transformă steagul într-un cerc */
-    vertical-align: middle;    /* Aliniază steagul la mijlocul rândului de text */
-    margin-right: 8px;         /* Spațiu între steag și text */
-    border: 1px solid #ddd;    /* O bordură fină (opțional) */
-    display: inline-block;     /* Se asigură că se comportă ca un element de text */
+.footer-links a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+}
+.flag-icon,
+.flag-img,
+.flag {
+  width: 24px; /* Lățime fixă */
+  height: 24px; /* Înălțime fixă pentru a fi pătrat */
+  object-fit: cover; /* Taie imaginea fără să o deformeze */
+  border-radius: 50%; /* Transformă steagul într-un cerc */
+  vertical-align: middle; /* Aliniază steagul la mijlocul rândului de text */
+  margin-right: 8px; /* Spațiu între steag și text */
+  border: 1px solid #ddd; /* O bordură fină (opțional) */
+  display: inline-block; /* Se asigură că se comportă ca un element de text */
 }

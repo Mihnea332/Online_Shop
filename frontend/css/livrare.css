@@ -34,18 +34,20 @@ header {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.flag-icon, .flag-img, .flag {
-    width: 24px;               /* Lățime fixă */
-    height: 24px;              /* Înălțime fixă pentru a fi pătrat */
-    object-fit: cover;         /* Taie imaginea fără să o deformeze */
-    border-radius: 50%;        /* Transformă steagul într-un cerc */
-    vertical-align: middle;    /* Aliniază steagul la mijlocul rândului de text */
-    margin-right: 8px;         /* Spațiu între steag și text */
-    border: 1px solid #ddd;    /* O bordură fină (opțional) */
-    display: inline-block;     /* Se asigură că se comportă ca un element de text */
+.flag-icon,
+.flag-img,
+.flag {
+  width: 24px; /* Lățime fixă */
+  height: 24px; /* Înălțime fixă pentru a fi pătrat */
+  object-fit: cover; /* Taie imaginea fără să o deformeze */
+  border-radius: 50%; /* Transformă steagul într-un cerc */
+  vertical-align: middle; /* Aliniază steagul la mijlocul rândului de text */
+  margin-right: 8px; /* Spațiu între steag și text */
+  border: 1px solid #ddd; /* O bordură fină (opțional) */
+  display: inline-block; /* Se asigură că se comportă ca un element de text */
 }
 
 .meniu {
@@ -72,10 +74,11 @@ header {
 }
 
 .font-pacifico {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
 }
 
-.descriere-livrare, .politica-retur {
+.descriere-livrare,
+.politica-retur {
   text-align: center;
   padding: 40px;
 }
@@ -89,18 +92,25 @@ header {
   font-size: 1.2em;
 }
 
-.mt-20 { margin-top: 20px; }
-.mt-30 { margin-top: 30px; }
-.italic { font-style: italic; }
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+.italic {
+  font-style: italic;
+}
 
-.lista-beneficii, .lista-retur {
+.lista-beneficii,
+.lista-retur {
   list-style: none;
   padding: 0;
   line-height: 1.8;
 }
 
 footer {
-  background-color: #000;
+  background-color: #333;
   padding: 20px 0;
   color: #fff;
   font-size: 14px;

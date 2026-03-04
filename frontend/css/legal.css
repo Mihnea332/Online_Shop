@@ -105,7 +105,7 @@ header {
 }
 
 footer {
-  background-color: #000;
+  background-color: #333;
   padding: 20px 0;
   color: #fff;
   font-size: 14px;
@@ -131,13 +131,15 @@ footer {
   font-size: 12px;
   opacity: 0.8;
 }
-.flag-icon, .flag-img, .flag {
-    width: 24px;               /* Lățime fixă */
-    height: 24px;              /* Înălțime fixă pentru a fi pătrat */
-    object-fit: cover;         /* Taie imaginea fără să o deformeze */
-    border-radius: 50%;        /* Transformă steagul într-un cerc */
-    vertical-align: middle;    /* Aliniază steagul la mijlocul rândului de text */
-    margin-right: 8px;         /* Spațiu între steag și text */
-    border: 1px solid #ddd;    /* O bordură fină (opțional) */
-    display: inline-block;     /* Se asigură că se comportă ca un element de text */
+.flag-icon,
+.flag-img,
+.flag {
+  width: 24px; /* Lățime fixă */
+  height: 24px; /* Înălțime fixă pentru a fi pătrat */
+  object-fit: cover; /* Taie imaginea fără să o deformeze */
+  border-radius: 50%; /* Transformă steagul într-un cerc */
+  vertical-align: middle; /* Aliniază steagul la mijlocul rândului de text */
+  margin-right: 8px; /* Spațiu între steag și text */
+  border: 1px solid #ddd; /* O bordură fină (opțional) */
+  display: inline-block; /* Se asigură că se comportă ca un element de text */
 }
