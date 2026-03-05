@@ -8,9 +8,11 @@ body {
 
 /* --- Header --- */
 header {
+  width: 100%; /* Forțăm lățimea completă */
   height: 400px;
   overflow: hidden;
   position: relative;
+  margin: 0; /* Eliminăm orice margini accidentale */
 }
 
 .imagine-header {
@@ -54,6 +56,7 @@ header {
 }
 /* --- Meniu --- */
 .meniu {
+  width: 100%;
   display: flex;
   justify-content: center;
   background-color: #ffb6c1;

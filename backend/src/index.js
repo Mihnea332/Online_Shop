@@ -12,10 +12,12 @@ const startServer = async () => {
       console.log("ERROR:", error);
       throw error;
     });
-    const port = process.env.PORT || 5000;
-    app.listen(process.env.port, () => {
-      console.log(`Server is running at port ${port}`);
-    });
+    if (process.env.NODE_ENV !== "production") {
+      const port = process.env.PORT || 5000;
+      app.listen(port, () => {
+        console.log(`Server is running at port ${port}`);
+      });
+    }
   } catch (error) {
     console.log("MONGODB connection failed", err);
   }

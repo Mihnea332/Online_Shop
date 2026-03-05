@@ -24,4 +24,21 @@ const getAllOrders = async (req, res) => {
     });
   }
 };
-export { createOrder, getAllOrders };
+const deleteOrder = async (req, res) => {
+  try {
+    const deleted = await Order.findByIdAndDelete(req.params.id);
+    if (!deleted)
+      return res.status(404).json({
+        message: "Comanda negasita",
+      });
+    res.status(200).json({
+      message: "Comanda a fost stearsa",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal server error",
+      error,
+    });
+  }
+};
+export { createOrder, getAllOrders, deleteOrder };

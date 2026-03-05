@@ -2,14 +2,18 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fff0f5;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
+  width: 100%; /* Forțăm lățimea completă */
   height: 400px;
   overflow: hidden;
   position: relative;
+  margin: 0; /* Eliminăm orice margini accidentale */
 }
-
 .imagine-header {
   width: 100%;
   height: 100%;
@@ -70,7 +74,7 @@ header {
 }
 
 .formular-contact input,
-.formular-contact textarea {
+formDescription .formular-contact textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -88,13 +92,12 @@ header {
   cursor: pointer;
 }
 
-
 footer {
-  width: 100%; /* Se întinde pe tot ecranul */
-  background-color: #333; /* O culoare închisă ca să vezi că se întinde */
+  background-color: #333;
   color: white;
+  padding: 20px;
   text-align: center;
-  padding: 20px 0; /* Spațiu sus-jos în interiorul footer-ului */
+  margin-top: auto;
 }
 .footer-links {
   margin-bottom: 10px;
@@ -151,7 +154,7 @@ footer {
 .cart-table th {
   padding: 15px;
   text-align: left;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 1.3rem;
   color: #000;
 }
@@ -197,6 +200,20 @@ footer {
   font-weight: bold;
   transition: all 0.2s ease;
 }
+.btn-add {
+  background-color: #ff69b4;
+  color: white;
+  border: 1px solid #000;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
 
 .btn-remove:hover {
   background-color: #ff1493;
@@ -208,4 +225,45 @@ footer {
   .table-wrapper {
     overflow-x: auto; /* Permite glisarea tabelului pe telefon */
   }
+}
+.cart-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.content {
+  flex: 1;
+}
+.order-form {
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
+  font-weight: bold;
+  border: solid;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.submitButton {
+  height: 35px;
+  width: 150px;
+  background-color: #ffb6c1;
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.submitButton:hover {
+  background-color: #f1b6c1;
+  transform: scale(1.2);
+}
+#description {
+  width: 100%;
+  min-height: 150px;
 }

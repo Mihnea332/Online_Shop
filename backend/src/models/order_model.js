@@ -8,13 +8,16 @@ const orderSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      requred: true,
+      required: true,
       trim: true,
     },
-    items: {
-      type: Array,
-      requred: true,
-    },
+    items: [
+      {
+        nume: { type: String, required: true },
+        pret: { type: Number, required: true },
+        cantitate: { type: Number, default: 1 },
+      },
+    ],
     totalPrice: {
       type: Number,
       required: true,
@@ -23,6 +26,35 @@ const orderSchema = new Schema(
       type: String,
       enum: ["Noua", "In curs", "Finalizata"],
       default: "Noua",
+    },
+    country: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    address: {
+      street: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      block: {
+        type: String,
+        trim: true,
+      },
+      number: {
+        type: Number,
+        required: true,
+      },
+    },
+    description: {
+      type: String,
+      required: true,
     },
   },
   {

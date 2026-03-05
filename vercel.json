@@ -20,6 +20,10 @@
     {
       "source": "/Romana/(.*)",
       "destination": "/frontend/html/Romana/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/frontend/$1"
     }
   ]
 }

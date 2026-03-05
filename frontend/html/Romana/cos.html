@@ -9,20 +9,32 @@
   </head>
   <body>
     <header>
+      <main class="content">
       <a href="index.html">
         <img src="/Resources/logo.jpg" alt="Handmade Mom" class="imagine-header" />
       </a>
       <div class="language-switcher">
-        <a href="../Deutsch/index_de.html" class="btn-lang">
+        <a href="../Romana/cos.html" class="btn-lang">
           <img src="/Resources/de.png" alt="Deutsch" class="flag-icon" />
-          Deutsch
+        
         </a>
       </div>
     </header>
-
+   <nav class="meniu">
+      <a href="/frontend/html/Romana/seturi_mot.html">SETURI DE MOT</a>
+      <a href="/frontend/html/Romana/marturii.html">MARTURII BOTEZ/NUNTA</a>
+      <a href="/frontend/html/Romana/pahare.html">PAHARE PERSONALIZATE</a>
+      <a href="/frontend/html/Romana/seturi_cadou.html">SETURI CADOU</a>
+      <a href="/frontend/html/Romana/tricouri.html">TRICOURI PERSONALIZATE</a>
+      <a href="/frontend/html/Romana/invitatii.html">INVITATII</a>
+      <a href="/frontend/html/Romana/trusouri.html">TRUSOURI BOTEZ</a>
+      <a href="/frontend/html/Romana/preturi.html">PRETURI</a>
+      <a href="/frontend/html/Romana/contact.html">CONTACT</a>
+      <a href="/frontend/html/Romana/livrare.html">INFO LIVRARE 🚚</a>
+    </nav>
 
     <div class="cos-container">
-        <h1 class="titlu-sectiune font-pacifico">Coșul tău</h1>
+        <h1 class="titlu-sectiune font-pacifico" style="text-align: center;">Coșul tău</h1>
         
         <div class="table-wrapper">
             <table class="cart-table">
@@ -46,12 +58,30 @@
               </tfoot>
             </table>
         </div>
-
-        <div class="cart-summary">
-            <button class="btn-comanda font-pacifico" id="btn-trimite-comanda">Finalizează prin Email</button>
-        </div>
+         
     </div>
+    <form class="order-form">
+      <label for="name">Nume: </label>
+      <input type="text" id="customerName" name="name" required>
+      <label for="name">Numar de telefon: </label>
+      <input type="text" id="phoneNumber" name="name" required>
+      <label for="name">Tara: </label>
+      <input type="text" id="country" name="name" required>
+      <label for="name">Oras: </label>
+      <input type="text" id="city" name="name" required>
+      <label for="name">Strada: </label>
+      <input type="text" id="street" name="name" required>
+      <label for="name">Bloc: </label>
+      <input type="text" id="block" name="name">
+      <label for="name">Numar: </label>
+      <input type="text" id="number" name="name" required>
+      <label for="name" >Descriere: </label>
+      <textarea name="description" id="description" required placeholder="Introduceți aici toate detaliile necesare pentru personalizarea comenzii dumneavoastră."></textarea>
+      <input type="reset" class="submitButton">
+      <input type="submit" class="submitButton" onclick=>
+    </form>
 
+</main>
   <footer>
       <div class="footer-links">
         <a href="legal.html">LEGAL</a>
@@ -64,7 +94,7 @@
     </footer>
 
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+   
     <script src="/frontend/js/cos.js"></script>
   </body>
 </html>

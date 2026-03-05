@@ -11,9 +11,11 @@ body {
 }
 
 header {
+  width: 100%; /* Forțăm lățimea completă */
   height: 400px;
   overflow: hidden;
   position: relative;
+  margin: 0; /* Eliminăm orice margini accidentale */
 }
 
 .imagine-header {
@@ -56,6 +58,7 @@ header {
 }
 
 .meniu {
+  width: 100%;
   display: flex;
   justify-content: center;
   background-color: #ffb6c1;
@@ -217,13 +220,13 @@ footer {
   width: 100%;
   padding: 12px 20px;
   font-size: 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   background-color: #fff;
   border: 2px solid #000; /* Border negru ca la buton */
-  border-radius: 15px;    /* Rotunjit ca butonul tau */
+  border-radius: 15px; /* Rotunjit ca butonul tau */
   cursor: pointer;
-  appearance: none;       /* Scoatem sageata default a browserului */
+  appearance: none; /* Scoatem sageata default a browserului */
   transition: all 0.3s ease;
   outline: none;
 }

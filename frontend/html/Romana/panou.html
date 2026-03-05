@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panou Administrare - Comenzi</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Arial:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --roz-pal: #ffb6c1;
+        --roz-accent: #ff69b4;
+        --fundal: #fff0f5;
+        --text-inchis: #333;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: var(--fundal);
+        margin: 0;
+        padding: 20px;
+      }
+
+      .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 20px 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+
+      .font-pacifico {
+        font-family: "Pacifico", cursive;
+        color: var(--text-inchis);
+      }
+
+      .btn-logout {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      /* Tabelul de comenzi */
+      .table-wrapper {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      thead {
+        background-color: var(--roz-pal);
+      }
+
+      th,
+      td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      .status-Noua {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .status-In-curs {
+        background: #cce5ff;
+        color: #004085;
+      }
+      .status-Finalizata {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .actions button {
+        background: var(--roz-accent);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .details-row {
+        background-color: #fafafa;
+        font-size: 0.9rem;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-container">
+      <header>
+        <h1 class="font-pacifico">Panou Comenzi</h1>
+        <div>
+          <span id="admin-greeting">Salut, Admin!</span>
+          <button class="btn-logout" onclick="logout()">Ieșire</button>
+        </div>
+      </header>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Oraș</th>
+              <th>Total</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody id="orders-body">
+            <tr>
+              <td colspan="6" style="text-align: center">
+                Se încarcă comenzile...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // 1. Verificăm securitatea la intrare
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        window.location.href = "login.html";
+      }
+
+      // 2. Funcția de Logout
+      function logout() {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminName");
+        window.location.href = "login.html";
+      }
+
+      // 3. Încărcăm comenzile din Backend
+      async function fetchOrders() {
+        try {
+          const response = await fetch("/api/orders", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) throw new Error("Token invalid sau expirat");
+
+          const orders = await response.json();
+          renderOrders(orders);
+        } catch (error) {
+          console.error(error);
+          logout(); // Dacă e eroare de token, îl dăm afară
+        }
+      }
+
+      function renderOrders(orders) {
+        const tbody = document.getElementById("orders-body");
+        if (orders.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="6" style="text-align:center;">Nicio comandă găsită.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = orders
+          .map(
+            (order) => `
+            <tr>
+                <td><strong>${order.customerName}</strong><br><small>${order.phoneNumber}</small></td>
+                <td>${order.city}</td>
+                <td>${order.totalPrice} €</td>
+                <td>${new Date(order.createdAt).toLocaleDateString("ro-RO")}</td>
+                <td><span class="status-badge status-${order.status.replace(" ", "-")}">${order.status}</span></td>
+                <td class="actions">
+                    <button onclick="toggleDetails('${order._id}')">Detalii</button>
+                    <button onclick="stergereComanda('${order._id}')">Stergere</button>
+                </td>
+            </tr>
+            <tr id="details-${order._id}" class="details-row" style="display:none;">
+                <td colspan="6">
+                    <strong>Produse:</strong> ${order.items.map((i) => `${i.nume} (x${i.cantitate})`).join(", ")} <br>
+                    <strong>Adresă:</strong> ${order.address.street}, Nr. ${order.address.number} ${order.address.block ? ", Bloc " + order.address.block : ""} <br>
+                    <strong>Notă:</strong> ${order.description || "Fără note"}
+                </td>
+            </tr>
+        `,
+          )
+          .join("");
+      }
+
+      function toggleDetails(id) {
+        const el = document.getElementById(`details-${id}`);
+        el.style.display = el.style.display === "none" ? "table-row" : "none";
+      }
+
+      fetchOrders();
+      window.stergereComanda = async function (id) {
+        if (!confirm("Sigur vrei sa stergi comanda?")) return;
+        try {
+          const raspuns = await fetch(`/api/orders/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const date = await raspuns.json();
+          if (raspuns.ok) {
+            alert("Comanda a fost stearsa");
+            fetchOrders();
+          } else alert("Eroare la stergere" + date.message);
+        } catch (error) {
+          console.error("Eroare", error);
+        }
+      };
+    </script>
+  </body>
+</html>
