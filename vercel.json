@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/src/app.js",
+      "src": "backend/src/index.js",
       "use": "@vercel/node"
     },
     {
@@ -11,7 +11,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "backend/src/app.js" },
+    { "source": "/api/(.*)", "destination": "backend/src/index.js" },
     { "source": "/", "destination": "frontend/html/Romana/index.html" },
     { "source": "/de", "destination": "frontend/html/Deutsch/index_de.html" },
     { "source": "/(logo.jpg|de.png)", "destination": "frontend/$1" },
