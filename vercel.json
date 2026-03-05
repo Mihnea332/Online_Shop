@@ -1,29 +1,31 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "backend/src/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/backend/src/index.js"
+      "destination": "backend/src/index.js"
     },
     {
       "source": "/",
-      "destination": "/frontend/html/Romana/index.html"
+      "destination": "frontend/html/Romana/index.html"
     },
     {
       "source": "/de",
-      "destination": "/frontend/html/Deutsch/index_de.html"
-    },
-    {
-      "source": "/Deutsch/(.*)",
-      "destination": "/frontend/html/Deutsch/$1"
-    },
-    {
-      "source": "/Romana/(.*)",
-      "destination": "/frontend/html/Romana/$1"
+      "destination": "frontend/html/Deutsch/index_de.html"
     },
     {
       "source": "/((?!api/).*)",
-      "destination": "/frontend/$1"
+      "destination": "frontend/$1"
     }
   ]
 }
