@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fff0f5;
   margin: 0;
+  overflow-x: hidden;
 }
 header {
   width: 100%; /* Forțăm lățimea completă */
