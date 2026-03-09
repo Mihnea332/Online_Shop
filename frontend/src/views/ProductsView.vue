@@ -1,142 +1,398 @@
 <template>
   <div class="products-page">
-    <div class="text">
-      <h2>Produsele noastre!</h2>
-    </div>
     <div class="search-box">
       <input
+        class="text-box"
         type="text"
         v-model="searchQuery"
         placeholder="Cauta un produs..." />
     </div>
+
     <div v-if="filteredProducts.length > 0" class="productsGrid">
       <div
         v-for="product in filteredProducts"
         :key="product.id"
         class="product-card">
-        <img :src="product.image" :alt="product.name" />
-        <h3>{{ product.name }}</h3>
-        <p class="price">{{ product.price }} €</p>
+        <img
+          :src="product.images[0]"
+          :alt="product.name"
+          @click="openGallery(product)"
+          class="clickable-img" />
+
+        <h3>{{ product.variants[product.selectedVariantIndex].name }}</h3>
+        <p class="price">
+          {{ product.variants[product.selectedVariantIndex].price }} €
+        </p>
+
+        <select
+          v-if="product.variants.length > 1"
+          v-model="product.selectedVariantIndex"
+          class="variant-select">
+          <option
+            v-for="(v, index) in product.variants"
+            :key="index"
+            :value="index">
+            {{ v.name }} - {{ v.price }}€
+          </option>
+        </select>
+
         <button @click="addToCart(product)" class="btnAdd">
           Adauga in cos
         </button>
       </div>
     </div>
-    <div v-else class="no-result">
-      <p>Nu am gasit niciun produs care sa contina {{ searchQuery }}</p>
+
+    <div
+      v-if="isModalOpen"
+      class="modal-overlay"
+      @click.self="isModalOpen = false">
+      <div class="modal-content">
+        <button class="close-btn" @click="isModalOpen = false">&times;</button>
+        <button class="nav-arrow left" @click="prevImage">&#10094;</button>
+        <img
+          :src="selectedProduct.images[currentImageIndex]"
+          class="modal-img" />
+        <button class="nav-arrow right" @click="nextImage">&#10095;</button>
+        <div class="counter">
+          {{ currentImageIndex + 1 }} / {{ selectedProduct.images.length }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, computed } from "vue";
+
+const isModalOpen = ref(false);
+const selectedProduct = ref(null);
+const currentImageIndex = ref(0);
+const searchQuery = ref("");
+
 const products = ref([
   {
     id: 1,
-    name: "Invitatie nunta",
-    price: 12,
-    image: "/Invitatii/invitatii0.jpg",
+    name: "Invitatii",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Invitatie nunta", price: 12 },
+
+      { name: "Invitație botez", price: 12 },
+      { name: "Invitație aniversare", price: 12 },
+    ],
+    images: [
+      "/Invitatii/invitatii0.jpg",
+      "/Invitatii/invitatii1.jpg",
+      "/Invitatii/invitatii2.jpg",
+      "/Invitatii/invitatii3.jpg",
+      "/Invitatii/invitatii4.jpg",
+      "/Invitatii/invitatii5.jpg",
+      "/Invitatii/invitatii6.jpg",
+    ],
   },
   {
     id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    name: "Tricou/Fusta",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Tricou Personalizat", price: 11 },
+      { name: "Fustita", price: 20 },
+    ],
+    images: [
+      "/Tricouri/tricouri0.jpg",
+      "/Tricouri/tricouri1.jpg",
+      "/Tricouri/tricouri2.jpg",
+      "/Tricouri/tricouri3.jpg",
+      "/Tricouri/tricouri4.jpg",
+      "/Tricouri/tricouri5.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 3,
+    name: "Set mot",
+    selectedVariantIndex: 0,
+    variants: [{ name: "Set mot", price: 11 }],
+    images: [
+      "/Seturi mot/set_mot0.jpg",
+      "/Seturi mot/set_mot1.jpg",
+      "/Seturi mot/set_mot2.jpg",
+      "/Seturi mot/set_mot3.jpg",
+      "/Seturi mot/set_mot4.jpg",
+      "/Seturi mot/set_mot5.jpg",
+      "/Seturi mot/set_mot6.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 4,
+    name: "Pahare",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Pahar nunta", price: 11 },
+      { name: "Pahar botez", price: 11 },
+    ],
+    images: [
+      "/Pahare/pahare0.jpg",
+      "/Pahare/pahare1.jpg",
+      "/Pahare/pahare2.jpg",
+      "/Pahare/pahare3.jpg",
+      "/Pahare/pahare4.jpg",
+      "/Pahare/pahare5.jpg",
+      "/Pahare/pahare6.jpg",
+      "/Pahare/pahare7.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 5,
+    name: "Trusou",
+    selectedVariantIndex: 0,
+    variants: [{ name: "Trusou", price: 11 }],
+    images: [
+      "/Trusouri/trusouri0.jpg",
+      "/Trusouri/trusouri1.jpg",
+      "/Trusouri/trusouri2.jpg",
+      "/Trusouri/trusouri3.jpg",
+      "/Trusouri/trusouri4.jpg",
+      "/Trusouri/trusouri5.jpg",
+      "/Trusouri/trusouri6.jpg",
+      "/Trusouri/trusouri7.jpg",
+      "/Trusouri/trusouri8.jpg",
+      "/Trusouri/trusouri9.jpg",
+      "/Trusouri/trusouri10.jpg",
+      "/Trusouri/trusouri11.jpg",
+      "/Trusouri/trusouri12.jpg",
+      "/Trusouri/trusouri13.jpg",
+      "/Trusouri/trusouri14.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 6,
+    name: "Marturii",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Marturie magnet", price: 11 },
+      { name: "Marturie sapun", price: 11 },
+      { name: "Marturie bombonele", price: 11 },
+      { name: "Marturie miere", price: 11 },
+      { name: "Marturie Nutella", price: 11 },
+      { name: "Marturie rasina", price: 11 },
+      { name: "Marturie lumanare", price: 11 },
+    ],
+    images: [
+      "/Marturii/marturii0.jpg",
+      "/Marturii/marturii1.jpg",
+      "/Marturii/marturii2.jpg",
+      "/Marturii/marturii3.jpg",
+      "/Marturii/marturii4.jpg",
+      "/Marturii/marturii5.jpg",
+      "/Marturii/marturii6.jpg",
+      "/Marturii/marturii7.jpg",
+      "/Marturii/marturii8.jpg",
+      "/Marturii/marturii9.jpg",
+      "/Marturii/marturii10.jpg",
+      "/Marturii/marturii11.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 7,
+    name: "Seturi cadou",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Set cani", price: 11 },
+      { name: "Set Sharidan's, pahare", price: 11 },
+      { name: "Set Jack, Sharidan's,pahare", price: 11 },
+      { name: "Set licheni, Jack, plexiglas", price: 11 },
+      { name: "Set Jack, pahare si tricou", price: 11 },
+      { name: "Set rama foto, papucei, licheni", price: 11 },
+      { name: "Marturie lumanare", price: 11 },
+    ],
+    images: [
+      "/Seturi/seturi0.jpg",
+      "/Seturi/seturi2.jpg",
+      "/Seturi/seturi3.jpg",
+      "/Seturi/seturi1.jpg",
+      "/Seturi/seturi4.jpg",
+      "/Seturi/seturi5.jpg",
+      "/Seturi/seturi6.jpg",
+      "/Seturi/seturi7.jpg",
+      "/Seturi/seturi8.jpg",
+      "/Seturi/seturi9.jpg",
+      "/Seturi/seturi10.jpg",
+      "/Seturi/seturi11.jpg",
+      "/Seturi/seturi12.jpg",
+      "/Seturi/seturi13.jpg",
+      "/Seturi/seturi14.jpg",
+      "/Seturi/seturi15.jpg",
+      "/Seturi/seturi16.jpg",
+    ],
   },
   {
-    id: 2,
-    name: "Marturie",
-    price: 7,
-    image: "/Marturii botez/marturii_botez0.jpg",
+    id: 8,
+    name: "Lumanari",
+    selectedVariantIndex: 0,
+    variants: [
+      { name: "Lumanare nunta", price: 12 },
+
+      { name: "Lumanare Botez", price: 12 },
+    ],
+    images: [
+      "/Lumanari/lumanari0.jpg",
+      "/Lumanari/lumanari1.jpg",
+      "/Lumanari/lumanari2.jpg",
+      "/Lumanari/lumanari3.jpg",
+      "/Lumanari/lumanari4.jpg",
+      "/Lumanari/lumanari5.jpg",
+      "/Lumanari/lumanari6.jpg",
+      "/Lumanari/lumanari7.jpg",
+      "/Lumanari/lumanari8.jpg",
+      "/Lumanari/lumanari9.jpg",
+      "/Lumanari/lumanari10.jpg",
+      "/Lumanari/lumanari11.jpg",
+    ],
   },
 ]);
-const searchQuery = ref("");
+
+const openGallery = (product) => {
+  selectedProduct.value = product;
+  currentImageIndex.value = 0;
+  isModalOpen.value = true;
+};
+
+const nextImage = () => {
+  if (currentImageIndex.value < selectedProduct.value.images.length - 1) {
+    currentImageIndex.value++;
+  } else {
+    currentImageIndex.value = 0; // REPARAT: Adaugat .value
+  }
+};
+
+const prevImage = () => {
+  if (currentImageIndex.value > 0) {
+    currentImageIndex.value--;
+  } else {
+    currentImageIndex.value = selectedProduct.value.images.length - 1;
+  }
+};
+
 const filteredProducts = computed(() => {
   return products.value.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
   );
 });
+
 const addToCart = (product) => {
-  alert(`Ai adaugat in cos ${product.name}`);
+  const selected = product.variants[product.selectedVariantIndex];
+  alert(`Ai adaugat in cos: ${selected.name} (${selected.price} €)`);
 };
 </script>
+
 <style scoped>
-.productsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 20px;
-  border: solid red;
-  border-radius: 20px;
-  padding: 10px;
-}
-.product-card {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 2px solid red;
-  border-radius: 10px;
-  padding-bottom: 10px;
-}
-.product-card img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
+.text-box {
+  width: 30%;
+  padding: 12px 45px; /* Spațiu pentru lupă în stânga și X în dreapta */
+  font-size: 1rem;
+  border: 2px solid #ffb6c1; /* Rozul tău specific */
+  border-radius: 50px; /* Formă de pastilă */
+  outline: none;
+  background-color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(255, 182, 193, 0.1);
 }
 .search-box {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding-bottom: 50px;
+  align-items: center;
+  padding-top: 10px;
 }
-.search-box input {
+.variant-select {
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ffb6c1;
+  width: 80%;
+  cursor: pointer;
+}
+
+.productsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
   border-radius: 10px;
-  width: 200px;
-  height: 30px;
+  padding: 15px;
+  width: 250px;
+}
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.price {
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
 }
 .btnAdd {
-  background-color: #333;
-  border-radius: 10px;
+  background: #333;
   color: pink;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 .btnAdd:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
-.text {
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
+  align-items: center;
   justify-content: center;
-  font-weight: bold;
+  z-index: 1000;
+}
+.modal-content {
+  position: relative;
+}
+.modal-img {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.left {
+  left: -50px;
+}
+.right {
+  right: -50px;
+}
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
 }
 </style>
