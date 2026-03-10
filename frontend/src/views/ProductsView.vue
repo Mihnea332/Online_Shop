@@ -63,7 +63,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
-
+import { useCartStore } from '../stores/cart';
+const cartStore=useCartStore();
 const isModalOpen = ref(false);
 const selectedProduct = ref(null);
 const currentImageIndex = ref(0);
@@ -280,8 +281,8 @@ const filteredProducts = computed(() => {
 });
 
 const addToCart = (product) => {
-  const selected = product.variants[product.selectedVariantIndex];
-  alert(`Ai adaugat in cos: ${selected.name} (${selected.price} €)`);
+cartStore.addToCart(product,product.selectedVariantIndex)
+  alert(`Ai adaugat in cos: ${product.variants[product.selectedVariantIndex].name}`);
 };
 </script>
 
