@@ -63,8 +63,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { useCartStore } from '../stores/cart';
-const cartStore=useCartStore();
+import { useCartStore } from "../stores/cart";
+const cartStore = useCartStore();
 const isModalOpen = ref(false);
 const selectedProduct = ref(null);
 const currentImageIndex = ref(0);
@@ -281,8 +281,10 @@ const filteredProducts = computed(() => {
 });
 
 const addToCart = (product) => {
-cartStore.addToCart(product,product.selectedVariantIndex)
-  alert(`Ai adaugat in cos: ${product.variants[product.selectedVariantIndex].name}`);
+  cartStore.addToCart(product, product.selectedVariantIndex);
+  alert(
+    `Ai adaugat in cos: ${product.variants[product.selectedVariantIndex].name}`,
+  );
 };
 </script>
 
@@ -321,6 +323,7 @@ cartStore.addToCart(product,product.selectedVariantIndex)
   padding: 20px;
 }
 .product-card {
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -334,6 +337,7 @@ cartStore.addToCart(product,product.selectedVariantIndex)
   height: 250px;
   object-fit: cover;
   border-radius: 5px;
+  cursor: pointer;
 }
 .price {
   font-weight: bold;

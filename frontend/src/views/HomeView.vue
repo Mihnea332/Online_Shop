@@ -82,7 +82,7 @@ import Footer from "./Header.vue";
   border-radius: 20px;
   flex: 1;
   padding-left: 20px;
-  background-color: pink;
+  background-color: white;
   width: 50vw;
   text-align: center;
   border: solid rgb(201, 100, 100);
@@ -93,5 +93,8 @@ import Footer from "./Header.vue";
   align-items: center;
   gap: 40px;
   padding: 40px 20px;
+}
+.sectiune-text {
+  text-decoration: none;
 }
 </style>

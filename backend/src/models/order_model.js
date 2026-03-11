@@ -1,24 +1,26 @@
 import mongoose, { mongo, Schema } from "mongoose";
 const orderSchema = new Schema(
   {
-    customerName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    phoneNumber: {
-      type: String,
-      required: true,
-      trim: true,
+    customer: {
+      customerName: { type: String, required: true, trim: true },
+      phoneNumber: { type: String, required: true, trim: true },
+      country: { type: String, required: true, trim: true },
+      city: { type: String, required: true, trim: true },
+      street: { type: String, required: true, trim: true },
+      block: { type: String, trim: true },
+      number: { type: String, required: true },
+      description: { type: String, required: true },
     },
     items: [
       {
-        nume: { type: String, required: true },
-        pret: { type: Number, required: true },
-        cantitate: { type: Number, default: 1 },
+        id: { type: Number },
+        name: { type: String, required: true },
+        variantName: { type: String },
+        price: { type: Number, required: true },
+        quantity: { type: Number, default: 1 },
       },
     ],
-    totalPrice: {
+    total: {
       type: Number,
       required: true,
     },
@@ -26,35 +28,6 @@ const orderSchema = new Schema(
       type: String,
       enum: ["Noua", "In curs", "Finalizata"],
       default: "Noua",
-    },
-    country: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    city: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    address: {
-      street: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      block: {
-        type: String,
-        trim: true,
-      },
-      number: {
-        type: Number,
-        required: true,
-      },
-    },
-    description: {
-      type: String,
-      required: true,
     },
   },
   {

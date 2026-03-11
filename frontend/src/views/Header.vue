@@ -30,7 +30,7 @@ nav {
   border: 2px solid blue;
   border-radius: 25px;
   font-weight: bold;
-  background-color: transparent;
+  background-color: white;
 }
 .nav-item:hover {
   transform: scale(1.1);
