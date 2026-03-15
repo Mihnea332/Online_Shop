@@ -1,7 +1,8 @@
 <template>
   <div class="cart-page">
-    <h1 class="titlu-principal">Coșul tău!</h1>
-
+    <div class="divCos">
+      <h1 class="titlu-principal">Coșul tău!</h1>
+    </div>
     <div v-if="cartStore.totalItems > 0" class="cart-content-wrapper">
       <div class="cart-container">
         <div class="cart-list">
@@ -48,9 +49,15 @@
           <p class="total">
             Total de plată <span>{{ cartStore.totalPrice }} €</span>
           </p>
-          <router-link to="/checkout" class="btn-checkout"
-            >Finalizează comanda</router-link
-          >
+          <div class="butoane">
+            <router-link to="/checkout" class="btn-checkout"
+              >Finalizează comanda</router-link
+            >
+
+            <button @click="cartStore.emptyCart()" class="btnEmpty">
+              Goleste Cosul
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +75,12 @@ const cartStore = useCartStore();
 <style scoped>
 .bttns {
   display: flex;
+}
+.divCos {
+  display: flex;
+  text-decoration: underline;
+  justify-content: center;
+  font-weight: bold;
 }
 .cart {
   font-size: 25px;
@@ -175,23 +188,33 @@ const cartStore = useCartStore();
   color: #333;
 }
 
-.btn-checkout {
-  width: 100%;
+.btn-checkout,
+.btnEmpty {
+  flex: 1; /* Le face să aibă aceeași lățime */
+  max-width: 48%; /* Previne atingerea lor în centru */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #333;
   color: #ffb6c1;
-  padding: 15px;
+  padding: 15px 5px; /* Padding vertical și orizontal */
   border: none;
   border-radius: 50px;
   font-weight: bold;
+  text-decoration: none; /* Important pentru router-link */
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  font-size: 0.9rem; /* Ajustează mărimea fontului dacă textul e prea lung */
+  text-align: center;
 }
 
-.btn-checkout:hover {
+/* Efect de hover comun */
+.btn-checkout:hover,
+.btnEmpty:hover {
   background-color: #000;
   transform: translateY(-2px);
+  color: white;
 }
-
 .keep-shopping {
   display: block;
   text-align: center;
@@ -216,5 +239,13 @@ const cartStore = useCartStore();
   text-decoration: none;
   border-radius: 50px;
   font-weight: bold;
+}
+.butoane {
+  display: flex;
+  justify-content: space-between; /* Împinge butoanele la capete */
+  align-items: center;
+  gap: 10px; /* Spațiu minim între ele pe ecrane mici */
+  width: 100%;
+  margin-top: 20px;
 }
 </style>

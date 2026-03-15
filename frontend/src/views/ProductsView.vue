@@ -46,15 +46,34 @@
       v-if="isModalOpen"
       class="modal-overlay"
       @click.self="isModalOpen = false">
-      <div class="modal-content">
+      <div class="modal-card">
         <button class="close-btn" @click="isModalOpen = false">&times;</button>
-        <button class="nav-arrow left" @click="prevImage">&#10094;</button>
-        <img
-          :src="selectedProduct.images[currentImageIndex]"
-          class="modal-img" />
-        <button class="nav-arrow right" @click="nextImage">&#10095;</button>
-        <div class="counter">
-          {{ currentImageIndex + 1 }} / {{ selectedProduct.images.length }}
+
+        <div class="modal-gallery">
+          <button class="nav-arrow left" @click="prevImage">&#10094;</button>
+          <img
+            :src="selectedProduct.images[currentImageIndex]"
+            class="modal-img" />
+          <button class="nav-arrow right" @click="nextImage">&#10095;</button>
+
+          <div class="counter">
+            {{ currentImageIndex + 1 }} / {{ selectedProduct.images.length }}
+          </div>
+        </div>
+
+        <div class="modal-details">
+          <h2>{{ selectedProduct.name }}</h2>
+          <p class="description">
+            {{ selectedProduct.description }}
+          </p>
+          <button @click="addToCart(selectedProduct)" class="btnModal">
+            Adaugă în coș -
+            {{
+              selectedProduct.variants[selectedProduct.selectedVariantIndex]
+                .price
+            }}
+            €
+          </button>
         </div>
       </div>
     </div>
@@ -76,10 +95,10 @@ const products = ref([
     name: "Invitatii",
     selectedVariantIndex: 0,
     variants: [
-      { name: "Invitatie nunta", price: 12 },
+      { name: "Invitatie nunta", price: 2 },
 
-      { name: "Invitație botez", price: 12 },
-      { name: "Invitație aniversare", price: 12 },
+      { name: "Invitație botez", price: 2 },
+      { name: "Invitație aniversare", price: 2 },
     ],
     images: [
       "/Invitatii/invitatii0.jpg",
@@ -90,6 +109,7 @@ const products = ref([
       "/Invitatii/invitatii5.jpg",
       "/Invitatii/invitatii6.jpg",
     ],
+    description: "La model de invitatie se pot adauga contracost plicuri.",
   },
   {
     id: 2,
@@ -112,7 +132,7 @@ const products = ref([
     id: 3,
     name: "Set mot",
     selectedVariantIndex: 0,
-    variants: [{ name: "Set mot", price: 11 }],
+    variants: [{ name: "Set mot", price: 60 }],
     images: [
       "/Seturi mot/set_mot0.jpg",
       "/Seturi mot/set_mot1.jpg",
@@ -128,8 +148,8 @@ const products = ref([
     name: "Pahare",
     selectedVariantIndex: 0,
     variants: [
-      { name: "Pahar nunta", price: 11 },
-      { name: "Pahar botez", price: 11 },
+      { name: "Pahar nunta", price: 10 },
+      { name: "Pahar botez", price: 10 },
     ],
     images: [
       "/Pahare/pahare0.jpg",
@@ -146,7 +166,7 @@ const products = ref([
     id: 5,
     name: "Trusou",
     selectedVariantIndex: 0,
-    variants: [{ name: "Trusou", price: 11 }],
+    variants: [{ name: "Trusou", price: 145 }],
     images: [
       "/Trusouri/trusouri0.jpg",
       "/Trusouri/trusouri1.jpg",
@@ -170,13 +190,13 @@ const products = ref([
     name: "Marturii",
     selectedVariantIndex: 0,
     variants: [
-      { name: "Marturie magnet", price: 11 },
-      { name: "Marturie sapun", price: 11 },
-      { name: "Marturie bombonele", price: 11 },
-      { name: "Marturie miere", price: 11 },
-      { name: "Marturie Nutella", price: 11 },
-      { name: "Marturie rasina", price: 11 },
-      { name: "Marturie lumanare", price: 11 },
+      { name: "Marturie magnet", price: 2 },
+      { name: "Marturie sapun", price: 2 },
+      { name: "Marturie bombonele", price: 2 },
+      { name: "Marturie miere", price: 2 },
+      { name: "Marturie Nutella", price: 2 },
+      { name: "Marturie rasina", price: 2 },
+      { name: "Marturie lumanare", price: 2 },
     ],
     images: [
       "/Marturii/marturii0.jpg",
@@ -198,13 +218,13 @@ const products = ref([
     name: "Seturi cadou",
     selectedVariantIndex: 0,
     variants: [
-      { name: "Set cani", price: 11 },
-      { name: "Set Sharidan's, pahare", price: 11 },
-      { name: "Set Jack, Sharidan's,pahare", price: 11 },
-      { name: "Set licheni, Jack, plexiglas", price: 11 },
-      { name: "Set Jack, pahare si tricou", price: 11 },
-      { name: "Set rama foto, papucei, licheni", price: 11 },
-      { name: "Marturie lumanare", price: 11 },
+      { name: "Set cani", price: 55 },
+      { name: "Set Sharidan's, pahare", price: 70 },
+      { name: "Set licheni si plexiglas", price: 55 },
+      { name: "Set Jack, Sharidan's,pahare", price: 85 },
+      { name: "Set licheni, Jack, plexiglas", price: 100 },
+      { name: "Set Jack, pahare si tricou", price: 80 },
+      { name: "Set rama foto, papucei, licheni", price: 40 },
     ],
     images: [
       "/Seturi/seturi0.jpg",
@@ -231,9 +251,9 @@ const products = ref([
     name: "Lumanari",
     selectedVariantIndex: 0,
     variants: [
-      { name: "Lumanare nunta", price: 12 },
+      { name: "Lumanare nunta", price: 45 },
 
-      { name: "Lumanare Botez", price: 12 },
+      { name: "Lumanare Botez", price: 45 },
     ],
     images: [
       "/Lumanari/lumanari0.jpg",
@@ -289,6 +309,21 @@ const addToCart = (product) => {
 </script>
 
 <style scoped>
+.modal-details {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+.btnModal {
+  background: #333;
+  color: pink;
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .text-box {
   width: 30%;
   padding: 12px 45px; /* Spațiu pentru lupă în stânga și X în dreapta */

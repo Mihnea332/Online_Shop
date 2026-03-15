@@ -42,6 +42,10 @@ export const useCartStore = defineStore("cart", {
         this.removeFromCart(index);
       }
     },
+    emptyCart() {
+      this.items = [];
+      this.persistData();
+    },
   },
   getters: {
     totalPrice: (state) =>
