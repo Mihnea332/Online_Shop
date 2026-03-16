@@ -1,11 +1,31 @@
 import { defineStore } from "pinia";
+import CryptoJS from "crypto-js";
+const KEY="banane123"
 export const useCartStore = defineStore("cart", {
   state: () => ({
-    items: JSON.parse(localStorage.getItem("cart_items")) || [],
+    items: [],
   }),
   actions: {
     persistData() {
-      localStorage.setItem("cart_items", JSON.stringify(this.items));
+      const rawData=JSON.stringify(this.items);
+      const encryptedData=CryptoJS.AES.encrypt(rawData,KEY).toString()
+      localStorage.setItem("cart_items",encryptedData);
+    },
+    loadData(){
+      const encryptedData=localStorage.getItem("cart_items")
+      if(encryptedData)
+      {
+        try {
+          const bytes=CryptoJS.AES.decrypt(encryptedData,KEY)
+          const decryptedData=bytes.toString(CryptoJS.enc.Utf8)
+          if(decryptedData)
+          this.items=JSON.parse(decryptedData)
+        } catch (error) {
+          console.error("Corrupted data")
+          this.items=[]
+          localStorage.removeItem("cart_items")
+        }
+      }
     },
     addToCart(product, variantIndex = 0) {
       const variant = product.variants[variantIndex];

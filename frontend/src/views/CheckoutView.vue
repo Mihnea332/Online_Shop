@@ -74,8 +74,9 @@ const submitOrder = async () => {
         required
         placeholder="Introduceți aici toate detaliile necesare pentru personalizarea comenzii dumneavoastră."></textarea>
       <div class="buttons">
+         <button type="submit" class="submitButton">Trimite</button>
         <input type="reset" class="submitButton" value="Resetează" />
-        <button type="submit" class="submitButton">Trimite</button>
+       
       </div>
       <p>
         !!! Pentru plata si intrebari va rog sa ma contactati pe pagina de

@@ -79,13 +79,13 @@ import Footer from "./Header.vue";
   transform: scale(1.1);
 }
 .text {
-  border-radius: 20px;
+
   flex: 1;
   padding-left: 20px;
-  background-color: white;
+
   width: 50vw;
   text-align: center;
-  border: solid rgb(201, 100, 100);
+  
 }
 .container {
   display: flex;
