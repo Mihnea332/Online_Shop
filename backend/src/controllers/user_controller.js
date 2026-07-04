@@ -1,6 +1,31 @@
 import { User } from "../models/user_model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+const ensureDefaultAdmin = async () => {
+  const adminUsername = process.env.ADMIN_USERNAME;
+  const adminSecret = process.env.ADMIN_SECRET;
+
+  if (!adminUsername || !adminSecret) {
+    return;
+  }
+
+  const adminEmail = process.env.ADMIN_EMAIL || `${adminUsername}@local`;
+  const existingAdmin = await User.findOne({
+    $or: [{ username: adminUsername }, { email: adminEmail }],
+  });
+
+  if (existingAdmin) {
+    return;
+  }
+
+  await User.create({
+    username: adminUsername,
+    email: adminEmail,
+    password: adminSecret,
+  });
+};
+
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -23,8 +48,12 @@ const registerUser = async (req, res) => {
 };
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const identifier =
+      req.body.email || req.body.username || req.body.identifier;
+    const { password } = req.body;
+    const user = await User.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    });
     if (!user)
       return res.status(401).json({ message: "Email sau parola gresita" });
     const isMatch = await bcrypt.compare(password, user.password);
@@ -55,4 +84,4 @@ const loginUser = async (req, res) => {
     });
   }
 };
-export { registerUser, loginUser };
+export { ensureDefaultAdmin, registerUser, loginUser };

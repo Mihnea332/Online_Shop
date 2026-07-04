@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useCartStore } from "../stores/cart";
 import { useRouter } from "vue-router";
+import { toast } from "../utils/toast";
 const cartStore = useCartStore();
 const router = useRouter();
 const orderData = ref({
@@ -16,7 +17,7 @@ const orderData = ref({
 });
 const submitOrder = async () => {
   if (cartStore.items.length === 0) {
-    alert("Cosul este gol!");
+    toast.warning("Coșul este gol!");
     return;
   }
   const order = {
@@ -31,94 +32,535 @@ const submitOrder = async () => {
       body: JSON.stringify(order),
     });
     if (response.ok) {
-      alert("Comanda a fost plasata!");
+      toast.success("Comanda a fost plasata!");
       cartStore.items = [];
       localStorage.removeItem("cart_items");
       router.push("/");
+    } else {
+      toast.error("A aparut o eroare la plasarea comenzii.");
     }
   } catch (error) {
     console.error("Eroare:", error);
-    alert("A aparut o eroare la plasarea comenzii");
+    toast.error("A aparut o eroare la plasarea comenzii");
   }
 };
 </script>
 <template>
-  <div class="content">
-    <form class="order-form" @submit.prevent="submitOrder">
-      <label for="name">Nume: </label>
-      <input
-        type="text"
-        id="customerName"
-        v-model="orderData.customerName"
-        required />
-      <label for="phoneNumber">Numar de telefon: </label>
-      <input
-        type="text"
-        id="phoneNumber"
-        v-model="orderData.phoneNumber"
-        required />
-      <label for=" country">Tara: </label>
-      <input type="text" id="country" v-model="orderData.country" required />
-      <label for="city">Oras: </label>
-      <input type="text" id="city" v-model="orderData.city" required />
-      <label for="street">Strada: </label>
-      <input type="text" id="street" v-model="orderData.street" required />
-      <label for="block">Bloc: </label>
-      <input type="text" id="block" v-model="orderData.block" />
-      <label for="number">Numar: </label>
-      <input type="text" id="number" v-model="orderData.number" required />
-      <label for="description">Descriere: </label>
-      <textarea
-        id="description"
-        v-model="orderData.description"
-        required
-        placeholder="Introduceți aici toate detaliile necesare pentru personalizarea comenzii dumneavoastră."></textarea>
-      <div class="buttons">
-         <button type="submit" class="submitButton">Trimite</button>
-        <input type="reset" class="submitButton" value="Resetează" />
-       
-      </div>
-      <p>
-        !!! Pentru plata si intrebari va rog sa ma contactati pe pagina de
-        Facebook !!!
-      </p>
-    </form>
+  <div class="checkout-page">
+    <div class="checkout-header">
+      <h1>📋 Finalizează Comanda</h1>
+      <p>Completează datele tale pentru a plasa comanda</p>
+    </div>
+
+    <div class="checkout-content">
+      <form class="order-form" @submit.prevent="submitOrder">
+        <div class="form-section">
+          <h2>👤 Informații Personale</h2>
+          <div class="form-group">
+            <label for="customerName">Nume Complet *</label>
+            <input
+              type="text"
+              id="customerName"
+              v-model="orderData.customerName"
+              placeholder="Introduceți numele dumneavoastră"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Număr de Telefon *</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              v-model="orderData.phoneNumber"
+              placeholder="Ex: +40 7XX XXX XXX"
+              required />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>📍 Adresa de Livrare</h2>
+          <div class="form-group">
+            <label for="country">Țara *</label>
+            <input
+              type="text"
+              id="country"
+              v-model="orderData.country"
+              placeholder="România"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label for="city">Oraș *</label>
+            <input
+              type="text"
+              id="city"
+              v-model="orderData.city"
+              placeholder="Ex: București"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label for="street">Strada *</label>
+            <input
+              type="text"
+              id="street"
+              v-model="orderData.street"
+              placeholder="Ex: Strada Principală"
+              required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="block">Bloc</label>
+              <input
+                type="text"
+                id="block"
+                v-model="orderData.block"
+                placeholder="Ex: A" />
+            </div>
+
+            <div class="form-group">
+              <label for="number">Număr *</label>
+              <input
+                type="text"
+                id="number"
+                v-model="orderData.number"
+                placeholder="Ex: 15"
+                required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>💬 Detalii Personalizare</h2>
+          <div class="form-group">
+            <label for="description">Descriere comenzii *</label>
+            <textarea
+              id="description"
+              v-model="orderData.description"
+              placeholder="Introduceți aici toate detaliile necesare pentru personalizarea comenzii. (Design, culori, mesaje speciale, etc.)"
+              required></textarea>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <p>
+            <strong>💳 Plată și Contact:</strong> Pentru plată și orice
+            întrebări, vă rog să ne contactați pe pagina de
+            <a href="https://www.facebook.com/romanahalalaie" target="_blank"
+              >Facebook</a
+            >
+          </p>
+        </div>
+
+        <div class="buttons">
+          <button type="submit" class="submitButton submit">
+            ✓ Plasează Comanda
+          </button>
+          <input type="reset" class="submitButton reset" value="⟲ Resetează" />
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 <style scoped>
-.order-form {
-  font-size: 30px;
-  font-weight: bolder;
-  border: solid;
-  border-radius: 20px;
-  margin: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+.checkout-page {
+  min-height: 80vh;
+  animation: fadeIn 0.6s ease-out;
+  padding-bottom: var(--spacing-xl);
 }
+
+.checkout-header {
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.checkout-header h1 {
+  font-size: 2.5rem;
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--white);
+}
+
+.checkout-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.checkout-content {
+  max-width: 600px;
+  margin: var(--spacing-xl) auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  animation: slideInUp 0.6s ease-out;
+}
+
+.form-section {
+  background: var(--white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--light-pink);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.form-section:hover {
+  border-color: var(--primary-pink);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-section h2 {
+  color: var(--primary-pink);
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: var(--spacing-md);
+  border: 2px solid var(--light-pink);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--white);
+  color: var(--text-dark);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+  background: rgba(255, 240, 245, 0.5);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-light);
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.info-box {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.7),
+    rgba(255, 182, 193, 0.2)
+  );
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--primary-pink);
+  color: var(--text-dark);
+}
+
+.info-box p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.info-box a {
+  color: var(--primary-pink);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.info-box a:hover {
+  color: var(--dark-pink);
+}
+
 .buttons {
   display: flex;
-  gap: 15px;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
 }
-#description {
-  width: 100%;
-  min-height: 150px;
-}
+
 .submitButton {
-  height: 35px;
-  width: 150px;
-  background-color: #ffb6c1;
-  font-family: "Pacifico", cursive;
-  font-size: 20px;
-  border-radius: 10px;
+  flex: 1;
+  min-width: 150px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
 }
-.submitButton:hover {
-  background-color: #f1b6c1;
-  transform: scale(1.2);
+
+.submit {
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
+}
+
+.submit:hover {
+  background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.reset {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 105, 180, 0.3),
+    rgba(255, 182, 193, 0.3)
+  );
+  color: var(--primary-pink);
+  border: 2px solid var(--primary-pink);
+}
+
+.reset:hover {
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .checkout-header h1 {
+    font-size: 2rem;
+  }
+
+  .checkout-content {
+    padding: 0 var(--spacing-lg);
+    max-width: 700px;
+  }
+
+  .form-section {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-page {
+    padding-bottom: var(--spacing-lg);
+  }
+
+  .checkout-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .checkout-header p {
+    font-size: 0.95rem;
+  }
+
+  .checkout-content {
+    padding: 0 var(--spacing-md);
+    max-width: 100%;
+    margin: var(--spacing-lg) auto;
+  }
+
+  .order-form {
+    gap: var(--spacing-md);
+  }
+
+  .form-section {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+  }
+
+  .form-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .info-box {
+    padding: var(--spacing-md);
+    font-size: 0.9rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .submitButton {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .checkout-header p {
+    font-size: 0.9rem;
+  }
+
+  .checkout-content {
+    padding: 0 var(--spacing-sm);
+    margin: var(--spacing-md) auto;
+  }
+
+  .form-section {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--spacing-sm);
+    font-size: 0.95rem;
+  }
+
+  .info-box {
+    padding: var(--spacing-md);
+    font-size: 0.8rem;
+  }
+
+  .info-box p {
+    margin: 0;
+  }
+
+  .submitButton {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-page {
+    min-height: 70vh;
+    padding-bottom: var(--spacing-md);
+  }
+
+  .checkout-header {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .checkout-header h1 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .checkout-header p {
+    font-size: 0.85rem;
+  }
+
+  .checkout-content {
+    padding: 0 var(--spacing-sm);
+    margin: var(--spacing-md) auto;
+  }
+
+  .order-form {
+    gap: var(--spacing-sm);
+  }
+
+  .form-section {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .form-section h2 {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+  }
+
+  .info-box {
+    padding: var(--spacing-sm);
+    font-size: 0.75rem;
+  }
+
+  .buttons {
+    gap: var(--spacing-sm);
+  }
+
+  .submitButton {
+    padding: var(--spacing-sm);
+    font-size: 0.8rem;
+    flex: 1;
+  }
 }
 </style>

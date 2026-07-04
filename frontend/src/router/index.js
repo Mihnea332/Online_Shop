@@ -6,6 +6,8 @@ import ProductsView from "../views/ProductsView.vue";
 import CartView from "../views/CartView.vue";
 import CheckoutView from "../views/CheckoutView.vue";
 import LegalView from "../views/LegalView.vue";
+import Dashboard from "../views/Dashboard.vue";
+import { toast } from "../utils/toast";
 const routes = [
   {
     path: "/",
@@ -49,19 +51,45 @@ const routes = [
     component: LegalView,
     meta: { title: "Informatii legale" },
   },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
+    meta: { title: "Dashboard", requiresAuth: true },
+  },
 ];
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+router.beforeEach((to, from) => {
+  const token =
+    localStorage.getItem("adminToken") ||
+    localStorage.getItem("user_token") ||
+    localStorage.getItem("token");
+
+  if (to.meta.requiresAuth && !token) {
+    return "/login";
+  }
+});
+router.beforeEach((to) => {
+  document.title = to.meta.title || "Magazinul Meu";
+});
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title;
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const isAuthenticated = localStorage.getItem("adminToken");
-  if (requiresAuth && !isAuthenticated) {
+  const isAdminAuthenticated = !!(
+    localStorage.getItem("adminToken") ||
+    localStorage.getItem("user_token") ||
+    localStorage.getItem("token")
+  );
+
+  if (to.meta.requiresAuth && !isAdminAuthenticated) {
+    toast.warning(
+      "Acces restricționat! Te rog să te loghezi ca Administrator. ❌",
+    );
     next("/login");
-  } else if (to.path === "/login" && isAuthenticated) {
-    next("/admin");
-  } else next();
+    return;
+  }
+
+  next();
 });
 export default router;

@@ -5,23 +5,28 @@
         class="text-box"
         type="text"
         v-model="searchQuery"
-        placeholder="Cauta un produs..."
-      />
+        placeholder="Cauta un produs..." />
+
+      <select v-model="sortBy" class="sort-select">
+        <option value="default">Sortează după preț</option>
+        <option value="price-asc">Preț crescător</option>
+        <option value="price-desc">Preț descrescător</option>
+      </select>
     </div>
 
     <div v-if="filteredProducts.length > 0" class="productsGrid">
       <div
         v-for="product in filteredProducts"
         :key="product.id"
-        class="product-card"
-      >
+        class="product-card">
         <div class="image-container">
           <img
-            :src="product.images[0]"
+            :src="
+              product.images[0].replace('/upload/', '/upload/f_auto,q_auto/')
+            "
             :alt="product.name"
             @click="openGallery(product)"
-            class="clickable-img"
-          />
+            class="clickable-img" />
           <span class="category-badge">{{ product.name }}</span>
         </div>
 
@@ -38,13 +43,11 @@
             <label class="select-label">Alege modelul:</label>
             <select
               v-model="product.selectedVariantIndex"
-              class="variant-select"
-            >
+              class="variant-select">
               <option
                 v-for="(v, index) in product.variants"
                 :key="index"
-                :value="index"
-              >
+                :value="index">
                 {{ v.name }} - {{ v.price }}€
               </option>
             </select>
@@ -64,8 +67,7 @@
     <div
       v-if="isModalOpen"
       class="modal-overlay"
-      @click.self="isModalOpen = false"
-    >
+      @click.self="isModalOpen = false">
       <div class="modal-card">
         <button class="close-btn" @click="isModalOpen = false">&times;</button>
 
@@ -73,8 +75,7 @@
           <button class="nav-arrow left" @click="prevImage">&#10094;</button>
           <img
             :src="selectedProduct.images[currentImageIndex]"
-            class="modal-img"
-          />
+            class="modal-img" />
           <button class="nav-arrow right" @click="nextImage">&#10095;</button>
 
           <div class="counter">
@@ -107,343 +108,37 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useCartStore } from "../stores/cart";
+import { onMounted } from "vue";
+import { toast } from "../utils/toast";
 
 const cartStore = useCartStore();
 const isModalOpen = ref(false);
 const selectedProduct = ref(null);
 const currentImageIndex = ref(0);
 const searchQuery = ref("");
-
-const products = ref([
-  {
-    id: 1,
-    name: "Invitatii botez/nunta",
-    selectedVariantIndex: 0,
-    description: "La modelul de invitație se pot adăuga contracost plicuri asortate și sigilii de ceară.",
-    variants: [
-
-      { name: "Invitatie nunta", price: 2 },
-
-
-
-      { name: "Invitație botez", price: 2 },
-
-      { name: "Invitație aniversare", price: 2 },
-
-    ],
-
-    images: [
-
-      "/Invitatii/invitatii0.jpg",
-
-      "/Invitatii/invitatii1.jpg",
-
-      "/Invitatii/invitatii2.jpg",
-
-      "/Invitatii/invitatii3.jpg",
-
-      "/Invitatii/invitatii4.jpg",
-
-      "/Invitatii/invitatii5.jpg",
-
-      "/Invitatii/invitatii6.jpg",
-
-    ],
-
-    description: "La model de invitatie se pot adauga contracost plicuri.",
-
-  },
-  {
-    id: 2,
-    name: "Tricou/Fusta",
-    selectedVariantIndex: 0,
-    description: "Set personalizat pentru aniversări. Tricoul este din bumbac 100%.",
-      variants: [
-
-      { name: "Tricou Personalizat", price: 11 },
-
-      { name: "Fustita", price: 20 },
-
-    ],
-
-    images: [
-
-      "/Tricouri/tricouri0.jpg",
-
-      "/Tricouri/tricouri1.jpg",
-
-      "/Tricouri/tricouri2.jpg",
-
-      "/Tricouri/tricouri3.jpg",
-
-      "/Tricouri/tricouri4.jpg",
-
-      "/Tricouri/tricouri5.jpg",
-
-    ],
-
-  },
-  {
-    id: 3,
-    name: "Set mot personalizat",
-    selectedVariantIndex: 0,
-    description: "Set complet pentru tăierea moțului, personalizat cu tematica evenimentului.",
-      variants: [{ name: "Set mot personalizat", price: 60 }],
-
-    images: [
-
-      "/Seturi mot/set_mot0.jpg",
-
-      "/Seturi mot/set_mot1.jpg",
-
-      "/Seturi mot/set_mot2.jpg",
-
-      "/Seturi mot/set_mot3.jpg",
-
-      "/Seturi mot/set_mot4.jpg",
-
-      "/Seturi mot/set_mot5.jpg",
-
-      "/Seturi mot/set_mot6.jpg",
-
-    ],
-
-  },
-  {
-    id: 4,
-    name: "Pahare personalizate botez/nunta",
-    selectedVariantIndex: 0,
-    description: "Pahare pictate manual sau decorate cu vinil premium pentru miri și nași.",
-    variants: [
-
-      { name: "Pahar nunta", price: 10 },
-
-      { name: "Pahar botez", price: 10 },
-
-    ],
-
-    images: [
-
-      "/Pahare/pahare0.jpg",
-
-      "/Pahare/pahare1.jpg",
-
-      "/Pahare/pahare2.jpg",
-
-      "/Pahare/pahare3.jpg",
-
-      "/Pahare/pahare4.jpg",
-
-      "/Pahare/pahare5.jpg",
-
-      "/Pahare/pahare6.jpg",
-
-      "/Pahare/pahare7.jpg",
-
-    ],
-
-  },
-  {
-    id: 5,
-    name: "Trusou botez personalizat",
-    selectedVariantIndex: 0,
-    description: "Trusou de botez complet, brodat cu numele copilului și data evenimentului.",
-      variants: [{ name: "Trusou botez personalizat", price: 145 }],
-
-    images: [
-
-      "/Trusouri/trusouri0.jpg",
-
-      "/Trusouri/trusouri1.jpg",
-
-      "/Trusouri/trusouri2.jpg",
-
-      "/Trusouri/trusouri3.jpg",
-
-      "/Trusouri/trusouri4.jpg",
-
-      "/Trusouri/trusouri5.jpg",
-
-      "/Trusouri/trusouri6.jpg",
-
-      "/Trusouri/trusouri7.jpg",
-
-      "/Trusouri/trusouri8.jpg",
-
-      "/Trusouri/trusouri9.jpg",
-
-      "/Trusouri/trusouri10.jpg",
-
-      "/Trusouri/trusouri11.jpg",
-
-      "/Trusouri/trusouri12.jpg",
-
-      "/Trusouri/trusouri13.jpg",
-
-      "/Trusouri/trusouri14.jpg",
-
-    ],
-
-  },
-  {
-    id: 6,
-    name: "Marturii nunta/botez",
-    selectedVariantIndex: 0,
-    description: "Mărturii deosebite pentru a le mulțumi invitaților într-un mod dulce sau util.",
-    variants: [
-
-      { name: "Marturie botez/nunta magnet", price: 2 },
-
-      { name: "Marturie botez/nunta sapun", price: 2 },
-
-      { name: "Marturie botez/nunta bombonele", price: 2 },
-
-      { name: "Marturie botez/nunta miere", price: 2 },
-
-      { name: "Marturie botez/nunta Nutella", price: 2 },
-
-      { name: "Marturie botez/nunta rasina", price: 2 },
-
-      { name: "Marturie botez/nunta lumanare", price: 2 },
-
-    ],
-
-    images: [
-
-      "/Marturii/marturii0.jpg",
-
-      "/Marturii/marturii1.jpg",
-
-      "/Marturii/marturii2.jpg",
-
-      "/Marturii/marturii3.jpg",
-
-      "/Marturii/marturii4.jpg",
-
-      "/Marturii/marturii5.jpg",
-
-      "/Marturii/marturii6.jpg",
-
-      "/Marturii/marturii7.jpg",
-
-      "/Marturii/marturii8.jpg",
-
-      "/Marturii/marturii9.jpg",
-
-      "/Marturii/marturii10.jpg",
-
-      "/Marturii/marturii11.jpg",
-
-    ],
-
-  },
-  {
-    id: 7,
-    name: "Seturi personalizate cadou",
-    selectedVariantIndex: 0,
-    description: "Cutii cadou elegante pregătite pentru a fi oferite nașilor sau părinților.",
-     variants: [
-
-      { name: "Set cani", price: 55 },
-
-      { name: "Set Sharidan's, pahare", price: 70 },
-
-      { name: "Set licheni si plexiglas", price: 55 },
-
-      { name: "Set Jack, Sharidan's,pahare", price: 85 },
-
-      { name: "Set licheni, Jack, plexiglas", price: 100 },
-
-      { name: "Set Jack, pahare si tricou", price: 80 },
-
-      { name: "Set rama foto, papucei, licheni", price: 40 },
-
-    ],
-
-    images: [
-
-      "/Seturi/seturi0.jpg",
-
-      "/Seturi/seturi2.jpg",
-
-      "/Seturi/seturi3.jpg",
-
-      "/Seturi/seturi1.jpg",
-
-      "/Seturi/seturi4.jpg",
-
-      "/Seturi/seturi5.jpg",
-
-      "/Seturi/seturi6.jpg",
-
-      "/Seturi/seturi7.jpg",
-
-      "/Seturi/seturi8.jpg",
-
-      "/Seturi/seturi9.jpg",
-
-      "/Seturi/seturi10.jpg",
-
-      "/Seturi/seturi11.jpg",
-
-      "/Seturi/seturi12.jpg",
-
-      "/Seturi/seturi13.jpg",
-
-      "/Seturi/seturi14.jpg",
-
-      "/Seturi/seturi15.jpg",
-
-      "/Seturi/seturi16.jpg",
-
-    ],
-
-  },
-  {
-    id: 8,
-    name: "Lumanari botez/nunta",
-    selectedVariantIndex: 0,
-    description: "Lumânări de ceară naturală sau sculptate, decorate manual.",
-     variants: [
-
-      { name: "Lumanare nunta", price: 45 },
-
-
-
-      { name: "Lumanare Botez", price: 45 },
-
-    ],
-
-    images: [
-
-      "/Lumanari/lumanari0.jpg",
-
-      "/Lumanari/lumanari1.jpg",
-
-      "/Lumanari/lumanari2.jpg",
-
-      "/Lumanari/lumanari3.jpg",
-
-      "/Lumanari/lumanari4.jpg",
-
-      "/Lumanari/lumanari5.jpg",
-
-      "/Lumanari/lumanari6.jpg",
-
-      "/Lumanari/lumanari7.jpg",
-
-      "/Lumanari/lumanari8.jpg",
-
-      "/Lumanari/lumanari9.jpg",
-
-      "/Lumanari/lumanari10.jpg",
-
-      "/Lumanari/lumanari11.jpg",
-
-    ],
-
-  },
-]);
+const sortBy = ref("default");
+const products = ref([]);
+const loading = ref(true);
+
+const fetchProducts = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/api/products");
+    if (response.ok) {
+      const data = await response.json();
+
+      products.value = data.map((product) => ({
+        ...product,
+        selectedVariantIndex: 0, // Fiecare produs pornește cu prima variantă selectată
+      }));
+    }
+  } catch (error) {
+    console.error("Eroare la preluarea produselor:", error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(fetchProducts);
 
 const openGallery = (product) => {
   selectedProduct.value = product;
@@ -467,155 +162,308 @@ const prevImage = () => {
   }
 };
 
+const getProductPrice = (product) => {
+  const variant =
+    product.variants?.[product.selectedVariantIndex] ?? product.variants?.[0];
+
+  return Number(variant?.price ?? 0);
+};
+
 const filteredProducts = computed(() => {
-  return products.value.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
+  let result = [...products.value];
+
+  if (searchQuery.value.trim() !== "") {
+    const query = searchQuery.value.toLowerCase();
+    result = result.filter((product) =>
+      product.name.toLowerCase().includes(query),
+    );
+  }
+
+  if (sortBy.value === "price-asc") {
+    result.sort((a, b) => getProductPrice(a) - getProductPrice(b));
+  } else if (sortBy.value === "price-desc") {
+    result.sort((a, b) => getProductPrice(b) - getProductPrice(a));
+  }
+
+  return result;
 });
 
 const addToCart = (product) => {
   cartStore.addToCart(product, product.selectedVariantIndex);
-  alert(`Ai adaugat in cos: ${product.variants[product.selectedVariantIndex].name}`);
+  toast.success(
+    `Ai adaugat in cos: ${product.variants[product.selectedVariantIndex].name}`,
+  );
 };
 </script>
 
 <style scoped>
+.products-page {
+  min-height: 80vh;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.3),
+    rgba(255, 240, 245, 0.5)
+  );
+  border-bottom: 2px solid var(--light-pink);
+}
+
+.text-box {
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--light-pink);
+  border-radius: 50px;
+  outline: none;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  background: var(--white);
+  color: var(--text-dark);
+}
+
+.text-box:focus {
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.text-box::placeholder {
+  color: var(--text-light);
+}
+
+.sort-select {
+  min-width: 220px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--light-pink);
+  border-radius: 50px;
+  outline: none;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  background: var(--white);
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
 /* Grid Layout */
 .productsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* Card Produs */
 .product-card {
-  background-color: white;
+  background: var(--white);
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
-  padding: 15px;
-  width: 260px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  overflow: hidden;
+  animation: slideInUp 0.6s ease-out;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--light-pink);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 245, 0.3),
+    rgba(255, 255, 255, 0.8)
+  );
 }
 
 .image-container {
   position: relative;
   width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
 }
 
-.product-card img {
+.image-container img {
   width: 100%;
-  height: 250px;
+  height: 280px;
   object-fit: cover;
-  border-radius: 10px;
   cursor: pointer;
+  transition: var(--transition);
+  display: block;
+}
+
+.product-card:hover .image-container img {
+  transform: scale(1.08);
 }
 
 .category-badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  color: #ffb6c1;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
 }
 
 .product-info {
   text-align: center;
-  padding-top: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-title {
   font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 5px;
-  min-height: 2.8rem;
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-sm);
+  min-height: 2.5rem;
+  font-weight: 600;
 }
 
 .price {
-  font-weight: bold;
-  color: #ff69b4;
-  font-size: 1.2rem;
-  margin: 5px 0;
+  font-weight: 700;
+  color: var(--primary-pink);
+  font-size: 1.5rem;
+  margin: var(--spacing-sm) 0;
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .selection-area {
-  margin-bottom: 15px;
+  margin: var(--spacing-md) 0;
   text-align: left;
+  flex: 1;
 }
 
 .select-label {
-  font-size: 0.75rem;
-  color: #999;
-  font-weight: bold;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--spacing-xs);
 }
 
 .variant-select {
   width: 100%;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ffb6c1;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--light-pink);
   outline: none;
-  background: #fffafa;
+  background: var(--white);
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.btnAdd, .btnModal {
-  background: #333;
-  color: #ffb6c1;
+.variant-select:hover,
+.variant-select:focus {
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.btnAdd,
+.btnModal {
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
   border: none;
-  padding: 12px;
-  border-radius: 10px;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
   cursor: pointer;
   width: 100%;
-  font-weight: bold;
-  transition: 0.3s;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  margin-top: auto;
 }
 
-.btnAdd:hover, .btnModal:hover {
-  background: #000;
-  color: white;
+.btnAdd:hover,
+.btnModal:hover {
+  background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btnAdd:active,
+.btnModal:active {
+  transform: translateY(0);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  color: var(--text-light);
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.no-results p {
+  margin: 0;
 }
 
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .modal-card {
-  background: white;
+  background: var(--white);
   width: 90%;
-  max-width: 450px;
-  border-radius: 20px;
+  max-width: 600px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: slideInUp 0.4s ease-out;
 }
 
 .modal-gallery {
   position: relative;
-  height: 300px;
-  background: #f9f9f9;
+  height: 400px;
+  background: linear-gradient(135deg, var(--very-light-pink), var(--white));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -625,57 +473,428 @@ const addToCart = (product) => {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .modal-details {
-  padding: 25px;
+  padding: var(--spacing-xl);
   text-align: center;
 }
 
+.modal-details h2 {
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-md);
+}
+
 .description {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 15px 0;
+  color: var(--text-light);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: var(--spacing-lg) 0;
+}
+
+.counter {
+  position: absolute;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(255, 105, 180, 0.9);
+  color: var(--white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.7);
+  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
+  color: var(--white);
   border: none;
-  width: 40px; height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
   z-index: 10;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
 }
 
-.left { left: 10px; }
-.right { right: 10px; }
+.nav-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.left {
+  left: var(--spacing-md);
+}
+
+.right {
+  right: var(--spacing-md);
+}
 
 .close-btn {
   position: absolute;
-  top: 10px; right: 15px;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
   font-size: 2rem;
-  background: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary-pink);
   border: none;
   cursor: pointer;
   z-index: 100;
-}
-
-.search-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
-.text-box {
-  width: 300px;
-  padding: 12px 25px;
-  border: 2px solid #ffb6c1;
-  border-radius: 50px;
-  outline: none;
+.close-btn:hover {
+  background: var(--white);
+  transform: scale(1.1);
+  color: var(--dark-pink);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .image-container img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-page {
+    min-height: 60vh;
+  }
+
+  .search-box {
+    padding: var(--spacing-lg) var(--spacing-md);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 182, 193, 0.2),
+      rgba(255, 240, 245, 0.3)
+    );
+  }
+
+  .text-box {
+    max-width: 100%;
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+
+  .sort-select {
+    width: 100%;
+    min-width: 100%;
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .product-card {
+    padding: var(--spacing-sm);
+  }
+
+  .image-container {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .image-container img {
+    height: 180px;
+  }
+
+  .product-title {
+    font-size: 1rem;
+    min-height: 2rem;
+  }
+
+  .price {
+    font-size: 1.2rem;
+  }
+
+  .modal-card {
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  .modal-gallery {
+    height: 280px;
+  }
+
+  .modal-img {
+    max-width: 100%;
+    max-height: 280px;
+  }
+
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .counter {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    font-size: 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .modal-details {
+    padding: var(--spacing-lg);
+  }
+
+  .modal-details h2 {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .btnModal {
+    padding: var(--spacing-md);
+    font-size: 0.9rem;
+  }
+
+  .no-results {
+    padding: var(--spacing-lg) var(--spacing-md);
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    padding: var(--spacing-md);
+  }
+
+  .text-box {
+    max-width: 100%;
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 0.95rem;
+  }
+
+  .sort-select {
+    width: 100%;
+    min-width: 100%;
+    padding: var(--spacing-md);
+    font-size: 0.95rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    max-width: 100%;
+  }
+
+  .product-card {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+  }
+
+  .image-container img {
+    height: 150px;
+  }
+
+  .product-title {
+    font-size: 0.9rem;
+    min-height: auto;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .price {
+    font-size: 1rem;
+    margin: var(--spacing-xs) 0;
+  }
+
+  .category-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.65rem;
+  }
+
+  .variant-select {
+    padding: var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+
+  .select-label {
+    font-size: 0.8rem;
+  }
+
+  .btnAdd {
+    padding: var(--spacing-sm);
+    font-size: 0.85rem;
+    margin-top: auto;
+  }
+
+  .modal-card {
+    width: 98%;
+    max-width: 98%;
+  }
+
+  .modal-gallery {
+    height: 250px;
+  }
+
+  .modal-details {
+    padding: var(--spacing-md);
+  }
+
+  .modal-details h2 {
+    font-size: 1.1rem;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    margin: var(--spacing-md) 0;
+  }
+
+  .btnModal {
+    padding: var(--spacing-sm);
+    font-size: 0.8rem;
+  }
+
+  .nav-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .left {
+    left: var(--spacing-sm);
+  }
+
+  .right {
+    right: var(--spacing-sm);
+  }
+
+  .counter {
+    bottom: var(--spacing-sm);
+    right: var(--spacing-sm);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+
+  .no-results {
+    padding: var(--spacing-md);
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-page {
+    min-height: 50vh;
+  }
+
+  .search-box {
+    padding: var(--spacing-sm);
+  }
+
+  .text-box {
+    padding: var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+
+  .sort-select {
+    width: 100%;
+    min-width: 100%;
+    padding: var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 6px;
+    padding: var(--spacing-sm);
+  }
+
+  .product-card {
+    padding: 6px;
+  }
+
+  .image-container img {
+    height: 130px;
+  }
+
+  .product-title {
+    font-size: 0.8rem;
+  }
+
+  .price {
+    font-size: 0.9rem;
+  }
+
+  .btnAdd {
+    padding: 6px;
+    font-size: 0.75rem;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  .modal-gallery {
+    height: 200px;
+  }
+
+  .modal-details {
+    padding: var(--spacing-md);
+  }
+
+  .modal-details h2 {
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+    margin: var(--spacing-sm) 0;
+  }
+
+  .btnModal {
+    padding: var(--spacing-sm);
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  .nav-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
 }
 </style>

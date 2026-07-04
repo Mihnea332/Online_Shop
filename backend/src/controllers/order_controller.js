@@ -41,4 +41,33 @@ const deleteOrder = async (req, res) => {
     });
   }
 };
-export { createOrder, getAllOrders, deleteOrder };
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const allowedStatuses = ["Noua", "In curs", "Finalizata"];
+
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: "Status invalid" });
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true },
+    );
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Comanda negasita" });
+    }
+
+    return res.status(200).json({
+      message: "Status actualizat cu succes",
+      order: updatedOrder,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Eroare la actualizare",
+      error: error.message,
+    });
+  }
+};
+export { createOrder, getAllOrders, deleteOrder, updateOrderStatus };
