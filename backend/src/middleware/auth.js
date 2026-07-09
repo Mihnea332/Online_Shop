@@ -1,20 +1,20 @@
 import jwt from "jsonwebtoken";
+
 const auth = (req, res, next) => {
-  const authHeader = req.header("Authorization");
-  const token = authHeader && authHeader.split(" ")[1];
+  const token = req.cookies ? req.cookies.auth_token : null;
+
   if (!token) {
-    return res.status(401).json({
-      message: "Acces refuzat. Nu esti logat",
-    });
+    return res.status(401).json({ message: "Acces refuzat. Nu esti logat" });
   }
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({
-      message: "Token invalid",
-    });
+    res.clearCookie("auth_token");
+    return res.status(401).json({ message: "Token invalid sau expirat" });
   }
 };
+
 export default auth;

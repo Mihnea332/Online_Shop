@@ -6,39 +6,50 @@ const ensureDefaultAdmin = async () => {
   const adminUsername = process.env.ADMIN_USERNAME;
   const adminSecret = process.env.ADMIN_SECRET;
 
-  if (!adminUsername || !adminSecret) {
-    return;
-  }
+  if (!adminUsername || !adminSecret) return;
 
   const adminEmail = process.env.ADMIN_EMAIL || `${adminUsername}@local`;
   const existingAdmin = await User.findOne({
     $or: [{ username: adminUsername }, { email: adminEmail }],
   });
 
-  if (existingAdmin) {
-    return;
-  }
+  if (existingAdmin) return;
 
   await User.create({
     username: adminUsername,
     email: adminEmail,
-    password: adminSecret,
+    password: adminSecret, // in clar - hook-ul din model face hash-ul
   });
 };
 
+// În controllers/auth_controller.js
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+
+    // Verifică dacă mai există cineva cu acest cont
     const existingUser = await User.findOne({
       $or: [{ email }, { username }],
     });
-    if (existingUser)
+
+    if (existingUser) {
       return res
         .status(400)
         .json({ message: "Username sau Email deja utilizata" });
-    const newUser = new User({ username, email, password });
+    }
+
+    // 1. Criptează parola primită din API
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 2. Salvează în MongoDB cu parola criptată
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
     await newUser.save();
-    res.status(201).json({ message: "Admin creat cu succes" });
+    res.status(201).json({ message: "Admin creat cu succes în baza de date!" });
   } catch (error) {
     res.status(500).json({
       message: "Eroare la server",
@@ -51,37 +62,38 @@ const loginUser = async (req, res) => {
     const identifier =
       req.body.email || req.body.username || req.body.identifier;
     const { password } = req.body;
+
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }],
     });
-    if (!user)
-      return res.status(401).json({ message: "Email sau parola gresita" });
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(401).json({ message: "Email sau parola gresita" });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ message: "Email sau parolă greșită" });
+    }
+
     const token = jwt.sign(
-      {
-        id: user._id,
-        username: user.username,
-      },
+      { id: user._id, username: user.username },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      },
+      { expiresIn: "72h" },
     );
+
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 72 * 60 * 60 * 1000,
+    });
+
     res.status(200).json({
-      message: "Login reusit!",
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-      },
+      message: "Login reușit!",
+      user: { id: user._id, username: user.username },
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Eroare la server",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Eroare la server", error: error.message });
   }
 };
-export { ensureDefaultAdmin, registerUser, loginUser };
+const getMe = async (req, res) => {
+  res.status(200).json({ user: req.user });
+};
+export { ensureDefaultAdmin, registerUser, loginUser, getMe };

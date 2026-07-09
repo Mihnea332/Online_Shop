@@ -75,9 +75,8 @@ const handleLogin = async () => {
   try {
     const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({
         identifier: identifier.value,
         password: password.value,
@@ -87,11 +86,7 @@ const handleLogin = async () => {
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.setItem("adminToken", data.token);
-      localStorage.setItem("user_token", data.token);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("adminName", data.user.username);
-
+      localStorage.setItem("adminName", data.user.username); // păstrezi doar numele, dacă vrei să-l afișezi undeva
       router.push("/admin/");
     } else {
       errorMessage.value = data.message || "Date de logare incorecte!";

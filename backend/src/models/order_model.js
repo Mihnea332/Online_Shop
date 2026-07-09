@@ -3,6 +3,7 @@ const orderSchema = new Schema(
   {
     customer: {
       customerName: { type: String, required: true, trim: true },
+      email: { type: String, required: true, trim: true },
       phoneNumber: { type: String, required: true, trim: true },
       country: { type: String, required: true, trim: true },
       city: { type: String, required: true, trim: true },
@@ -29,6 +30,20 @@ const orderSchema = new Schema(
       enum: ["Noua", "In curs", "Finalizata"],
       default: "Noua",
     },
+    paymentStatus: {
+      type: String,
+      enum: ["Neplatita", "Platita", "Esuata"],
+      default: "Neplatita",
+    },
+    paymentMethod: {
+      type: String,
+      enum: ["stripe", "paypal"],
+      default: "stripe",
+    },
+    stripeSessionId: {
+      type: String,
+    },
+    paypalOrderId: { type: String },
   },
   {
     timestamps: true,

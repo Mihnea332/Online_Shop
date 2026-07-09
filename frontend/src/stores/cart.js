@@ -1,32 +1,39 @@
 import { defineStore } from "pinia";
 import CryptoJS from "crypto-js";
-const KEY="banane123"
+
+// Sfat: Într-un proiect real, folosește o variabilă de mediu pentru cheie
+const KEY = "banane123";
+const STORAGE_KEY = "cart_items";
+
 export const useCartStore = defineStore("cart", {
   state: () => ({
     items: [],
   }),
+
   actions: {
-    persistData() {
-      const rawData=JSON.stringify(this.items);
-      const encryptedData=CryptoJS.AES.encrypt(rawData,KEY).toString()
-      localStorage.setItem("cart_items",encryptedData);
-    },
-    loadData(){
-      const encryptedData=localStorage.getItem("cart_items")
-      if(encryptedData)
-      {
+    loadData() {
+      const encryptedData = localStorage.getItem(STORAGE_KEY);
+      if (encryptedData) {
         try {
-          const bytes=CryptoJS.AES.decrypt(encryptedData,KEY)
-          const decryptedData=bytes.toString(CryptoJS.enc.Utf8)
-          if(decryptedData)
-          this.items=JSON.parse(decryptedData)
+          const bytes = CryptoJS.AES.decrypt(encryptedData, KEY);
+          const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+          if (decryptedData) {
+            this.items = JSON.parse(decryptedData);
+          }
         } catch (error) {
-          console.error("Corrupted data")
-          this.items=[]
-          localStorage.removeItem("cart_items")
+          console.error("Date corupte în localStorage, resetăm coșul.");
+          this.emptyCart();
         }
       }
     },
+
+    // Funcție internă de criptare
+    persistData() {
+      const rawData = JSON.stringify(this.items);
+      const encryptedData = CryptoJS.AES.encrypt(rawData, KEY).toString();
+      localStorage.setItem(STORAGE_KEY, encryptedData);
+    },
+
     addToCart(product, variantIndex = 0) {
       const variant = product.variants[variantIndex];
       const existingItem = this.items.find(
@@ -44,29 +51,29 @@ export const useCartStore = defineStore("cart", {
           quantity: 1,
         });
       }
-      this.persistData();
     },
+
     removeFromCart(index) {
       this.items.splice(index, 1);
-      this.persistData();
     },
+
     incrementProduct(index) {
       this.items[index].quantity++;
-      this.persistData();
     },
+
     decrementProduct(index) {
       if (this.items[index].quantity > 1) {
         this.items[index].quantity--;
-        this.persistData();
       } else {
         this.removeFromCart(index);
       }
     },
+
     emptyCart() {
       this.items = [];
-      this.persistData();
     },
   },
+
   getters: {
     totalPrice: (state) =>
       state.items.reduce(

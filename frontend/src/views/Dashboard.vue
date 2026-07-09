@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-page">
+    <AdminNavbar/>
     <div class="dashboard-header">
       <h1>📊 Dashboard Administrativ</h1>
       <p>Managementul produselor din magazinul tău online</p>
@@ -137,6 +138,7 @@
                     class="table-thumb"
                     alt="Product icon" />
                 </td>
+
                 <td>
                   <strong>{{ product.name }}</strong>
                 </td>
@@ -168,7 +170,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { toast } from "../utils/toast";
-
+import AdminNavbar from "./AdminNavbar.vue";
 const products = ref([]);
 const loading = ref(true);
 const isEditing = ref(false);
@@ -268,6 +270,7 @@ const handleSubmit = async () => {
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(payload),
     });
 
@@ -301,6 +304,7 @@ const deleteProduct = async (id) => {
   try {
     const res = await fetch(`http://localhost:5000/api/products/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
     if (res.ok) {
       toast.success("Produs șters! 🌸");
@@ -315,6 +319,13 @@ onMounted(fetchProducts);
 </script>
 
 <style scoped>
+.dashboard-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 0.6s ease-out; /* <-- ADAUGĂ */
+}
 .images-preview-grid {
   display: flex;
   flex-wrap: wrap;

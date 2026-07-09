@@ -7,6 +7,7 @@ const cartStore = useCartStore();
 const router = useRouter();
 const orderData = ref({
   customerName: "",
+  email: "",
   phoneNumber: "",
   country: "",
   city: "",
@@ -16,32 +17,84 @@ const orderData = ref({
   description: "",
 });
 const submitOrder = async () => {
-  if (cartStore.items.length === 0) {
-    toast.warning("Coșul este gol!");
-    return;
-  }
+  if (cartStore.items.length === 0) return toast.warning("Coșul este gol!");
+
   const order = {
     customer: orderData.value,
     items: cartStore.items,
     total: cartStore.totalPrice,
   };
+
+  toast.info("Te redirecționăm către plată...");
+
   try {
     const response = await fetch("http://localhost:5000/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
     });
-    if (response.ok) {
-      toast.success("Comanda a fost plasata!");
-      cartStore.items = [];
-      localStorage.removeItem("cart_items");
-      router.push("/");
+
+    const data = await response.json();
+
+    if (response.ok && data.url) {
+      sessionStorage.setItem("orderInProgress", "true");
+      window.location.href = data.url;
     } else {
-      toast.error("A aparut o eroare la plasarea comenzii.");
+      toast.error(`Eroare: ${data.message}`);
     }
   } catch (error) {
-    console.error("Eroare:", error);
-    toast.error("A aparut o eroare la plasarea comenzii");
+    toast.error("Eroare de conexiune.");
+  }
+};
+const payWithPayPal = async () => {
+  if (cartStore.items.length === 0) return toast.warning("Coșul este gol!");
+
+  const requiredFields = [
+    "customerName",
+    "email",
+    "phoneNumber",
+    "country",
+    "city",
+    "street",
+    "number",
+    "description",
+  ];
+  const missingField = requiredFields.find(
+    (field) => !orderData.value[field]?.trim(),
+  );
+
+  if (missingField) {
+    return toast.warning("Te rog completează toate câmpurile obligatorii! 📝");
+  }
+
+  const order = {
+    customer: orderData.value,
+    items: cartStore.items,
+    total: cartStore.totalPrice,
+  };
+
+  toast.info("Te redirecționăm către PayPal...");
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/orders/paypal/create",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      },
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.url) {
+      sessionStorage.setItem("orderInProgress", "true");
+      window.location.href = data.url;
+    } else {
+      toast.error(data.message || "Eroare la initierea platii PayPal");
+    }
+  } catch (err) {
+    toast.error("Eroare de conexiune.");
   }
 };
 </script>
@@ -64,6 +117,15 @@ const submitOrder = async () => {
               v-model="orderData.customerName"
               placeholder="Introduceți numele dumneavoastră"
               required />
+          </div>
+
+          <div class="form-group">
+            <label>Email:</label>
+            <input
+              v-model="orderData.email"
+              type="email"
+              required
+              class="admin-input" />
           </div>
 
           <div class="form-group">
@@ -145,17 +207,39 @@ const submitOrder = async () => {
 
         <div class="info-box">
           <p>
-            <strong>💳 Plată și Contact:</strong> Pentru plată și orice
-            întrebări, vă rog să ne contactați pe pagina de
-            <a href="https://www.facebook.com/romanahalalaie" target="_blank"
-              >Facebook</a
+            <strong
+              >Pozele pentru customizare se trimit pe email sau Whatsapp. In
+              mesaj sau email se mentioneaza numele de pe care s-a facut
+              comanda. Va multumesc!</strong
             >
           </p>
         </div>
 
         <div class="buttons">
           <button type="submit" class="submitButton submit">
-            ✓ Plasează Comanda
+            💳 Plătește cu Cardul
+          </button>
+          <button
+            type="button"
+            @click="payWithPayPal"
+            class="btn-paypal"
+            :disabled="isProcessingPayment">
+            <svg
+              class="paypal-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8 4h6.5c2.5 0 4.2 1.4 3.8 3.8-.5 3-2.8 4.7-5.8 4.7h-2.3l-.9 5.5H6L8 4z"
+                fill="#ffffff"
+                opacity="0.55" />
+              <path
+                d="M9.5 6.5h6c2.2 0 3.7 1.3 3.3 3.4-.4 2.6-2.5 4.1-5.1 4.1h-2l-.8 4.9H8.2l1.3-12.4z"
+                fill="#ffffff" />
+            </svg>
+            <span>{{
+              isProcessingPayment ? "Se procesează..." : "Plătește cu PayPal"
+            }}</span>
           </button>
           <input type="reset" class="submitButton reset" value="⟲ Resetează" />
         </div>
@@ -164,6 +248,59 @@ const submitOrder = async () => {
   </div>
 </template>
 <style scoped>
+.form-group input,
+.form-group textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--light-pink);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--white);
+  color: var(--text-dark);
+}
+.btn-paypal {
+  flex: 1;
+  min-width: 150px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0070ba, #003087);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 48, 135, 0.25);
+}
+
+.btn-paypal:hover:not(:disabled) {
+  background: linear-gradient(135deg, #005ea6, #002569);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 48, 135, 0.35);
+}
+
+.btn-paypal:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-paypal:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.paypal-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 .checkout-page {
   min-height: 80vh;
   animation: fadeIn 0.6s ease-out;

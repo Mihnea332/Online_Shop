@@ -9,23 +9,23 @@ const defaultOptions = {
 
 const typeOptions = {
   success: {
-    position: "top-right",
-    duration: 3800,
+    position: "bottom-right",
+    duration: 3000,
     dismissible: true,
   },
   error: {
-    position: "top-right",
-    duration: 5000,
+    position: "bottom-right",
+    duration: 3000,
     dismissible: true,
   },
   warning: {
-    position: "top-right",
-    duration: 4600,
+    position: "bottom-right",
+    duration: 3000,
     dismissible: true,
   },
   info: {
-    position: "top-right",
-    duration: 4000,
+    position: "bottom-right",
+    duration: 3000,
     dismissible: true,
   },
 };

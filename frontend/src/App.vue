@@ -5,11 +5,11 @@ import Footer from "./views/Footer.vue";
 
 <template>
   <div class="app-container">
-    <Header />
+    <Header v-if="!$route.meta.hideNavbar" />
     <main class="content">
       <router-view />
     </main>
-    <Footer />
+    <Footer v-if="!$route.meta.hideNavbar" />
   </div>
 </template>
 

@@ -7,7 +7,9 @@ import CartView from "../views/CartView.vue";
 import CheckoutView from "../views/CheckoutView.vue";
 import LegalView from "../views/LegalView.vue";
 import Dashboard from "../views/Dashboard.vue";
+import CheckoutSuccessView from "../views/CheckoutSuccessView.vue";
 import { toast } from "../utils/toast";
+import PaymentFailedView from "../views/PaymentFailedView.vue";
 const routes = [
   {
     path: "/",
@@ -19,13 +21,13 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: { title: "Login" },
+    meta: { title: "Login", hideNavbar: true },
   },
   {
     path: "/admin",
     name: "admin",
     component: AdminView,
-    meta: { title: "Panou comenzi", requiresAuth: true },
+    meta: { title: "Panou comenzi", requiresAuth: true, hideNavbar: true },
   },
   {
     path: "/products",
@@ -55,7 +57,17 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard,
-    meta: { title: "Dashboard", requiresAuth: true },
+    meta: { title: "Dashboard", requiresAuth: true, hideNavbar: true },
+  },
+  {
+    path: "/checkout-success", // Trebuie să fie EXACT acest text
+    name: "CheckoutSuccess",
+    component: CheckoutSuccessView,
+  },
+  {
+    path: "/payment-failed",
+    name: "PaymentFailed",
+    component: PaymentFailedView,
   },
 ];
 const router = createRouter({
@@ -74,22 +86,30 @@ router.beforeEach((to, from) => {
 });
 router.beforeEach((to) => {
   document.title = to.meta.title || "Magazinul Meu";
-});
-router.beforeEach((to, from, next) => {
-  const isAdminAuthenticated = !!(
-    localStorage.getItem("adminToken") ||
-    localStorage.getItem("user_token") ||
-    localStorage.getItem("token")
-  );
+  const protejate = ["/checkout-success", "/payment-failed"];
 
-  if (to.meta.requiresAuth && !isAdminAuthenticated) {
-    toast.warning(
-      "Acces restricționat! Te rog să te loghezi ca Administrator. ❌",
-    );
-    next("/login");
-    return;
+  if (
+    protejate.includes(to.path) &&
+    !sessionStorage.getItem("orderInProgress")
+  ) {
+    return "/";
   }
 
-  next();
+  return true;
+});
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresAuth) return true;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/me", {
+      credentials: "include",
+    });
+    if (res.ok) return true;
+  } catch (e) {}
+
+  toast.warning(
+    "Acces restricționat! Te rog să te loghezi ca Administrator. ❌",
+  );
+  return "/login";
 });
 export default router;

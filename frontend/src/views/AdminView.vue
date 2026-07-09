@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { toast } from "../utils/toast";
+import AdminNavbar from "./AdminNavbar.vue";
 
 const orders = ref([]);
 const loading = ref(true);
@@ -15,16 +16,13 @@ const getStatusClass = (status) => {
 
 const updateStatus = async (orderId, newStatus) => {
   savingOrderId.value = orderId;
-
   try {
     const res = await fetch(
       `http://localhost:5000/api/orders/${orderId}/status`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("adminToken") || localStorage.getItem("user_token") || localStorage.getItem("token")}`,
-        },
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ status: newStatus }),
       },
     );
@@ -49,14 +47,13 @@ const updateStatus = async (orderId, newStatus) => {
 };
 
 const fetchOrders = async () => {
+  loading.value = true;
   try {
     const response = await fetch("http://localhost:5000/api/orders", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("adminToken") || localStorage.getItem("user_token") || localStorage.getItem("token")}`,
-      },
+      method: "GET",
+      credentials: "include",
     });
 
-    // REPARAȚIA 1: Extragem datele și le salvăm în starea componentei
     if (response.ok) {
       const data = await response.json();
       orders.value = data;
@@ -72,15 +69,12 @@ const fetchOrders = async () => {
 
 const deleteOrder = async (id) => {
   if (!confirm("Esti sigur ca vrei sa stergi comanda?")) return;
-
   try {
     const response = await fetch(
       `http://localhost:5000/api/orders/delete/${id}`,
       {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        credentials: "include",
       },
     );
 
@@ -111,12 +105,30 @@ onMounted(fetchOrders);
 </script>
 <template>
   <div class="admin-dashboard">
+    <AdminNavbar/>
+
     <h1>Panou Administrare - Comenzi</h1>
 
     <div class="admin-actions">
       <router-link to="/dashboard" class="btn-dashboard">
         Modifica produse
       </router-link>
+      <button @click="fetchOrders" class="btn-refresh">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-reload">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+      </button>
     </div>
 
     <div class="table-wrapper">
@@ -137,6 +149,8 @@ onMounted(fetchOrders);
               <strong>{{ order.customer.customerName }}</strong
               ><br />
               <small>{{ order.customer.phoneNumber }}</small>
+              <br />
+              <small>{{ order.customer.email }}</small>
             </td>
             <td class="products-cell">
               <ul>
@@ -172,6 +186,9 @@ onMounted(fetchOrders);
                   }}
                 </button>
               </div>
+              <div class="paymentStatus">
+                <p>{{ order.paymentStatus }}</p>
+              </div>
             </td>
             <td>
               <button @click="deleteOrder(order._id)" class="btn-delete">
@@ -193,6 +210,27 @@ onMounted(fetchOrders);
 </template>
 
 <style scoped>
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: 50px;
+  background: var(--white);
+  color: var(--primary-pink);
+  border: 2px solid var(--primary-pink);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  margin-left: 10px;
+}
+
+.btn-refresh:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  background: var(--very-light-pink);
+}
 .admin-dashboard {
   padding: var(--spacing-xl) var(--spacing-lg);
   background: linear-gradient(
