@@ -10,6 +10,7 @@ import Dashboard from "../views/Dashboard.vue";
 import CheckoutSuccessView from "../views/CheckoutSuccessView.vue";
 import { toast } from "../utils/toast";
 import PaymentFailedView from "../views/PaymentFailedView.vue";
+
 const routes = [
   {
     path: "/",
@@ -70,20 +71,12 @@ const routes = [
     component: PaymentFailedView,
   },
 ];
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-router.beforeEach((to, from) => {
-  const token =
-    localStorage.getItem("adminToken") ||
-    localStorage.getItem("user_token") ||
-    localStorage.getItem("token");
 
-  if (to.meta.requiresAuth && !token) {
-    return "/login";
-  }
-});
 router.beforeEach((to) => {
   document.title = to.meta.title || "Magazinul Meu";
   const protejate = ["/checkout-success", "/payment-failed"];
@@ -97,6 +90,7 @@ router.beforeEach((to) => {
 
   return true;
 });
+
 router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth) return true;
 
@@ -112,4 +106,5 @@ router.beforeEach(async (to) => {
   );
   return "/login";
 });
+
 export default router;
