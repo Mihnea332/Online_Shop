@@ -122,7 +122,7 @@ const loading = ref(true);
 
 const fetchProducts = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
+    const response = await fetch(`/api/products`);
     if (response.ok) {
       const data = await response.json();
 

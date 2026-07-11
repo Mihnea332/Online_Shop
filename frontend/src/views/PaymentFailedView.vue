@@ -33,7 +33,7 @@ onMounted(async () => {
 
   if (orderId) {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/orders/delete/${orderId}`, {
+      await fetch(`api/orders/delete/${orderId}`, {
         method: "DELETE",
         credentials: "include",
       });

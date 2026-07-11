@@ -43,7 +43,7 @@ onMounted(async () => {
   if (paypalOrderId) {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/orders/paypal/capture`,
+        `/api/orders/paypal/capture`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -67,7 +67,7 @@ onMounted(async () => {
   } else if (sessionId) {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/orders/verify-payment`,
+        `/api/orders/verify-payment`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

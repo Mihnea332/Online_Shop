@@ -203,7 +203,7 @@ const resetForm = () => {
 
 const fetchProducts = async () => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
+    const res = await fetch(`/api/products`);
     if (res.ok) products.value = await res.json();
   } catch (err) {
     console.error("Eroare la incarcare:", err);
@@ -261,8 +261,8 @@ const handleSubmit = async () => {
   };
 
 const url = isEditing.value
-  ? `${import.meta.env.VITE_API_URL}/api/products/${currentProductId.value}`
-  : `${import.meta.env.VITE_API_URL}/api/products`;
+  ? `/api/products/${currentProductId.value}`
+  : `/api/products`;
 
   const method = isEditing.value ? "PUT" : "POST";
 
