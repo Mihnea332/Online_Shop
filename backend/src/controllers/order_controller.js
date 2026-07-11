@@ -118,8 +118,8 @@ const createPayPalOrder = async (req, res) => {
             },
           ],
           application_context: {
-            return_url: `http://localhost:5173/checkout-success?order_id=${savedOrder._id.toString()}`,
-            cancel_url: `http://localhost:5173/payment-failed?order_id=${savedOrder._id.toString()}`,
+            return_url: `https://online-shop-44y1-nine.vercel.app/checkout-success?order_id=${savedOrder._id.toString()}`,
+            cancel_url: `https://online-shop-44y1-nine.vercel.app/payment-failed?order_id=${savedOrder._id.toString()}`,
             user_action: "PAY_NOW",
           },
         }),
@@ -299,8 +299,8 @@ const createOrder = async (req, res) => {
       line_items: lineItems,
       mode: "payment",
       success_url:
-        "http://localhost:5173/checkout-success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: `http://localhost:5173/payment-failed?order_id=${savedOrder._id.toString()}`,
+        "https://online-shop-44y1-nine.vercel.app/checkout-success?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: `https://online-shop-44y1-nine.vercel.app/payment-failed?order_id=${savedOrder._id.toString()}`,
       client_reference_id: savedOrder._id.toString(),
     });
 
