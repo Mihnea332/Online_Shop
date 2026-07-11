@@ -11,7 +11,10 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://online-shop-44y1-nine.vercel.app",
+    ],
     credentials: true,
   }),
 );
