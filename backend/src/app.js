@@ -9,12 +9,23 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 app.use(cookieParser());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://online-shop-44y1-nine.vercel.app",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://online-shop-44y1-nine.vercel.app",
-    ],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        /^https:\/\/online-shop-44y1-.*\.vercel\.app$/.test(origin)
+      ) {
+        return callback(null, true);
+      }
+      callback(new Error("Blocat de CORS"));
+    },
     credentials: true,
   }),
 );
