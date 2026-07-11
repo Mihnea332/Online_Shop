@@ -203,7 +203,7 @@ const resetForm = () => {
 
 const fetchProducts = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/products");
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
     if (res.ok) products.value = await res.json();
   } catch (err) {
     console.error("Eroare la incarcare:", err);
@@ -260,9 +260,9 @@ const handleSubmit = async () => {
     selectedVariantIndex: 0,
   };
 
-  const url = isEditing.value
-    ? `http://localhost:5000/api/products/${currentProductId.value}`
-    : "http://localhost:5000/api/products";
+const url = isEditing.value
+  ? `${import.meta.env.VITE_API_URL}/api/products/${currentProductId.value}`
+  : `${import.meta.env.VITE_API_URL}/api/products`;
 
   const method = isEditing.value ? "PUT" : "POST";
 
@@ -302,7 +302,7 @@ const startEdit = (product) => {
 const deleteProduct = async (id) => {
   if (!confirm("Sigur vrei să ștergi acest produs?")) return;
   try {
-    const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

@@ -18,7 +18,7 @@ const updateStatus = async (orderId, newStatus) => {
   savingOrderId.value = orderId;
   try {
     const res = await fetch(
-      `http://localhost:5000/api/orders/${orderId}/status`,
+      `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/status`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +49,7 @@ const updateStatus = async (orderId, newStatus) => {
 const fetchOrders = async () => {
   loading.value = true;
   try {
-    const response = await fetch("http://localhost:5000/api/orders", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
       method: "GET",
       credentials: "include",
     });
@@ -71,7 +71,7 @@ const deleteOrder = async (id) => {
   if (!confirm("Esti sigur ca vrei sa stergi comanda?")) return;
   try {
     const response = await fetch(
-      `http://localhost:5000/api/orders/delete/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/orders/delete/${id}`,
       {
         method: "DELETE",
         credentials: "include",
