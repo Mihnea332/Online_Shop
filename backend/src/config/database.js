@@ -1,3 +1,4 @@
+import "./env.js";
 import mongoose from "mongoose";
 // Source - https://stackoverflow.com/a/79892633
 // Posted by Xoosk

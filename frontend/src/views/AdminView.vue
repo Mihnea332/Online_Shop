@@ -106,110 +106,147 @@ onMounted(fetchOrders);
 <template>
   <div class="admin-dashboard">
     <AdminNavbar/>
+    <div class="admin-inner">
+      <div class="admin-page-header">
+        <h1>📦 Panou Comenzi</h1>
+        <p>Gestionează și urmărește statusul comenzilor primite</p>
+      </div>
 
-    <h1>Panou Administrare - Comenzi</h1>
+      <div class="admin-actions">
+        <button @click="fetchOrders" class="btn-refresh">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon-reload">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+        </button>
+      </div>
 
-    <div class="admin-actions">
-      <router-link to="/dashboard" class="btn-dashboard">
-        Modifica produse
-      </router-link>
-      <button @click="fetchOrders" class="btn-refresh">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon-reload">
-          <polyline points="23 4 23 10 17 10"></polyline>
-          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-        </svg>
-      </button>
-    </div>
+      <div class="table-wrapper">
+        <table v-if="!loading">
+          <thead>
+            <tr>
+              <th>Client & Telefon</th>
+              <th>Produse</th>
+              <th>Total</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="order in orders" :key="order._id">
+              <td>
+                <strong>{{ order.customer.customerName }}</strong
+                ><br />
+                <small>{{ order.customer.phoneNumber }}</small>
+                <br />
+                <small>{{ order.customer.email }}</small>
+              </td>
+              <td class="products-cell">
+                <ul>
+                  <li v-for="item in order.items" :key="item.id">
+                    {{ item.quantity }}x {{ item.name }} ({{ item.variantName }})
+                  </li>
+                </ul>
+                <div v-if="order.customer.description" class="order-desc">
+                  📝 {{ order.customer.description }}
+                </div>
+              </td>
+              <td class="total-price">{{ order.total }} €</td>
+              <td>{{ formatDate(order.createdAt) }}</td>
+              <td>
+                <div class="status-control">
+                  <select
+                    v-model="order.status"
+                    :class="['status-select', getStatusClass(order.status)]">
+                    <option value="Noua">Nouă</option>
+                    <option value="In curs">În curs</option>
+                    <option value="Finalizata">Finalizată</option>
+                  </select>
 
-    <div class="table-wrapper">
-      <table v-if="!loading">
-        <thead>
-          <tr>
-            <th>Client & Telefon</th>
-            <th>Produse</th>
-            <th>Total</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Acțiuni</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="order in orders" :key="order._id">
-            <td>
-              <strong>{{ order.customer.customerName }}</strong
-              ><br />
-              <small>{{ order.customer.phoneNumber }}</small>
-              <br />
-              <small>{{ order.customer.email }}</small>
-            </td>
-            <td class="products-cell">
-              <ul>
-                <li v-for="item in order.items" :key="item.id">
-                  {{ item.quantity }}x {{ item.name }} ({{ item.variantName }})
-                </li>
-              </ul>
-              <div v-if="order.customer.description" class="order-desc">
-                📝 {{ order.customer.description }}
-              </div>
-            </td>
-            <td class="total-price">{{ order.total }} €</td>
-            <td>{{ formatDate(order.createdAt) }}</td>
-            <td>
-              <div class="status-control">
-                <select
-                  v-model="order.status"
-                  :class="['status-select', getStatusClass(order.status)]">
-                  <option value="Noua">Nouă</option>
-                  <option value="In curs">În curs</option>
-                  <option value="Finalizata">Finalizată</option>
-                </select>
-
-                <button
-                  type="button"
-                  class="btn-status-update"
-                  :disabled="savingOrderId === order._id"
-                  @click="updateStatus(order._id, order.status)">
-                  {{
-                    savingOrderId === order._id
-                      ? "Se salvează..."
-                      : "Actualizează status"
-                  }}
+                  <button
+                    type="button"
+                    class="btn-status-update"
+                    :disabled="savingOrderId === order._id"
+                    @click="updateStatus(order._id, order.status)">
+                    {{
+                      savingOrderId === order._id
+                        ? "Se salvează..."
+                        : "Actualizează status"
+                    }}
+                  </button>
+                </div>
+                <div class="paymentStatus">
+                  <p>{{ order.paymentStatus }}</p>
+                </div>
+              </td>
+              <td>
+                <button @click="deleteOrder(order._id)" class="btn-delete">
+                  Șterge
                 </button>
-              </div>
-              <div class="paymentStatus">
-                <p>{{ order.paymentStatus }}</p>
-              </div>
-            </td>
-            <td>
-              <button @click="deleteOrder(order._id)" class="btn-delete">
-                Șterge
-              </button>
-            </td>
-          </tr>
-          <tr v-if="orders.length === 0">
-            <td colspan="6" style="text-align: center; padding: 50px">
-              Nu există comenzi momentan. 📦
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+            <tr v-if="orders.length === 0">
+              <td colspan="6" style="text-align: center; padding: 50px">
+                Nu există comenzi momentan. 📦
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <div v-else class="loader">Se încarcă comenzile...</div>
+        <div v-else class="loader">Se încarcă comenzile...</div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.admin-page-header {
+  /* Forțează lățimea pe tot ecranul */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  
+  /* Dimensiuni și aliniere */
+  padding: 40px 20px;
+  text-align: center;
+  
+  /* Fundalul tău cu gradient */
+  background: linear-gradient(135deg, var(--primary-pink, #ff69b4), var(--light-pink, #ffb6c1));
+  color: var(--white, #ffffff);
+  box-sizing: border-box;
+  
+  /* Spațiu sub header pentru a nu se lipi tabelul de el */
+  margin-bottom: 40px;
+}
+
+.admin-page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.admin-page-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.admin-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 .btn-refresh {
   display: inline-flex;
   align-items: center;
