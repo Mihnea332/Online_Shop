@@ -18,6 +18,7 @@
 
 <style scoped>
 .admin-navbar {
+  width: 100%;
   background: white;
   border-bottom: 1px solid #ffe4e8;
   box-shadow: 0 2px 10px rgba(255, 192, 203, 0.15);
@@ -28,6 +29,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px 20px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,7 +63,7 @@
 }
 
 .nav-link.active {
-  background: #ffb6c1;
+  background: linear-gradient(135deg, #ff69b4, #ffb6c1);
   color: white;
 }
 
@@ -69,6 +71,12 @@
   .navbar-inner {
     flex-direction: column;
     gap: 10px;
+    align-items: center;
+  }
+
+  .navbar-links {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 </style>

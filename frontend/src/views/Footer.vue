@@ -8,20 +8,48 @@
       </div>
 
       <div class="footer-section">
-        <h3>🔗 Urmărire</h3>
+        <h3>🔗 Urmăreste-ne</h3>
         <div class="social-links">
           <a
             href="https://www.facebook.com/romanahalalaie"
             target="_blank"
             rel="noopener"
-            class="social-icon">
-            <img src="/fb.png" alt="Facebook" />
+            class="social-icon social-icon--facebook"
+            aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M18.77 2H5.23A3.23 3.23 0 0 0 2 5.23v13.54A3.23 3.23 0 0 0 5.23 22H11.5v-7.37H9.25V11.7h2.25V9.48c0-2.27 1.36-3.51 3.65-3.51 1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.24 0-1.62.77-1.62 1.56v1.5h2.77l-.44 2.93h-2.33V22h4.51A3.23 3.23 0 0 0 22 18.77V5.23A3.23 3.23 0 0 0 18.77 2z"
+              />
+            </svg>
           </a>
-          <a href="#" target="_blank" rel="noopener" class="social-icon">
-            <span>📸</span>
-          </a>
-          <a href="#" target="_blank" rel="noopener" class="social-icon">
-            <span>🎨</span>
+          <a
+            href="https://www.instagram.com/r.halalaie/"
+            target="_blank"
+            rel="noopener"
+            class="social-icon social-icon--instagram"
+            aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect
+                x="3.5"
+                y="3.5"
+                width="17"
+                height="17"
+                rx="5"
+                ry="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" />
+            </svg>
           </a>
         </div>
       </div>
@@ -86,6 +114,7 @@
   margin: var(--spacing-sm) 0;
   transition: var(--transition);
   font-weight: 500;
+  text-decoration: none;
 }
 
 .footer-section a:hover {
@@ -93,49 +122,62 @@
   transform: translateX(5px);
 }
 
+/* --- ZONA SOCIAL MEDIA CURĂȚATĂ --- */
+
 .social-links {
   display: flex;
   gap: var(--spacing-lg);
   align-items: center;
+  justify-content: flex-start;
 }
 
 .social-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, var(--primary-pink), var(--light-pink));
-  border-radius: 50%;
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icon--facebook {
+  color: #1877f2;
+}
+
+.social-icon--instagram {
+  color: #ffb6c1;
 }
 
 .social-icon:hover {
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: var(--shadow);
+  transform: translateY(-2px) scale(1.08);
+  opacity: 0.92;
 }
 
-.social-icon img {
-  width: 28px;
-  height: 28px;
-  filter: brightness(0) invert(1);
+.social-icon svg {
+  display: block;
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.social-icon span {
-  font-size: 1.5rem;
+.social-icon--instagram svg {
+  fill: none;
 }
 
 .footer-divider {
   max-width: 1200px;
   margin: var(--spacing-lg) auto;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--light-pink),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--light-pink), transparent);
 }
 
 .footer-bottom {
@@ -159,77 +201,50 @@
   font-style: italic;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .footer {
-    padding: var(--spacing-lg);
-  }
-
-  .footer-content {
-    gap: var(--spacing-lg);
-  }
-
-  .footer-section h3 {
-    font-size: 1.2rem;
-  }
-}
-
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
   .footer {
     padding: var(--spacing-lg) var(--spacing-md);
   }
-
   .footer-content {
     gap: var(--spacing-lg);
     grid-template-columns: 1fr;
   }
-
   .footer-section {
     text-align: center;
   }
-
   .footer-section h3 {
     font-size: 1.1rem;
     justify-content: center;
   }
-
   .footer-section p {
     font-size: 0.9rem;
   }
-
   .footer-section a {
     display: inline-block;
     margin: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.9rem;
   }
-
   .social-links {
-    justify-content: center;
     gap: var(--spacing-md);
   }
-
   .social-icon {
-    width: 45px;
-    height: 45px;
+    width: auto;
+    height: auto;
   }
-
-  .social-icon img {
-    width: 24px;
-    height: 24px;
+  .social-icon svg {
+    width: 30px;
+    height: 30px;
   }
-
   .footer-divider {
     margin: var(--spacing-lg) auto;
   }
-
   .footer-bottom {
     padding: 0;
   }
-
   .footer-copy {
     font-size: 0.9rem;
   }
-
   .footer-tagline {
     font-size: 0.8rem;
     margin-top: var(--spacing-xs);
@@ -241,57 +256,37 @@
     padding: var(--spacing-md);
     margin-top: var(--spacing-lg);
   }
-
   .footer-content {
     gap: var(--spacing-md);
-    grid-template-columns: 1fr;
   }
-
-  .footer-section {
-    text-align: center;
-  }
-
   .footer-section h3 {
     font-size: 1rem;
     margin-bottom: var(--spacing-md);
   }
-
   .footer-section p {
     font-size: 0.8rem;
-    margin: 0;
   }
-
   .footer-section a {
     font-size: 0.8rem;
     margin: 4px var(--spacing-xs);
   }
-
   .social-links {
     gap: var(--spacing-sm);
   }
-
   .social-icon {
-    width: 40px;
-    height: 40px;
+    width: auto;
+    height: auto;
   }
-
-  .social-icon img {
-    width: 20px;
-    height: 20px;
+  .social-icon svg {
+    width: 28px;
+    height: 28px;
   }
-
-  .social-icon span {
-    font-size: 1.2rem;
-  }
-
   .footer-divider {
     margin: var(--spacing-md) auto;
   }
-
   .footer-copy {
     font-size: 0.8rem;
   }
-
   .footer-tagline {
     font-size: 0.7rem;
   }
@@ -302,54 +297,38 @@
     padding: var(--spacing-sm);
     margin-top: var(--spacing-md);
   }
-
   .footer-content {
     gap: var(--spacing-sm);
-    grid-template-columns: 1fr;
   }
-
   .footer-section h3 {
     font-size: 0.9rem;
     margin-bottom: var(--spacing-sm);
     gap: 2px;
   }
-
   .footer-section p {
     font-size: 0.75rem;
-    margin: 0;
   }
-
   .footer-section a {
     font-size: 0.75rem;
     margin: 2px 4px;
   }
-
   .social-links {
     gap: 8px;
   }
-
   .social-icon {
-    width: 36px;
-    height: 36px;
+    width: auto;
+    height: auto;
   }
-
-  .social-icon img {
-    width: 18px;
-    height: 18px;
+  .social-icon svg {
+    width: 26px;
+    height: 26px;
   }
-
-  .social-icon span {
-    font-size: 1rem;
-  }
-
   .footer-divider {
     margin: var(--spacing-sm) auto;
   }
-
   .footer-copy {
     font-size: 0.7rem;
   }
-
   .footer-tagline {
     font-size: 0.65rem;
   }

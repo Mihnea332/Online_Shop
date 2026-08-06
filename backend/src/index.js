@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
+import "./config/env.js";
 import connectDB from "./config/database.js";
 import app from "./app.js";
 import { ensureDefaultAdmin } from "./controllers/user_controller.js";
-
-dotenv.config();
 
 await connectDB();
 await ensureDefaultAdmin();

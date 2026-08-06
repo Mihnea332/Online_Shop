@@ -1,8 +1,7 @@
+import "../config/env.js";
 import { Order } from "../models/order_model.js";
 import { Product } from "../models/product_model.js"; // <-- ADAUGĂ ACEST IMPORT
 import Stripe from "stripe";
-import dotenv from "dotenv";
-dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_KEY);
 const PAYPAL_API_BASE = process.env.PAYPAL_API_BASE;

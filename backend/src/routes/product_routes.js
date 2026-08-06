@@ -1,10 +1,9 @@
+import "../config/env.js";
 import express from "express";
 import { Product } from "../models/product_model.js";
 import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
 import auth from "../middleware/auth.js"; // <-- ADAUGĂ ACEST IMPORT
 
-dotenv.config();
 const router = express.Router();
 
 cloudinary.config({

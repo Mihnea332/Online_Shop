@@ -145,6 +145,7 @@
                 <td>{{ product.category || "Generale" }}</td>
                 <td>{{ product.variants[0]?.price }} €</td>
                 <td>
+                    <div class="edit">
                   <button
                     type="button"
                     @click="startEdit(product)"
@@ -157,6 +158,7 @@
                     class="btn-delete">
                     Șterge
                   </button>
+                </div>
                 </td>
               </tr>
             </tbody>
@@ -416,15 +418,38 @@ onMounted(fetchProducts);
   font-family: "Poppins", sans-serif;
 }
 .dashboard-header {
+  /* Forțează lățimea să fie exact cât lățimea ferestrei browserului */
+  width: 100vw;
+  
+  /* Trucul magic care centrează și împinge marginile în afara containerului */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  
+  /* Padding pentru a-i da respirație (sus/jos și stânga/dreapta) */
+  padding: 40px 20px;
+  
+  /* Centrarea textului */
   text-align: center;
-  margin-bottom: 40px;
+  
+  /* Opțional: Adaugă un fundal ca să vezi clar că se întinde pe tot ecranul */
+  background: linear-gradient(135deg, var(--primary-pink, #ff69b4), var(--light-pink, #ffb6c1));
+  color: white;
+  
+  /* Asigură-te că padding-ul nu strică dimensiunea */
+  box-sizing: border-box;
 }
+
+/* Ajustăm titlul și paragraful ca să arate bine în interior */
 .dashboard-header h1 {
-  color: #4a4a4a;
-  font-size: 2.5rem;
+  margin: 0;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
+
 .dashboard-header p {
-  color: #888;
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
 }
 
 .dashboard-content {
@@ -523,7 +548,9 @@ onMounted(fetchProducts);
     margin: 0 0 8px 0;
   }
 }
-
+.edit{
+    display: flex;
+}
 @media (max-width: 480px) {
   .dashboard-page {
     margin: 12px auto;
