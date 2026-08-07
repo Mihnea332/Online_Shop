@@ -58,7 +58,6 @@
         <h3>📋 Rapid</h3>
         <router-link to="/legal">Termeni și Condiții</router-link>
         <router-link to="/">Acasă</router-link>
-        <router-link to="/products">Produse</router-link>
       </div>
     </div>
 
@@ -66,10 +65,8 @@
 
     <div class="footer-bottom">
       <p class="footer-copy">
-        © 2025 <strong>Handmade Mom</strong> - Cărți și emoții prin fiecare
-        creație ❤️
+        © 2026 <strong>Handmade Mom</strong>
       </p>
-      <p class="footer-tagline">Handmade with Love 🎨</p>
     </div>
   </footer>
 </template>
@@ -126,7 +123,7 @@
 
 .social-links {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   align-items: center;
   justify-content: flex-start;
 }
@@ -226,7 +223,8 @@
     font-size: 0.9rem;
   }
   .social-links {
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
+    justify-content: center;
   }
   .social-icon {
     width: auto;
@@ -271,7 +269,8 @@
     margin: 4px var(--spacing-xs);
   }
   .social-links {
-    gap: var(--spacing-sm);
+    gap: 6px;
+    justify-content: center;
   }
   .social-icon {
     width: auto;
@@ -314,6 +313,7 @@
   }
   .social-links {
     gap: 8px;
+    justify-content: center;
   }
   .social-icon {
     width: auto;
