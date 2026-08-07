@@ -541,6 +541,14 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 768px) {
+  .admin-page-header {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 28px 16px;
+    border-radius: 14px;
+  }
+
   .admin-dashboard {
     padding: var(--spacing-lg) var(--spacing-md);
     min-height: calc(100vh - 100px);
@@ -603,7 +611,7 @@ tbody tr:last-child td {
   }
 
   .status-control {
-    min-width: 170px;
+    min-width: 150px;
   }
 
   .btn-status-update,
@@ -619,6 +627,12 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 600px) {
+  .admin-page-header {
+    padding: 22px 14px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+  }
+
   .admin-dashboard {
     padding: var(--spacing-md);
     min-height: calc(100vh - 100px);
@@ -639,7 +653,7 @@ tbody tr:last-child td {
   }
 
   table {
-    min-width: 600px;
+    min-width: 540px;
     font-size: 0.85rem;
   }
 
@@ -680,13 +694,32 @@ tbody tr:last-child td {
   }
 
   .status-control {
-    min-width: 150px;
+    min-width: 120px;
+  }
+
+  .status-control,
+  .btn-delete {
+    width: 100%;
   }
 
   .btn-status-update,
   .status-select {
     font-size: 0.75rem;
     padding: 8px 10px;
+    width: 100%;
+  }
+
+  .products-cell ul {
+    font-size: 0.72rem;
+  }
+
+  .order-desc {
+    font-size: 0.62rem;
+    padding: 4px;
+  }
+
+  .loader {
+    font-size: 0.85rem;
   }
 
   .status-badge {
@@ -721,7 +754,7 @@ tbody tr:last-child td {
   }
 
   table {
-    min-width: 500px;
+    min-width: 640px;
     font-size: 0.75rem;
   }
 
@@ -739,6 +772,17 @@ tbody tr:last-child td {
   td:nth-child(n + 3) {
     max-width: 100px;
     word-wrap: break-word;
+  }
+
+  th:nth-child(5),
+  td:nth-child(5) {
+    min-width: 170px;
+  }
+
+  th:nth-child(6),
+  td:nth-child(6) {
+    min-width: 110px;
+    text-align: center;
   }
 
   .order-description {
@@ -759,19 +803,25 @@ tbody tr:last-child td {
   }
 
   .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 4px 6px;
     font-size: 0.6rem;
     white-space: nowrap;
+    width: 100%;
   }
 
   .status-control {
-    min-width: 130px;
+    min-width: 0;
+    width: 100%;
   }
 
   .btn-status-update,
   .status-select {
     font-size: 0.7rem;
     padding: 7px 8px;
+    width: 100%;
   }
 
   .status-badge {

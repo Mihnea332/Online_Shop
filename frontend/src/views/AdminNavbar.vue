@@ -70,13 +70,49 @@
 @media (max-width: 480px) {
   .navbar-inner {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
+    padding: 12px 14px;
   }
 
   .navbar-links {
+    width: 100%;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .nav-link {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-inner {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .navbar-links {
+    gap: 6px;
+  }
+
+  .navbar-brand {
+    font-size: 0.95rem;
+  }
+
+  .nav-link {
+    padding: 7px 8px;
+    font-size: 0.8rem;
+    border-radius: 8px;
   }
 }
 </style>

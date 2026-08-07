@@ -75,8 +75,11 @@
           <button class="nav-arrow left" @click="prevImage">&#10094;</button>
           <img
             :src="selectedProduct.images[currentImageIndex]"
-            class="modal-img" />
+            class="modal-img"
+            :class="{ 'is-zoomed': isImageZoomed }"
+            @click="toggleImageZoom" />
           <button class="nav-arrow right" @click="nextImage">&#10095;</button>
+
 
           <div class="counter">
             {{ currentImageIndex + 1 }} / {{ selectedProduct.images.length }}
@@ -85,6 +88,7 @@
 
         <div class="modal-details">
           <h2>{{ selectedProduct.name }}</h2>
+          <p class="zoom-hint">Atinge poza pentru zoom și detalii mai clare.</p>
           <p class="description">
             {{
               selectedProduct.description ||
@@ -115,6 +119,7 @@ const cartStore = useCartStore();
 const isModalOpen = ref(false);
 const selectedProduct = ref(null);
 const currentImageIndex = ref(0);
+const isImageZoomed = ref(false);
 const searchQuery = ref("");
 const sortBy = ref("default");
 const products = ref([]);
@@ -143,6 +148,7 @@ onMounted(fetchProducts);
 const openGallery = (product) => {
   selectedProduct.value = product;
   currentImageIndex.value = 0;
+  isImageZoomed.value = false;
   isModalOpen.value = true;
 };
 
@@ -152,6 +158,8 @@ const nextImage = () => {
   } else {
     currentImageIndex.value = 0;
   }
+
+  isImageZoomed.value = false;
 };
 
 const prevImage = () => {
@@ -160,6 +168,12 @@ const prevImage = () => {
   } else {
     currentImageIndex.value = selectedProduct.value.images.length - 1;
   }
+
+  isImageZoomed.value = false;
+};
+
+const toggleImageZoom = () => {
+  isImageZoomed.value = !isImageZoomed.value;
 };
 
 const getProductPrice = (product) => {
@@ -467,6 +481,7 @@ const addToCart = (product) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .modal-img {
@@ -474,6 +489,14 @@ const addToCart = (product) => {
   max-height: 100%;
   object-fit: contain;
   animation: fadeIn 0.4s ease-out;
+  cursor: zoom-in;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  touch-action: manipulation;
+}
+
+.modal-img.is-zoomed {
+  transform: scale(1.8);
+  cursor: zoom-out;
 }
 
 .modal-details {
@@ -491,6 +514,12 @@ const addToCart = (product) => {
   font-size: 1rem;
   line-height: 1.6;
   margin: var(--spacing-lg) 0;
+}
+
+.zoom-hint {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin: 0 0 var(--spacing-sm);
 }
 
 .counter {
@@ -525,6 +554,29 @@ const addToCart = (product) => {
 .nav-arrow:hover {
   transform: translateY(-50%) scale(1.1);
   box-shadow: var(--shadow-lg);
+}
+
+.zoom-btn {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary-pink);
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 11;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.zoom-btn:hover {
+  background: var(--white);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
 
 .left {
@@ -636,12 +688,16 @@ const addToCart = (product) => {
   }
 
   .modal-gallery {
-    height: 280px;
+    height: min(58vh, 320px);
   }
 
   .modal-img {
     max-width: 100%;
-    max-height: 280px;
+    max-height: 100%;
+  }
+
+  .modal-img.is-zoomed {
+    transform: scale(1.45);
   }
 
   .nav-arrow {
@@ -657,6 +713,13 @@ const addToCart = (product) => {
     padding: var(--spacing-xs) var(--spacing-sm);
   }
 
+  .zoom-btn {
+    left: var(--spacing-md);
+    bottom: var(--spacing-md);
+    font-size: 0.75rem;
+    padding: 0.45rem 0.75rem;
+  }
+
   .modal-details {
     padding: var(--spacing-lg);
   }
@@ -667,6 +730,10 @@ const addToCart = (product) => {
 
   .description {
     font-size: 0.9rem;
+  }
+
+  .zoom-hint {
+    font-size: 0.8rem;
   }
 
   .btnModal {
@@ -752,7 +819,7 @@ const addToCart = (product) => {
   }
 
   .modal-gallery {
-    height: 250px;
+    height: min(52vh, 270px);
   }
 
   .modal-details {
@@ -766,6 +833,11 @@ const addToCart = (product) => {
   .description {
     font-size: 0.85rem;
     margin: var(--spacing-md) 0;
+  }
+
+  .zoom-hint {
+    font-size: 0.75rem;
+    margin-bottom: var(--spacing-xs);
   }
 
   .btnModal {
@@ -863,7 +935,7 @@ const addToCart = (product) => {
   }
 
   .modal-gallery {
-    height: 200px;
+    height: min(48vh, 230px);
   }
 
   .modal-details {
@@ -879,10 +951,21 @@ const addToCart = (product) => {
     margin: var(--spacing-sm) 0;
   }
 
+  .zoom-hint {
+    font-size: 0.72rem;
+  }
+
   .btnModal {
     padding: var(--spacing-sm);
     font-size: 0.75rem;
     width: 100%;
+  }
+
+  .zoom-btn {
+    left: var(--spacing-sm);
+    bottom: var(--spacing-sm);
+    font-size: 0.7rem;
+    padding: 0.4rem 0.65rem;
   }
 
   .nav-arrow {

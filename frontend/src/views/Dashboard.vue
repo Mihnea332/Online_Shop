@@ -327,6 +327,7 @@ onMounted(fetchProducts);
   padding: 0 20px;
   font-family: "Poppins", sans-serif;
   animation: fadeIn 0.6s ease-out; /* <-- ADAUGĂ */
+  overflow-x: hidden;
 }
 .images-preview-grid {
   display: flex;
@@ -418,24 +419,12 @@ onMounted(fetchProducts);
   font-family: "Poppins", sans-serif;
 }
 .dashboard-header {
-  /* Forțează lățimea să fie exact cât lățimea ferestrei browserului */
-  width: 100vw;
-  
-  /* Trucul magic care centrează și împinge marginile în afara containerului */
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  
-  /* Padding pentru a-i da respirație (sus/jos și stânga/dreapta) */
+  width: 100%;
+  margin: 0 0 24px 0;
   padding: 40px 20px;
-  
-  /* Centrarea textului */
   text-align: center;
-  
-  /* Opțional: Adaugă un fundal ca să vezi clar că se întinde pe tot ecranul */
   background: linear-gradient(135deg, var(--primary-pink, #ff69b4), var(--light-pink, #ffb6c1));
   color: white;
-  
-  /* Asigură-te că padding-ul nu strică dimensiunea */
   box-sizing: border-box;
 }
 
@@ -456,6 +445,7 @@ onMounted(fetchProducts);
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
+  min-width: 0;
 }
 
 @media (min-width: 992px) {
@@ -491,6 +481,15 @@ onMounted(fetchProducts);
 }
 
 @media (max-width: 768px) {
+  .dashboard-header {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+    padding: 28px 16px;
+    border-radius: 14px;
+  }
+
   .dashboard-page {
     margin: 16px auto;
     padding: 0 12px;
@@ -547,11 +546,23 @@ onMounted(fetchProducts);
     width: 100%;
     margin: 0 0 8px 0;
   }
+
+  .edit {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
 }
 .edit{
     display: flex;
 }
 @media (max-width: 480px) {
+  .dashboard-header {
+    padding: 20px 14px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
   .dashboard-page {
     margin: 12px auto;
     padding: 0 10px;
@@ -588,18 +599,49 @@ onMounted(fetchProducts);
   }
 
   .table-responsive {
-    margin: 0 -14px;
-    padding: 0 14px;
+    margin: 0;
+    padding: 0;
   }
 
   .admin-table {
-    min-width: 620px;
+    min-width: 560px;
   }
 
   .admin-table th,
   .admin-table td {
     padding: 8px;
     font-size: 12px;
+  }
+
+  .edit {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .dashboard-header h1 {
+    font-size: 1.15rem;
+  }
+
+  .dashboard-header p {
+    font-size: 0.8rem;
+  }
+
+  .admin-table {
+    min-width: 520px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 6px;
+    font-size: 11px;
   }
 }
 
@@ -610,6 +652,7 @@ onMounted(fetchProducts);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(255, 192, 203, 0.15);
   border: 1px solid #ffe4e8;
+  min-width: 0;
 }
 
 .form-group {
@@ -710,10 +753,17 @@ label {
 }
 
 .table-responsive {
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  display: block;
 }
 .admin-table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
 }
 .admin-table th,
