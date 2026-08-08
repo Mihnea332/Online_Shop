@@ -87,6 +87,9 @@ const handleLogin = async () => {
     const data = await response.json();
 
     if (response.ok) {
+      if (data.token) {
+        localStorage.setItem("adminToken", data.token);
+      }
       localStorage.setItem("adminName", data.user.username); // păstrezi doar numele, dacă vrei să-l afișezi undeva
       router.push("/admin/");
     } else {

@@ -23,7 +23,7 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
-import { apiUrl } from "../utils/api";
+import { authFetch } from "../utils/api";
 
 const route = useRoute();
 const toast = useToast();
@@ -34,9 +34,8 @@ onMounted(async () => {
 
   if (orderId) {
     try {
-      await fetch(apiUrl(`/api/orders/delete/${orderId}`), {
+      await authFetch(`/api/orders/delete/${orderId}`, {
         method: "DELETE",
-        credentials: "include",
       });
     } catch (error) {
       console.error("Eroare la ștergerea comenzii:", error);

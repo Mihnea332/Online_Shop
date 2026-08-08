@@ -10,7 +10,7 @@ import Dashboard from "../views/Dashboard.vue";
 import CheckoutSuccessView from "../views/CheckoutSuccessView.vue";
 import { toast } from "../utils/toast";
 import PaymentFailedView from "../views/PaymentFailedView.vue";
-import { apiUrl } from "../utils/api";
+import { authFetch } from "../utils/api";
 
 const routes = [
   {
@@ -96,9 +96,7 @@ router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth) return true;
 
   try {
-    const res = await fetch(apiUrl("/api/auth/me"), {
-      credentials: "include",
-    });
+    const res = await authFetch("/api/auth/me");
     if (res.ok) return true;
   } catch (e) {}
 

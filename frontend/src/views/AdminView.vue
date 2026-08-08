@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { toast } from "../utils/toast";
 import AdminNavbar from "./AdminNavbar.vue";
-import { apiUrl } from "../utils/api";
+import { authFetch } from "../utils/api";
 
 const orders = ref([]);
 const loading = ref(true);
@@ -18,15 +18,11 @@ const getStatusClass = (status) => {
 const updateStatus = async (orderId, newStatus) => {
   savingOrderId.value = orderId;
   try {
-    const res = await fetch(
-      apiUrl(`/api/orders/${orderId}/status`),
-      {
+    const res = await authFetch(`/api/orders/${orderId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ status: newStatus }),
-      },
-    );
+      });
 
     const data = await res.json();
 
@@ -50,9 +46,8 @@ const updateStatus = async (orderId, newStatus) => {
 const fetchOrders = async () => {
   loading.value = true;
   try {
-    const response = await fetch(apiUrl("/api/orders"), {
+    const response = await authFetch("/api/orders", {
       method: "GET",
-      credentials: "include",
     });
 
     if (response.ok) {
@@ -71,13 +66,9 @@ const fetchOrders = async () => {
 const deleteOrder = async (id) => {
   if (!confirm("Esti sigur ca vrei sa stergi comanda?")) return;
   try {
-    const response = await fetch(
-      apiUrl(`/api/orders/delete/${id}`),
-      {
+    const response = await authFetch(`/api/orders/delete/${id}`, {
         method: "DELETE",
-        credentials: "include",
-      },
-    );
+      });
 
     if (response.ok) {
       orders.value = orders.value.filter((o) => o._id !== id);

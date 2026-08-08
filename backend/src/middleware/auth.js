@@ -2,7 +2,10 @@ import "../config/env.js";
 import jwt from "jsonwebtoken";
 
 const auth = (req, res, next) => {
-  const token = req.cookies ? req.cookies.auth_token : null;
+  const bearerToken = req.headers.authorization?.startsWith("Bearer ")
+    ? req.headers.authorization.slice(7)
+    : null;
+  const token = bearerToken || (req.cookies ? req.cookies.auth_token : null);
 
   if (!token) {
     return res.status(401).json({ message: "Acces refuzat. Nu esti logat" });
