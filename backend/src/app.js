@@ -10,7 +10,8 @@ const app = express();
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://online-shop-44y1-nine.vercel.app",
+  "https://online-shop-page.onrender.com",
+  "handmademom.de",
   ...(process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(",")
         .map((origin) => origin.trim())
