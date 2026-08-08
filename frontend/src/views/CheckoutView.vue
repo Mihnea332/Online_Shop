@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useCartStore } from "../stores/cart";
 import { useRouter } from "vue-router";
 import { toast } from "../utils/toast";
+import { apiUrl } from "../utils/api";
 const cartStore = useCartStore();
 const router = useRouter();
 const orderData = ref({
@@ -28,7 +29,7 @@ const submitOrder = async () => {
   toast.info("Te redirecționăm către plată...");
 
   try {
-    const response = await fetch(`/api/orders`, {
+    const response = await fetch(apiUrl("/api/orders"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
@@ -77,7 +78,7 @@ const payWithPayPal = async () => {
 
   try {
     const response = await fetch(
-      `/api/orders/paypal/create`,
+      apiUrl("/api/orders/paypal/create"),
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

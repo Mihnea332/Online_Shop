@@ -11,6 +11,11 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://online-shop-44y1-nine.vercel.app",
+  ...(process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+    : []),
 ];
 
 app.use(

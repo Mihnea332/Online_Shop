@@ -23,6 +23,7 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
+import { apiUrl } from "../utils/api";
 
 const route = useRoute();
 const toast = useToast();
@@ -33,7 +34,7 @@ onMounted(async () => {
 
   if (orderId) {
     try {
-      await fetch(`api/orders/delete/${orderId}`, {
+      await fetch(apiUrl(`/api/orders/delete/${orderId}`), {
         method: "DELETE",
         credentials: "include",
       });

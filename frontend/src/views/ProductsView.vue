@@ -114,6 +114,7 @@ import { ref, computed } from "vue";
 import { useCartStore } from "../stores/cart";
 import { onMounted } from "vue";
 import { toast } from "../utils/toast";
+import { apiUrl } from "../utils/api";
 
 const cartStore = useCartStore();
 const isModalOpen = ref(false);
@@ -127,7 +128,7 @@ const loading = ref(true);
 
 const fetchProducts = async () => {
   try {
-    const response = await fetch(`/api/products`);
+    const response = await fetch(apiUrl("/api/products"));
     if (response.ok) {
       const data = await response.json();
 

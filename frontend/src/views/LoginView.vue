@@ -60,6 +60,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { apiUrl } from "../utils/api";
 
 const router = useRouter();
 
@@ -73,7 +74,7 @@ const handleLogin = async () => {
   isLoading.value = true;
 
   try {
-    const response = await fetch(`/api/auth/login`, {
+    const response = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

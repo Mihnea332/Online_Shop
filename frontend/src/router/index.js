@@ -10,6 +10,7 @@ import Dashboard from "../views/Dashboard.vue";
 import CheckoutSuccessView from "../views/CheckoutSuccessView.vue";
 import { toast } from "../utils/toast";
 import PaymentFailedView from "../views/PaymentFailedView.vue";
+import { apiUrl } from "../utils/api";
 
 const routes = [
   {
@@ -95,7 +96,7 @@ router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth) return true;
 
   try {
-    const res = await fetch(`/api/auth/me`, {
+    const res = await fetch(apiUrl("/api/auth/me"), {
       credentials: "include",
     });
     if (res.ok) return true;

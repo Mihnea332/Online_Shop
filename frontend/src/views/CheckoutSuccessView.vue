@@ -30,6 +30,7 @@ import { onMounted, ref } from "vue";
 import { useCartStore } from "../stores/cart";
 import { useRoute } from "vue-router";
 import { toast } from "../utils/toast";
+import { apiUrl } from "../utils/api";
 
 const cartStore = useCartStore();
 const route = useRoute();
@@ -43,7 +44,7 @@ onMounted(async () => {
   if (paypalOrderId) {
     try {
       const res = await fetch(
-        `/api/orders/paypal/capture`,
+        apiUrl("/api/orders/paypal/capture"),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -67,7 +68,7 @@ onMounted(async () => {
   } else if (sessionId) {
     try {
       const response = await fetch(
-        `/api/orders/verify-payment`,
+        apiUrl("/api/orders/verify-payment"),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

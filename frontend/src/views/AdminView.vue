@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { toast } from "../utils/toast";
 import AdminNavbar from "./AdminNavbar.vue";
+import { apiUrl } from "../utils/api";
 
 const orders = ref([]);
 const loading = ref(true);
@@ -18,7 +19,7 @@ const updateStatus = async (orderId, newStatus) => {
   savingOrderId.value = orderId;
   try {
     const res = await fetch(
-      `/api/orders/${orderId}/status`,
+      apiUrl(`/api/orders/${orderId}/status`),
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +50,7 @@ const updateStatus = async (orderId, newStatus) => {
 const fetchOrders = async () => {
   loading.value = true;
   try {
-    const response = await fetch(`/api/orders`, {
+    const response = await fetch(apiUrl("/api/orders"), {
       method: "GET",
       credentials: "include",
     });
@@ -71,7 +72,7 @@ const deleteOrder = async (id) => {
   if (!confirm("Esti sigur ca vrei sa stergi comanda?")) return;
   try {
     const response = await fetch(
-      `/api/orders/delete/${id}`,
+      apiUrl(`/api/orders/delete/${id}`),
       {
         method: "DELETE",
         credentials: "include",
