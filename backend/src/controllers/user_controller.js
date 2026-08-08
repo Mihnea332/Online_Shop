@@ -102,15 +102,19 @@ const loginUser = async (req, res) => {
     );
 
     const isProduction = process.env.NODE_ENV === "production";
-
-    res.cookie("auth_token", token, {
+    const cookieOptions = {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
-      domain: ".handmademom.de",
       path: "/",
       maxAge: 72 * 60 * 60 * 1000,
-    });
+    };
+
+    if (process.env.COOKIE_DOMAIN) {
+      cookieOptions.domain = process.env.COOKIE_DOMAIN;
+    }
+
+    res.cookie("auth_token", token, cookieOptions);
 
     res.status(200).json({
       message: "Login reușit!",
