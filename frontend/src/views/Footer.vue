@@ -3,8 +3,8 @@
     <div class="footer-content">
       <div class="footer-section">
         <h3>📞 Contactează-ne</h3>
-        <p>Email: contact@handmademom.ro</p>
-        <p>WhatsApp: +40 XXX XXX XXX</p>
+        <p>Email: rhalalaie@gmail.com</p>
+        <p>WhatsApp: +49 173 152 3980</p>
       </div>
 
       <div class="footer-section">
@@ -49,6 +49,18 @@
                 stroke-width="2"
               />
               <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" />
+            </svg>
+          </a>
+          <a
+            href="https://www.tiktok.com/@ioana.h29"
+            target="_blank"
+            rel="noopener"
+            class="social-icon social-icon--tiktok"
+            aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M16.5 3c.4 2.2 1.6 3.9 3.5 4.8v2.5c-1.4-.1-2.8-.5-4-1.2v5.9c0 3.2-2.5 5.7-5.7 5.7S4.6 18.2 4.6 15s2.5-5.7 5.7-5.7c.3 0 .7 0 1 .1v2.7c-.3-.1-.6-.1-1-.1-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V3h3.2z"
+              />
             </svg>
           </a>
         </div>
@@ -151,6 +163,10 @@
   color: #ffb6c1;
 }
 
+.social-icon--tiktok {
+  color: #111111;
+}
+
 .social-icon:hover {
   transform: translateY(-2px) scale(1.08);
   opacity: 0.92;
@@ -168,6 +184,10 @@
 
 .social-icon--instagram svg {
   fill: none;
+}
+
+.social-icon--tiktok svg {
+  fill: currentColor;
 }
 
 .footer-divider {

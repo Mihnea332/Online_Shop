@@ -40,7 +40,7 @@ const stats = ref([
           👋 Bine ai venit în universul nostru handmade!
         </h1>
         <p class="hero-subtitle">
-          Cărți și emoții prin fiecare creație personalizată
+          Cu sediul în Germania, livrăm cu drag în toată Europa.
         </p>
         <div class="hero-buttons">
           <router-link to="/products" class="btn btn-primary">
@@ -52,7 +52,7 @@ const stats = ref([
         </div>
       </div>
       <div class="hero-image slide-right">
-        <img src="/HomePage/homepage0.jpeg" alt="Handmade showcase" />
+        <img src="/HomePage/homepage2.jpg" alt="Handmade showcase" />
       </div>
     </section>
 
@@ -84,7 +84,7 @@ const stats = ref([
             </p>
           </div>
           <div class="story-image slide-right">
-            <img src="/HomePage/homepage1.png" alt="Handmade creations" />
+            <img src="/HomePage/homepage1.jpg" alt="Handmade creations" />
           </div>
         </div>
       </div>
@@ -232,11 +232,12 @@ const stats = ref([
 }
 
 .hero-image img {
-  width: 100%;
-  max-width: 500px;
-  height: 500px;
+  width: min(100%, 420px);
+  aspect-ratio: 1 / 1;
+  height: auto;
   object-fit: cover;
-  border-radius: var(--radius-lg);
+  border-radius: 50%;
+  background: transparent;
   box-shadow: var(--shadow-lg);
   transition: var(--transition);
 }
@@ -279,8 +280,9 @@ const stats = ref([
 .story-image img {
   width: 100%;
   max-width: 500px;
-  height: 500px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
