@@ -8,10 +8,13 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(cookieParser());
+
+// Lista cu adresele care au voie sa ceara date de la backend
 const allowedOrigins = [
   "http://localhost:5173",
   "https://online-shop-page.onrender.com",
-  "handmademom.de",
+  "https://handmademom.de",
+  "https://www.handmademom.de",
   ...(process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(",")
         .map((origin) => origin.trim())
@@ -36,12 +39,19 @@ app.use(
     credentials: true, // Permite trimiterea de cookies/tokeni
   }),
 );
+
+// Middleware pentru procesarea datelor (marit la 50mb pentru poze)
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+// Rutele tale
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/products", productRoutes);
+
+// Ruta de test pentru a verifica daca serverul functioneaza
 app.get("/", (req, res) => {
   res.send("API-ul este activ!");
 });
+
 export default app;
