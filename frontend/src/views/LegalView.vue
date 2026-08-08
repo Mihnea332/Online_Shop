@@ -20,7 +20,7 @@
         <div class="contact-info">
           <h2>📞 Contact</h2>
           <p>
-            <strong>Telefon:</strong> 01731523980<br />
+            <strong>Telefon:</strong> +49 173 152 3980<br />
             <strong>Email:</strong>
             <a href="mailto:rhalalaie@gmail.com">rhalalaie@gmail.com</a>
           </p>
