@@ -16,16 +16,18 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
+      // Permite cererile fără origin (ex: Postman sau curl)
       if (!origin) return callback(null, true);
-      if (
-        allowedOrigins.includes(origin) ||
-        /^https:\/\/online-shop-44y1-.*\.vercel\.app$/.test(origin)
-      ) {
+
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
-      callback(new Error("Blocat de CORS"));
+
+      callback(
+        new Error("Blocat de CORS: Originea " + origin + " nu este permisă."),
+      );
     },
-    credentials: true,
+    credentials: true, // Permite trimiterea de cookies/tokeni
   }),
 );
 app.use(express.json({ limit: "50mb" }));
