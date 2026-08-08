@@ -14,7 +14,30 @@ const ensureDefaultAdmin = async () => {
     $or: [{ username: adminUsername }, { email: adminEmail }],
   });
 
-  if (existingAdmin) return;
+  if (existingAdmin) {
+    let needsUpdate = false;
+
+    if (existingAdmin.username !== adminUsername) {
+      existingAdmin.username = adminUsername;
+      needsUpdate = true;
+    }
+
+    if (existingAdmin.email !== adminEmail) {
+      existingAdmin.email = adminEmail;
+      needsUpdate = true;
+    }
+
+    if (!(await bcrypt.compare(adminSecret, existingAdmin.password))) {
+      existingAdmin.password = adminSecret;
+      needsUpdate = true;
+    }
+
+    if (needsUpdate) {
+      await existingAdmin.save();
+    }
+
+    return;
+  }
 
   await User.create({
     username: adminUsername,
@@ -78,10 +101,12 @@ const loginUser = async (req, res) => {
       { expiresIn: "72h" },
     );
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("auth_token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       path: "/",
       maxAge: 72 * 60 * 60 * 1000,
     });
