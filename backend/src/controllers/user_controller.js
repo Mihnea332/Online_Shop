@@ -107,6 +107,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
+      domain: ".handmademom.de",
       path: "/",
       maxAge: 72 * 60 * 60 * 1000,
     });
