@@ -97,7 +97,7 @@ onMounted(fetchOrders);
 </script>
 <template>
   <div class="admin-dashboard">
-    <AdminNavbar/>
+    <AdminNavbar />
     <div class="admin-inner">
       <div class="admin-page-header">
         <h1>📦 Panou Comenzi</h1>
@@ -106,17 +106,8 @@ onMounted(fetchOrders);
 
       <div class="admin-actions">
         <button @click="fetchOrders" class="btn-refresh">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon-reload">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon-reload">
             <polyline points="23 4 23 10 17 10"></polyline>
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
           </svg>
@@ -138,11 +129,20 @@ onMounted(fetchOrders);
           <tbody>
             <tr v-for="order in orders" :key="order._id">
               <td>
-                <strong>{{ order.customer.customerName }}</strong
-                ><br />
-                <small>{{ order.customer.phoneNumber }}</small>
-                <br />
-                <small>{{ order.customer.email }}</small>
+                <!-- Nume, Telefon, Email -->
+                <strong>{{ order.customer.customerName }}</strong><br />
+                <span class="contact-info">📞 {{ order.customer.phoneNumber }}</span><br />
+                <span class="contact-info">✉️ {{ order.customer.email }}</span>
+
+                <!-- Secțiunea pentru Adresă -->
+                <div class="address-box">
+                  <span class="address-title">📍 Adresa de livrare:</span>
+                  <span class="address-detail">
+                    {{ order.customer.country }}, {{ order.customer.city }}<br />
+                    Str. {{ order.customer.street }}, Nr. {{ order.customer.number }}
+                    <span v-if="order.customer.block">, Bl. {{ order.customer.block }}</span>
+                  </span>
+                </div>
               </td>
               <td class="products-cell">
                 <ul>
@@ -154,22 +154,18 @@ onMounted(fetchOrders);
                   📝 {{ order.customer.description }}
                 </div>
               </td>
+
               <td class="total-price">{{ order.total }} €</td>
               <td>{{ formatDate(order.createdAt) }}</td>
               <td>
                 <div class="status-control">
-                  <select
-                    v-model="order.status"
-                    :class="['status-select', getStatusClass(order.status)]">
+                  <select v-model="order.status" :class="['status-select', getStatusClass(order.status)]">
                     <option value="Noua">Nouă</option>
                     <option value="In curs">În curs</option>
                     <option value="Finalizata">Finalizată</option>
                   </select>
 
-                  <button
-                    type="button"
-                    class="btn-status-update"
-                    :disabled="savingOrderId === order._id"
+                  <button type="button" class="btn-status-update" :disabled="savingOrderId === order._id"
                     @click="updateStatus(order._id, order.status)">
                     {{
                       savingOrderId === order._id
@@ -203,21 +199,52 @@ onMounted(fetchOrders);
 </template>
 
 <style scoped>
+.contact-info {
+  font-size: 0.85rem;
+  color: #555;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.address-box {
+  margin-top: 12px;
+  padding: 8px;
+  background-color: #f8f9fa;
+  /* un gri foarte deschis */
+  border-left: 3px solid #ff69b4;
+  /* bordură roz în stânga */
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.address-title {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.address-detail {
+  color: #666;
+  display: block;
+}
+
 .admin-page-header {
   /* Forțează lățimea pe tot ecranul */
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  
+
   /* Dimensiuni și aliniere */
   padding: 40px 20px;
   text-align: center;
-  
+
   /* Fundalul tău cu gradient */
   background: linear-gradient(135deg, var(--primary-pink, #ff69b4), var(--light-pink, #ffb6c1));
   color: var(--white, #ffffff);
   box-sizing: border-box;
-  
+
   /* Spațiu sub header pentru a nu se lipi tabelul de el */
   margin-bottom: 40px;
 }
@@ -239,6 +266,7 @@ onMounted(fetchOrders);
   margin: 0 auto;
   padding: 0 20px;
 }
+
 .btn-refresh {
   display: inline-flex;
   align-items: center;
@@ -260,13 +288,12 @@ onMounted(fetchOrders);
   box-shadow: var(--shadow);
   background: var(--very-light-pink);
 }
+
 .admin-dashboard {
   padding: var(--spacing-xl) var(--spacing-lg);
-  background: linear-gradient(
-    135deg,
-    var(--very-light-pink),
-    rgba(255, 240, 245, 0.5)
-  );
+  background: linear-gradient(135deg,
+      var(--very-light-pink),
+      rgba(255, 240, 245, 0.5));
   min-height: 100vh;
   animation: fadeIn 0.6s ease-out;
 }
@@ -374,11 +401,9 @@ tbody tr:last-child td {
   font-style: italic;
   font-size: 0.85rem;
   color: var(--text-light);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 240, 245, 0.6),
-    rgba(255, 182, 193, 0.2)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 240, 245, 0.6),
+      rgba(255, 182, 193, 0.2));
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   border-left: 3px solid var(--primary-pink);
