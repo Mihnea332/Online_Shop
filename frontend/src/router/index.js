@@ -69,6 +69,10 @@ const routes = [
     name: "PaymentFailed",
     component: PaymentFailedView,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
+  },
 ];
 const router = createRouter({
   history: createWebHistory(),

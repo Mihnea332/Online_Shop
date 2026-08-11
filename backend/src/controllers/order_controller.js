@@ -318,7 +318,6 @@ const createOrder = async (req, res) => {
   }
 };
 
-// restul functiilor (getAllOrders, deleteOrder, updateOrderStatus, verifyPayment) raman neschimbate
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
